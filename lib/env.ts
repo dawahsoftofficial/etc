@@ -21,6 +21,8 @@ const schema = z.object({
   SMTP_USER: optional,
   SMTP_PASS: optional,
   SMTP_FROM: optional,
+  // Temporary private preview: "name:password,name2:password2". Unset = public site.
+  SITE_ACCESS: optional,
   NEXT_PUBLIC_SITE_URL: z.url().default("http://localhost:3000"),
   NEXT_PUBLIC_SITE_ENV: z.enum(["development", "staging", "production"]).default("development"),
 });

@@ -34,9 +34,11 @@ const eslintConfig = [
   },
   {
     rules: {
+      "no-restricted-imports": ["error", { paths: [{ name: "next/image", message: "Use @/components/ui/image (local files must skip the optimizer behind the preview gate)." }] }],
       "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true }],
     },
   },
+  { files: ["components/ui/image.tsx"], rules: { "no-restricted-imports": "off" } },
 ];
 
 export default eslintConfig;

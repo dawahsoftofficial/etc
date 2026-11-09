@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { PortalLink } from "@/components/site/PortalLink";
 import { StatusChip } from "@/components/site/StatusChip";

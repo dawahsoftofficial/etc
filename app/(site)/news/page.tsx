@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { EmptyState } from "@/components/site/EmptyState";
 import { FilterForm } from "@/components/site/FilterForm";

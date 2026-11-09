@@ -39,6 +39,8 @@ export function createRateLimiter(opts: { limit: number; windowMs: number; now?:
 }
 
 // Module-level singletons, shared by every request in this process.
-const globalLimiters = globalThis as unknown as { etcLoginLimiter?: RateLimiter; etcFormLimiter?: RateLimiter };
+const globalLimiters = globalThis as unknown as { etcLoginLimiter?: RateLimiter; etcFormLimiter?: RateLimiter; etcSiteLimiter?: RateLimiter };
 export const loginLimiter = (globalLimiters.etcLoginLimiter ??= createRateLimiter({ limit: 5, windowMs: 15 * 60_000 }));
 export const formLimiter = (globalLimiters.etcFormLimiter ??= createRateLimiter({ limit: 5, windowMs: 60 * 60_000 }));
+// Private-preview gate: 10 wrong logins per IP in 15 minutes locks that IP out for the rest of the window.
+export const siteAccessLimiter = (globalLimiters.etcSiteLimiter ??= createRateLimiter({ limit: 10, windowMs: 15 * 60_000 }));

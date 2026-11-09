@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { formatFee } from "@/lib/format";
 import { TEST_CATEGORY } from "@/lib/labels";

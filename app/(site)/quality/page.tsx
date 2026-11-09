@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { BankBars, Workflow } from "@/components/site/quality/Workflow";
 import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";

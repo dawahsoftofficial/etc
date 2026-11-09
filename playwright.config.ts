@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
+import { PREVIEW, PREVIEW_SITE_ACCESS } from "./tests/e2e/preview-access";
 
 // Local runs read .env (git-ignored); CI provides real environment variables.
 if (existsSync(".env") && !process.env.CI) process.loadEnvFile(".env");
@@ -18,6 +19,7 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORT}`,
     trace: "retain-on-failure",
+    httpCredentials: PREVIEW,
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
@@ -25,6 +27,6 @@ export default defineConfig({
     port: PORT,
     timeout: 300_000,
     reuseExistingServer: !process.env.CI,
-    env: { E2E: "1", NEXT_DIST_DIR: ".next-e2e" },
+    env: { E2E: "1", NEXT_DIST_DIR: ".next-e2e", SITE_ACCESS: PREVIEW_SITE_ACCESS },
   },
 });

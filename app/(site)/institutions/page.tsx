@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import type { ClientSector } from "@prisma/client";
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { EnquiryForm } from "@/components/site/forms/EnquiryForm";
 import { getClients } from "@/lib/content/home";

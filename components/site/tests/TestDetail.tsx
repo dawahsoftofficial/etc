@@ -1,5 +1,5 @@
 // Test detail page body (mockup render.js R.testDetail): one template for all six tests.
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
 import { FEE_NOTE, formatDate, formatFee } from "@/lib/format";

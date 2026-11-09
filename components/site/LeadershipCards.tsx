@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import type { LeaderItem } from "@/lib/content/types";
 
 /** About › Messages from our leadership (mockup about.html#leadership), fed by Leader rows. */

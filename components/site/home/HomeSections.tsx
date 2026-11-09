@@ -1,5 +1,5 @@
 // Homepage sections ported from mockup/index.html. Static copy is verbatim; lists come from the database.
-import Image from "next/image";
+import Image from "@/components/ui/image";
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/ui/icon";
 import type { ClientSector } from "@prisma/client";
