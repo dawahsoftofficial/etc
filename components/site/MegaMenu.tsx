@@ -6,14 +6,40 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
 import { activeSection, NAV } from "@/lib/nav";
 
-/** Desktop navigation: click to open, one panel at a time; Escape, outside clicks and panel links close it. */
+// Short delays so a pointer passing over the bar doesn't flash panels, and crossing the gap into a panel doesn't close it.
+const OPEN_DELAY = 80;
+// While a panel is open, passing over a neighbouring item on the way down into the panel mustn't swap it.
+const SWITCH_DELAY = 150;
+const CLOSE_DELAY = 200;
+
+/**
+ * Desktop navigation: opens on mouse hover (and by click, Enter or Space), one panel at a time. Leaving the menu,
+ * Escape, outside clicks and panel links close it. Touch taps fall back to click.
+ */
 export function MegaMenu() {
   const pathname = usePathname();
   const active = activeSection(pathname);
   const [open, setOpen] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
   const buttons = useRef<Record<string, HTMLButtonElement | null>>({});
+  const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const openedByHover = useRef(false);
 
+  const schedule = (next: string | null, delay: number) => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => {
+      openedByHover.current = next !== null;
+      setOpen(next);
+    }, delay);
+  };
+  const hoverOpen = (e: React.PointerEvent, id: string) => {
+    if (e.pointerType === "mouse") schedule(id, open === id ? 0 : open ? SWITCH_DELAY : OPEN_DELAY);
+  };
+  const hoverClose = (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") schedule(null, CLOSE_DELAY);
+  };
+
+  useEffect(() => () => clearTimeout(timer.current), []);
   useEffect(() => setOpen(null), [pathname]);
 
   useEffect(() => {
@@ -46,7 +72,7 @@ export function MegaMenu() {
           const isOpen = open === item.id;
           const panelId = `mega-${item.id}`;
           return (
-            <li key={item.id} className="static">
+            <li key={item.id} className="static" onPointerEnter={(e) => hoverOpen(e, item.id)} onPointerLeave={hoverClose}>
               <button
                 ref={(el) => {
                   buttons.current[item.id] = el;
@@ -56,7 +82,13 @@ export function MegaMenu() {
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 aria-current={cur ? "page" : undefined}
-                onClick={() => setOpen(isOpen ? null : item.id)}
+                onClick={() => {
+                  clearTimeout(timer.current);
+                  // A click on a panel the pointer has just opened keeps it open instead of toggling it shut.
+                  const keep = isOpen && openedByHover.current;
+                  openedByHover.current = false;
+                  setOpen(isOpen && !keep ? null : item.id);
+                }}
                 className={`relative flex items-center gap-1 py-3.5 text-[13.5px] font-medium ${
                   cur ? "text-green-700" : "text-ink/80 hover:text-green-700"
                 }`}

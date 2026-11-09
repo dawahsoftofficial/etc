@@ -15,6 +15,32 @@ test.describe("desktop chrome", () => {
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
   });
 
+  test("mega-menu opens on hover, stays open while the pointer moves into the panel, and closes when it leaves", async ({ page }) => {
+    await page.goto("/");
+    const about = page.getByRole("button", { name: "About ETC" });
+    const tests = page.getByRole("button", { name: "Tests & Assessments" });
+    await about.hover();
+    await expect(about).toHaveAttribute("aria-expanded", "true");
+    const panel = page.locator("#mega-about");
+    await expect(panel).toBeVisible();
+    // travel down into the panel and use a link there
+    const box = (await panel.boundingBox())!;
+    await page.mouse.move(box.x + box.width / 2, box.y + 40, { steps: 8 });
+    await expect(about).toHaveAttribute("aria-expanded", "true");
+    // moving across to the next item swaps panels
+    await tests.hover();
+    await expect(tests).toHaveAttribute("aria-expanded", "true");
+    await expect(about).toHaveAttribute("aria-expanded", "false");
+    // leaving the menu closes it
+    await page.mouse.move(640, 800, { steps: 8 });
+    await expect(tests).toHaveAttribute("aria-expanded", "false");
+    // a click after hovering keeps the panel open rather than toggling it shut
+    await about.hover();
+    await expect(about).toHaveAttribute("aria-expanded", "true");
+    await about.click();
+    await expect(about).toHaveAttribute("aria-expanded", "true");
+  });
+
   test("only one mega panel is open at a time and an outside click closes it", async ({ page }) => {
     await page.goto("/");
     const about = page.getByRole("button", { name: "About ETC" });
