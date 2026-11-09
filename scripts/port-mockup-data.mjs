@@ -1,6 +1,6 @@
 // One-off: converts the approved mockup's content (mockup/assets/js/{media,data}.js) into
 // prisma/seed-data/mockup.json, in the shape the admin schemas accept.
-// Usage (from web/): node scripts/port-mockup-data.mjs
+// Usage: node scripts/port-mockup-data.mjs
 import { readFileSync, writeFileSync, statSync } from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const MOCKUP = path.resolve(HERE, "../../mockup");
+const MOCKUP = path.resolve(HERE, "../mockup");
 const OUT = path.resolve(HERE, "../prisma/seed-data/mockup.json");
 const CDN = "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/";
 

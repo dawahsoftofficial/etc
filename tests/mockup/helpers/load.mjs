@@ -5,7 +5,7 @@ import path from "node:path";
 import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../mockup");
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../../mockup");
 
 export function loadScripts(paths) {
   const noop = () => {};

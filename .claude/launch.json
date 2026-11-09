@@ -24,8 +24,6 @@
       "name": "etc-web",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
-        "--prefix",
-        "web",
         "run",
         "dev",
         "--",

@@ -1,6 +1,6 @@
 // Creates ETC's own databases on the shared DigitalOcean MySQL cluster.
 // The cluster hosts ~45 other projects: this script only ever creates the names below and never drops anything.
-// Usage (from web/): node --env-file=../.env.local scripts/create-databases.mjs
+// Usage: node --env-file=.env.cluster.local scripts/create-databases.mjs
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

@@ -21,6 +21,15 @@ const eslintConfig = [
       "next-env.d.ts",
       "test-results/**",
       "playwright-report/**",
+      // static sites and their tooling, not part of the Next.js app
+      "mockup/**",
+      "profile/**",
+      "a4/**",
+      "output/**",
+      "tmp/**",
+      "tests/mockup/**",
+      "scripts/serve.mjs",
+      "scripts/upload-to-spaces.mjs",
     ],
   },
   {

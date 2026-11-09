@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { defineConfig, devices } from "@playwright/test";
 
-// Local runs read web/.env (git-ignored); CI provides real environment variables.
+// Local runs read .env (git-ignored); CI provides real environment variables.
 if (existsSync(".env") && !process.env.CI) process.loadEnvFile(".env");
 
 const PORT = Number(process.env.E2E_PORT ?? 3100);

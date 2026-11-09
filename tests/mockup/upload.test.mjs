@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { toEtcKey, contentTypeFor } from "../scripts/upload-to-spaces.mjs";
+import { toEtcKey, contentTypeFor } from "../../scripts/upload-to-spaces.mjs";
 
 test("toEtcKey prefixes relative paths with ETC/mockup/", () => {
   assert.equal(toEtcKey("images/hero.png"), "ETC/mockup/images/hero.png");

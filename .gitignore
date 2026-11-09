@@ -1,13 +1,32 @@
-# Secrets
-.env
-.env.local
-.env.*.local
+# Secrets: .env (app), .env.cluster.local (cluster admin + Spaces keys for scripts). Never commit them.
+.env*
+!.env.example
 
-# Dependencies / build
+# Dependencies
 node_modules/
+.pnp
+.pnp.*
+
+# Next.js / build
 .next/
+.next-e2e/
 out/
 dist/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Testing
+coverage/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Misc
+*.pem
+.vercel
+npm-debug.log*
+*.log
 
 # OS / editor
 .DS_Store
@@ -17,4 +36,3 @@ Thumbs.db
 
 # Local scratch
 tmp/
-*.log

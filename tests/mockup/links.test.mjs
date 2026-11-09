@@ -4,7 +4,7 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../mockup");
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../mockup");
 const SPEC_PAGES = [
   "index.html", "about.html", "tests.html", "test.html", "candidate-services.html", "institutions.html",
   "quality.html", "news.html", "notice.html", "resources.html", "faqs.html", "contact.html", "404.html",

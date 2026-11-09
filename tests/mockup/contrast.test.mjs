@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadScripts } from "./helpers/load.mjs";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../mockup");
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../mockup");
 const C = loadScripts(["assets/js/tailwind.config.js"]).tailwind.config.theme.extend.colors;
 const css = readFileSync(path.join(ROOT, "assets/css/site.css"), "utf8");
 

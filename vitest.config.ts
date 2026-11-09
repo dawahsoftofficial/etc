@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => ({
   test: {
     environment: "node",
     include: ["tests/unit/**/*.test.{ts,tsx}", "tests/integration/**/*.test.ts"],
-    // web/.env (git-ignored) supplies DATABASE_URL etc. for integration tests; CI sets real env vars instead.
+    // .env (git-ignored) supplies DATABASE_URL etc. for integration tests; CI sets real env vars instead.
     env: { ...loadEnv(mode, process.cwd(), ""), ...process.env } as Record<string, string>,
     // integration tests share one database; run files one at a time
     fileParallelism: false,
