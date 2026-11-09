@@ -50,3 +50,12 @@ test("/api/health reports the database as up", async ({ request }) => {
   expect(res.headers()["cache-control"]).toContain("no-store");
   expect(await res.json()).toMatchObject({ ok: true, db: "up", version: expect.any(String) });
 });
+
+test("the root serves the Next.js site; the static mockup, booklet and repo files are not reachable", async ({ request }) => {
+  const home = await request.get("/");
+  expect(home.status()).toBe(200);
+  expect(await home.text()).toContain("/_next/static/");
+  for (const path of ["/index.html", "/mockup/index.html", "/mockup", "/website", "/profile/index.html", "/a4/index.html", "/package.json", "/.env", "/prisma/schema.prisma"]) {
+    expect((await request.get(path)).status(), path).toBe(404);
+  }
+});
