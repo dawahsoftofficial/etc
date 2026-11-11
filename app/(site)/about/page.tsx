@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import Image from "@/components/ui/image";
 import Link from "next/link";
-import { LeadershipCards } from "@/components/site/LeadershipCards";
+import { LeadershipSections } from "@/components/site/LeadershipSections";
 import { getLeaders } from "@/lib/content/leaders";
 import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
 
@@ -48,6 +48,21 @@ export default async function Page() {
       >
         <ul className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 flex gap-1 overflow-x-auto no-scrollbar text-sm">
           <li>
+            <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#chairman">
+              Chairman’s foreword
+            </a>
+          </li>
+          <li>
+            <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#executive-director">
+              Strategic direction
+            </a>
+          </li>
+          <li>
+            <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#ceo">
+              Leadership navigation
+            </a>
+          </li>
+          <li>
             <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#overview">
               Overview
             </a>
@@ -73,17 +88,14 @@ export default async function Page() {
             </a>
           </li>
           <li>
-            <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#leadership">
-              Leadership
-            </a>
-          </li>
-          <li>
             <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#roadmap">
               Roadmap
             </a>
           </li>
         </ul>
       </nav>
+      {/* Leadership: one section per leader, first, as in the A4 Institutional Profile */}
+      <LeadershipSections leaders={leaders} />
       {/* Overview */}
       <section id="overview" className="scroll-mt-48 max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7" data-reveal>
@@ -459,14 +471,6 @@ export default async function Page() {
             </Link>
           </li>
         </ul>
-      </section>
-      {/* Leadership */}
-      <section id="leadership" className="scroll-mt-48 bg-mint-50 border-y border-line">
-        <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
-          <p className="eyebrow">Leadership</p>
-          <h2 className="mt-3 font-serif text-3xl sm:text-4xl font-semibold text-green-700">Messages from our leadership</h2>
-          <LeadershipCards leaders={leaders} />
-        </div>
       </section>
       {/* Roadmap */}
       <section id="roadmap" className="scroll-mt-48 max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">

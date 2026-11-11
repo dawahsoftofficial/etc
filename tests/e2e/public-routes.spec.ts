@@ -40,7 +40,7 @@ for (const [path, anchors] of STATIC_PAGES) {
 test("about shows the three leadership messages from the database", async ({ page }) => {
   await page.goto("/about#leadership");
   const section = page.locator("#leadership");
-  await expect(section.locator("article")).toHaveCount(3);
+  await expect(section.locator("section")).toHaveCount(3);
   await expect(section.getByText("Executive Director, Higher Education Commission")).toBeVisible();
 });
 
