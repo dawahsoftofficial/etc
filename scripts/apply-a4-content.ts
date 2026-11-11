@@ -22,6 +22,7 @@ const OLD_SETTINGS = {
   helpline: "[to be provided]",
   supportEmail: "[to be provided]",
   address: "Higher Education Commission, Sector H-9, Islamabad, Pakistan [to be confirmed]",
+  officeHours: "[To be provided]",
 } as const;
 // [old label, old value, old note] → the row with the same order in the new seed data
 const OLD_STATS: [label: string, value: number, note: string][] = [
