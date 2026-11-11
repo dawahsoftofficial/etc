@@ -66,7 +66,7 @@ export function MegaMenu() {
 
   return (
     <nav ref={navRef} aria-label="Main" className="hidden border-t border-line lg:block">
-      <ul className="mx-auto flex max-w-site items-stretch justify-between px-8">
+      <ul className="mx-auto flex max-w-site items-stretch gap-9 px-8">
         {HEADER_NAV.map((item) => {
           const cur = item.id === active;
           const isOpen = open === item.id;
