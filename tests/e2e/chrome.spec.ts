@@ -68,6 +68,21 @@ test.describe("desktop chrome", () => {
 test.describe("mobile drawer", () => {
   test.use({ viewport: { width: 375, height: 812 } });
 
+  test("drawer opens full screen, above the sticky header, with a usable menu", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: "Open menu" }).click();
+    const dialog = page.getByRole("dialog", { name: "Site menu" });
+    // the header's backdrop-filter once trapped this fixed drawer inside the 72px header
+    const box = (await dialog.boundingBox())!;
+    expect(box.y).toBe(0);
+    expect(box.height).toBe(812);
+    const item = dialog.getByText("Tests & Assessments", { exact: true });
+    await item.click();
+    await dialog.getByRole("link", { name: "USAT", exact: true }).click();
+    await expect(page).toHaveURL(/\/tests\/usat$/);
+    await expect(dialog).toBeHidden();
+  });
+
   test("drawer traps focus and returns it on close", async ({ page }) => {
     await page.goto("/");
     const toggle = page.getByRole("button", { name: "Open menu" });
