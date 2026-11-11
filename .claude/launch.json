@@ -21,6 +21,16 @@
       "port": 5174
     },
     {
+      "name": "etc-a4",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/serve.mjs",
+        "5175",
+        "."
+      ],
+      "port": 5175
+    },
+    {
       "name": "etc-web",
       "runtimeExecutable": "npm",
       "runtimeArgs": [

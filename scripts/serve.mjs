@@ -1,5 +1,5 @@
 // Minimal static server for the mockup with caching disabled, so edits always show.
-// Usage: node scripts/serve.mjs [port] [dir]   (dir defaults to ./mockup)
+// Usage: node scripts/serve.mjs [port] [dir]   (dir defaults to ./mockup). Local machine only.
 import { createServer } from "node:http";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
@@ -15,7 +15,8 @@ const TYPES = {
 createServer(async (req, res) => {
   const urlPath = decodeURIComponent(new URL(req.url, "http://x").pathname);
   let file = path.join(ROOT, urlPath === "/" ? "index.html" : urlPath);
-  if (!file.startsWith(ROOT)) { res.writeHead(403).end(); return; }
+  // never serve outside ROOT or any dotfile/dot-folder (.env, .git, …) — ROOT may be the repo root for the A4 booklet
+  if (!file.startsWith(ROOT) || urlPath.split("/").some((s) => s.startsWith("."))) { res.writeHead(403).end(); return; }
   try {
     if ((await stat(file)).isDirectory()) file = path.join(file, "index.html");
     const body = await readFile(file);
@@ -26,4 +27,4 @@ createServer(async (req, res) => {
     res.writeHead(404, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
     res.end(body);
   }
-}).listen(PORT, () => console.log(`ETC mockup on http://localhost:${PORT}`));
+}).listen(PORT, "127.0.0.1", () => console.log(`Serving ${ROOT} on http://localhost:${PORT}`));
