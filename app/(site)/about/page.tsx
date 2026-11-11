@@ -48,6 +48,11 @@ export default async function Page() {
       >
         <ul className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 flex gap-1 overflow-x-auto no-scrollbar text-sm">
           <li>
+            <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#overview">
+              Overview
+            </a>
+          </li>
+          <li>
             <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#chairman">
               Chairman’s foreword
             </a>
@@ -60,11 +65,6 @@ export default async function Page() {
           <li>
             <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#ceo">
               Leadership navigation
-            </a>
-          </li>
-          <li>
-            <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#overview">
-              Overview
             </a>
           </li>
           <li>
@@ -94,8 +94,6 @@ export default async function Page() {
           </li>
         </ul>
       </nav>
-      {/* Leadership: one section per leader, first, as in the A4 Institutional Profile */}
-      <LeadershipSections leaders={leaders} />
       {/* Overview */}
       <section id="overview" className="scroll-mt-48 max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7" data-reveal>
@@ -141,6 +139,8 @@ export default async function Page() {
           </div>
         </dl>
       </section>
+      {/* Leadership: one section per leader, in the A4 Institutional Profile's order */}
+      <LeadershipSections leaders={leaders} />
       {/* Journey */}
       <section id="history" className="scroll-mt-48 bg-cream-50 border-y border-gold-300/50">
         <div className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
