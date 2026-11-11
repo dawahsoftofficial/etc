@@ -101,6 +101,10 @@ export default async function Page() {
             candidate — so results from different cities, sessions and test forms can be compared fairly.
           </p>
           <p className="mt-4 leading-relaxed text-ink/80">
+            The Council supports candidates, universities, scholarship programmes, government departments and regulatory bodies. Its
+            work brings test design, item development, secure delivery, scoring and reporting into one assessment system.
+          </p>
+          <p className="mt-4 leading-relaxed text-ink/80">
             ETC operates through 203 test centres in 40 cities, with capacity for about 100,000 candidates in a shift. It also conducts
             tests abroad in cooperation with Pakistan’s embassies, with experience in the United Arab Emirates, Saudi Arabia, Afghanistan,
             Bangladesh and Sri Lanka.
@@ -404,23 +408,23 @@ export default async function Page() {
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           <li className="rounded-xl border border-line p-5">
             <p className="font-semibold text-green-700">Quality Assurance</p>
-            <p className="mt-2 text-sm text-muted">Monitoring & evaluation; international collaboration & certification.</p>
+            <p className="mt-2 text-sm text-muted">Monitoring, evaluation, collaboration and certification.</p>
           </li>
           <li className="rounded-xl border border-line p-5">
             <p className="font-semibold text-green-700">Academics & Research</p>
-            <p className="mt-2 text-sm text-muted">Question bank, test development, training, research and data analytics.</p>
+            <p className="mt-2 text-sm text-muted">Question bank, training, research and analytics.</p>
           </li>
           <li className="rounded-xl border border-line p-5">
             <p className="font-semibold text-green-700">Operations & Technology</p>
-            <p className="mt-2 text-sm text-muted">Test administration, technology, printing press and call centre.</p>
+            <p className="mt-2 text-sm text-muted">Test delivery, technology, printing and candidate support.</p>
           </li>
           <li className="rounded-xl border border-line p-5">
             <p className="font-semibold text-green-700">Administration</p>
-            <p className="mt-2 text-sm text-muted">HR, accounting & finance, infrastructure and logistics.</p>
+            <p className="mt-2 text-sm text-muted">People, finance, infrastructure and logistics.</p>
           </li>
           <li className="rounded-xl border border-line p-5">
-            <p className="font-semibold text-green-700">Marketing & Business Development</p>
-            <p className="mt-2 text-sm text-muted">Client relations, partnerships, media and CSR.</p>
+            <p className="font-semibold text-green-700">Business Development</p>
+            <p className="mt-2 text-sm text-muted">Marketing, media and institutional relationships.</p>
           </li>
         </ul>
         <h3 className="mt-16 font-serif text-2xl font-semibold text-green-700">Core departments at work</h3>
