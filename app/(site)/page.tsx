@@ -36,19 +36,43 @@ export default async function HomePage() {
     getClients(),
     getMediaByKeys([SECTION_IMAGES.institutions, SECTION_IMAGES.qualityOmr, SECTION_IMAGES.qualitySealed]),
   ]);
-  const candidates = stats.find((s) => s.label === "Candidates tested");
   const img = (key: string) => media[key] ?? { url: "/brand/etc-crest.png", alt: "" };
+  // The A4 cover's three headline figures, read from the homepage numbers so admins keep them current.
+  const stat = (label: string) => stats.find((st) => st.label === label);
+  const candidates = stat("Candidates tested");
+  const centres = stat("Test centres");
+  const cities = stat("Cities");
+  const items = stat("Calibrated test items");
+  const coverStats = [
+    candidates && {
+      value: candidates.value >= 1_000_000 ? `${Number((candidates.value / 1_000_000).toFixed(2))} million` : candidates.value.toLocaleString("en-US"),
+      label: `Candidates tested ${candidates.note.toLowerCase()}`,
+    },
+    centres && { value: centres.value.toLocaleString("en-US"), label: cities ? `Test centres in ${cities.value} cities` : "Test centres" },
+    items && { value: items.value.toLocaleString("en-US"), label: items.label },
+  ].filter((x): x is { value: string; label: string } => Boolean(x));
 
   return (
     <>
       <Carousel
         slides={slides}
+        firstSlideExtra={
+          <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-1 border-y border-gold-500/50 py-3 font-serif text-base text-gold-300 sm:mt-7 sm:gap-x-6 sm:py-4 sm:text-xl">
+            {["Merit", "Transparency", "Fairness", "Quality"].map((v) => (
+              <li key={v}>{v}</li>
+            ))}
+          </ul>
+        }
         aside={
-          candidates && (
-            <p className="ml-auto hidden text-sm text-white/70 lg:block">
-              <span className="font-serif text-2xl text-white">{Number((candidates.value / 1_000_000).toFixed(2))} M</span>&nbsp; candidates
-              tested {candidates.note.toLowerCase()}
-            </p>
+          coverStats.length > 0 && (
+            <dl className="ml-auto hidden grid-cols-3 gap-6 lg:grid">
+              {coverStats.map((c) => (
+                <div key={c.label} className="flex w-44 flex-col border-t-2 border-gold-500 pt-3">
+                  <dt className="order-2 mt-1 text-xs leading-snug text-white/75">{c.label}</dt>
+                  <dd className="order-1 font-serif text-2xl text-white">{c.value}</dd>
+                </div>
+              ))}
+            </dl>
           )
         }
       />

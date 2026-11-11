@@ -1,16 +1,26 @@
-// Homepage hero slides, ported from mockup/index.html (lines 29–96).
+// Homepage hero slides. The first mirrors the 2026 A4 Institutional Profile cover; the others are ported from
+// mockup/index.html. *Asterisks* in a title show those words in gold.
+export const heroCoverPhoto = {
+  key: "local/img/hero/cover-assessment.jpg",
+  url: "/img/hero/cover-assessment.jpg",
+  mime: "image/jpeg",
+  width: 1713,
+  height: 918,
+  alt: "Candidates sitting an ETC assessment",
+};
+
 export const heroSlides = [
   {
     eyebrow: "Higher Education Commission · Pakistan",
-    title: "A fair test opens a door.",
-    body: "Standardized, secure and merit-based assessment for admissions, scholarships, licensing and careers across Pakistan.",
+    title: "Assessment, Testing and *Evaluation.*",
+    body: "A national assessment platform opening pathways to education, scholarships and professional opportunity through merit.",
     cta1Label: "Find a Test",
     cta1Href: "/tests",
     cta2Label: "About ETC",
     cta2Href: "/about",
     order: 0,
     published: true,
-    imageRef: "heroExam",
+    imageRef: heroCoverPhoto.key,
   },
   {
     eyebrow: "USAT · December 2026 session",

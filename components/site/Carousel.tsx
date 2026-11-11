@@ -29,12 +29,27 @@ function Cta({ href, label, primary, tabIndex }: { href: string; label: string; 
   );
 }
 
+/** Slide titles may mark words with *asterisks* to show them in gold (as the A4 cover does with "Evaluation."). */
+function Highlighted({ text }: { text: string }) {
+  return <>{text.split(/\*([^*]+)\*/).map((part, i) => (i % 2 ? <span key={i} className="text-gold-300">{part}</span> : part))}</>;
+}
+const plain = (title: string) => title.replace(/\*/g, "");
+
 /**
  * Homepage hero (WAI-ARIA carousel): crossfade, auto-rotation every 7 s with a pause control, prev/next, dots and
  * arrow keys. The live region is silent while rotating and announces only when the user is in control.
  * Rotation stops while focus is inside, and never starts with reduced motion.
  */
-export function Carousel({ slides, aside }: { slides: HeroSlideItem[]; aside?: React.ReactNode }) {
+export function Carousel({
+  slides,
+  aside,
+  firstSlideExtra,
+}: {
+  slides: HeroSlideItem[];
+  aside?: React.ReactNode;
+  /** Shown under the first slide's text only (the A4 cover's values strip). */
+  firstSlideExtra?: React.ReactNode;
+}) {
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [focusInside, setFocusInside] = useState(false);
@@ -77,7 +92,7 @@ export function Carousel({ slides, aside }: { slides: HeroSlideItem[]; aside?: R
         if (!e.currentTarget.contains(e.relatedTarget as Node)) setFocusInside(false);
       }}
     >
-      <div className="relative h-[640px] sm:h-[680px] lg:h-[min(82vh,720px)]">
+      <div className="relative h-[780px] sm:h-[760px] lg:h-[min(92vh,820px)]">
         {slides.map((s, k) => {
           const active = k === index;
           const Title = k === 0 ? "h1" : "h2";
@@ -97,21 +112,22 @@ export function Carousel({ slides, aside }: { slides: HeroSlideItem[]; aside?: R
                 fill
                 priority={k === 0}
                 sizes="100vw"
-                className={`object-cover ${k === 2 ? "object-[70%_center]" : ""}`}
+                className={`object-cover ${k === 0 ? "object-[62%_center]" : k === 2 ? "object-[70%_center]" : ""}`}
               />
               <div className={`absolute inset-0 ${GRADIENTS[k === 0 ? 0 : 1]}`} aria-hidden="true" />
               {k === 0 && <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-green-950/80 to-transparent" aria-hidden="true" />}
               <div className="relative mx-auto flex h-full max-w-site items-center px-4 sm:px-6 lg:px-8">
-                <div className="max-w-2xl pb-24">
+                <div className="max-w-2xl pb-36 sm:pb-40">
                   <p className="eyebrow">{s.eyebrow}</p>
                   <Title
                     className={`mt-5 font-serif font-semibold leading-[1.05] tracking-tight ${
                       k === 0 ? "text-[2.6rem] sm:text-6xl lg:text-7xl" : "text-[2.4rem] sm:text-6xl"
                     }`}
                   >
-                    {s.title}
+                    <Highlighted text={s.title} />
                   </Title>
                   <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl">{s.body}</p>
+                  {k === 0 && firstSlideExtra}
                   {(s.cta1Href || s.cta2Href) && (
                     <div className="mt-9 flex flex-wrap gap-3">
                       {s.cta1Href && s.cta1Label && <Cta href={s.cta1Href} label={s.cta1Label} primary tabIndex={active ? 0 : -1} />}
@@ -161,7 +177,7 @@ export function Carousel({ slides, aside }: { slides: HeroSlideItem[]; aside?: R
                       type="button"
                       onClick={() => go(k)}
                       aria-current={k === index}
-                      aria-label={`Slide ${k + 1}: ${s.title}`}
+                      aria-label={`Slide ${k + 1}: ${plain(s.title)}`}
                       className="h-1.5 w-8 rounded-full bg-white/30 transition-all aria-[current=true]:w-12 aria-[current=true]:bg-gold-300"
                     />
                   ))}

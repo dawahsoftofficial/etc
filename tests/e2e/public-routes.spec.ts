@@ -3,7 +3,7 @@ import { test, expect } from "@playwright/test";
 test.describe("home", () => {
   test("renders DB content", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1, name: "A fair test opens a door." })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "Assessment, Testing and Evaluation." })).toBeVisible();
     await expect(page.getByText("Candidates tested", { exact: true })).toBeVisible();
     await expect(page.getByText("Prof. Dr Niaz Ahmed Akhtar").first()).toBeVisible();
     await expect(page.locator("#home-notices li")).toHaveCount(5);

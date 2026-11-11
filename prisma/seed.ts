@@ -5,7 +5,7 @@ import { statSync } from "node:fs";
 import path from "node:path";
 import { Prisma, PrismaClient } from "@prisma/client";
 import data from "./seed-data/mockup.json";
-import { heroSlides } from "./seed-data/hero";
+import { heroCoverPhoto, heroSlides } from "./seed-data/hero";
 import { leaderPhotos, leaders } from "./seed-data/leaders";
 import { settingsDefaults } from "./seed-data/settings";
 import { hashPassword, PASSWORD_MIN } from "../lib/auth/password";
@@ -49,6 +49,7 @@ function seedMedia(): Prisma.MediaCreateManyInput[] {
     crest("etc-crest.png", "Education Testing Council crest", 428, 480),
     crest("hec-crest.png", "Higher Education Commission crest", 422, 480),
     ...Object.values(leaderPhotos).map((photo) => ({ ...photo, size: statSync(path.join(here, "../public", photo.url)).size })),
+    { ...heroCoverPhoto, size: statSync(path.join(here, "../public", heroCoverPhoto.url)).size },
     {
       key: SAMPLE_PDF_KEY,
       url: `${CDN}files/sample.pdf`,

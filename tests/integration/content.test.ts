@@ -86,7 +86,7 @@ describe.skipIf(!process.env.DATABASE_URL)("content queries", () => {
 
   test("faqs, hero, stats, schedule, clients, leaders, settings", async () => {
     expect(await _getFaqs()).toHaveLength(19);
-    expect((await _getHeroSlides()).map((h) => h.title)[0]).toBe("A fair test opens a door.");
+    expect((await _getHeroSlides()).map((h) => h.title)[0]).toBe("Assessment, Testing and *Evaluation.*");
     expect((await _getStats())[0]).toEqual({ value: 2000000, label: "Candidates tested", note: "Since 2017" });
     const schedule = await _getSchedule();
     expect(schedule.map((s) => s.regCloses)).toEqual([...schedule.map((s) => s.regCloses)].sort());

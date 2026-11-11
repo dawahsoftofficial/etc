@@ -9,6 +9,7 @@ import { statSync } from "node:fs";
 import path from "node:path";
 import { PrismaClient } from "@prisma/client";
 import data from "../prisma/seed-data/mockup.json";
+import { heroCoverPhoto, heroSlides } from "../prisma/seed-data/hero";
 import { leaderPhotos, leaders } from "../prisma/seed-data/leaders";
 import { settingsDefaults } from "../prisma/seed-data/settings";
 
@@ -18,6 +19,7 @@ const changes: string[] = [];
 
 const OLD_LEADER_NAME = "Dr Muhammad Imtiaz Haider";
 const OLD_CEO_TITLE = "Chief Executive Officer, ETC";
+const OLD_HERO_TITLE = "A fair test opens a door.";
 const OLD_SETTINGS = {
   helpline: "[to be provided]",
   supportEmail: "[to be provided]",
@@ -43,10 +45,10 @@ async function main() {
 
   // Portraits for the Chairman and Executive Director (the CEO's already exists).
   const here = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
-  for (const photo of Object.values(leaderPhotos)) {
+  for (const photo of [...Object.values(leaderPhotos), heroCoverPhoto]) {
     if (await prisma.media.findUnique({ where: { key: photo.key } })) continue;
     if (apply) await prisma.media.create({ data: { ...photo, size: statSync(path.join(here, "../public", photo.url)).size } });
-    await audit("Media", photo.key, `Added portrait ${photo.alt}`);
+    await audit("Media", photo.key, `Added image: ${photo.alt}`);
   }
 
   for (const next of leaders) {
@@ -63,6 +65,17 @@ async function main() {
       await prisma.leader.update({ where: { role: next.role }, data: { ...fields, photoId: photo.id } });
     }
     await audit("Leader", next.role, `Updated ${next.title}: ${next.name}`);
+  }
+
+  // First hero slide → the A4 cover (only while it still shows the original mockup slide).
+  const cover = heroSlides[0];
+  const firstSlide = await prisma.heroSlide.findFirst({ where: { title: OLD_HERO_TITLE } });
+  if (firstSlide) {
+    if (apply) {
+      const photo = await prisma.media.findUniqueOrThrow({ where: { key: heroCoverPhoto.key } });
+      await prisma.heroSlide.update({ where: { id: firstSlide.id }, data: { title: cover.title, body: cover.body, eyebrow: cover.eyebrow, imageId: photo.id } });
+    }
+    await audit("HeroSlide", String(firstSlide.id), `First slide now the A4 cover: “${cover.title}”`);
   }
 
   for (const [key, old] of Object.entries(OLD_SETTINGS) as [keyof typeof OLD_SETTINGS, string][]) {

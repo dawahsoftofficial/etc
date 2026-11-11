@@ -39,7 +39,7 @@ export function HeroForm({ action, slide: s }: { action: FormAction; slide: Hero
     >
       <Panel title="Slide">
         <TextField name="eyebrow" label="Eyebrow" required defaultValue={s.eyebrow} hint="Short line above the title." />
-        <TextField name="title" label="Title" required defaultValue={s.title} />
+        <TextField name="title" label="Title" required defaultValue={s.title} hint="Wrap words in *asterisks* to show them in gold, e.g. Assessment, Testing and *Evaluation.*" />
         <TextArea name="body" label="Text" required rows={3} maxLength={1000} defaultValue={s.body} />
         <MediaPicker name="imageId" label="Background image" accept="image" required value={s.image} hint="Wide photograph, at least 2000 px across." />
       </Panel>

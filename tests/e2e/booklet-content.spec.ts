@@ -20,7 +20,11 @@ test("home: the Chairman's message and the record in numbers", async ({ page }) 
   await page.goto("/");
   await expect(page.getByText("A fair test opens a door. Our responsibility is to ensure that it opens on the strength of merit.")).toBeVisible();
   await expect(page.getByText("Prof. Dr Niaz Ahmed Akhtar").first()).toBeVisible();
-  await expect(page.getByText(/2 M\s+candidates tested since 2017/)).toBeAttached();
+  // the hero mirrors the A4 cover: title, values and the three headline figures
+  await expect(page.getByRole("heading", { level: 1, name: "Assessment, Testing and Evaluation." })).toBeVisible();
+  for (const v of ["Merit", "Transparency", "Fairness", "Quality"]) await expect(page.locator("[data-carousel]").getByText(v, { exact: true })).toBeVisible();
+  await expect(page.locator("[data-carousel]")).toContainText("2 million");
+  await expect(page.locator("[data-carousel]")).toContainText("Test centres in 40 cities");
   const numbers = page.locator(`section[aria-labelledby="numbers-title"]`);
   await expect(numbers).toContainText("251,685");
   await expect(numbers).toContainText("203");
