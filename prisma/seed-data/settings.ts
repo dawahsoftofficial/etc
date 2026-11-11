@@ -1,9 +1,9 @@
-// Site settings defaults: the placeholders currently shown in the mockup footer and contact page.
-// ETC replaces these in Admin → Settings. The seed never overwrites a value that already exists.
+// Site settings defaults. Contact details are from the 2026 A4 Institutional Profile; office hours and the portal links
+// are still placeholders. ETC edits these in Admin → Settings. The seed never overwrites a value that already exists.
 export const settingsDefaults = {
-  helpline: "[to be provided]",
-  supportEmail: "[to be provided]",
-  address: "Higher Education Commission, Sector H-9, Islamabad, Pakistan [to be confirmed]",
+  helpline: "051-90408184",
+  supportEmail: "etc@hec.gov.pk",
+  address: "Higher Education Commission, Islamabad, Pakistan",
   officeHours: "[To be provided]",
   portalRegistrationUrl: "#portal-registration",
   portalAdmitCardUrl: "#portal-admit-card",

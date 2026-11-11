@@ -40,6 +40,6 @@ describe.skipIf(!process.env.DATABASE_URL)("seed", () => {
     expect(notice.test?.slug).toBe("usat");
     expect(notice.attachments).toHaveLength(2);
     const chairman = await prisma.leader.findUniqueOrThrow({ where: { role: "CHAIRMAN" }, include: { photo: true } });
-    expect(chairman.photo?.url).toBe("/img/leaders/imtiaz-haider.jpg");
+    expect(chairman.photo?.url).toBe("/img/leaders/niaz-ahmed-akhtar.jpg");
   });
 });

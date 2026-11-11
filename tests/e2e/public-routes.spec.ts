@@ -5,7 +5,7 @@ test.describe("home", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1, name: "A fair test opens a door." })).toBeVisible();
     await expect(page.getByText("Candidates tested", { exact: true })).toBeVisible();
-    await expect(page.getByText("Dr Muhammad Imtiaz Haider").first()).toBeVisible();
+    await expect(page.getByText("Prof. Dr Niaz Ahmed Akhtar").first()).toBeVisible();
     await expect(page.locator("#home-notices li")).toHaveCount(5);
     await expect(page.locator("#home-tests article")).toHaveCount(6);
     await expect(page.locator("#home-schedule li")).toHaveCount(4);
@@ -40,7 +40,7 @@ for (const [path, anchors] of STATIC_PAGES) {
 test("about shows the three leadership messages from the database", async ({ page }) => {
   await page.goto("/about#leadership");
   const section = page.locator("#leadership");
-  await expect(section.getByText("Dr Muhammad Imtiaz Haider")).toHaveCount(3);
+  await expect(section.locator("article")).toHaveCount(3);
   await expect(section.getByText("Executive Director, Higher Education Commission")).toBeVisible();
 });
 
@@ -190,8 +190,8 @@ test.describe("resources, faqs, contact", () => {
 
   test("/contact shows settings-driven support details and the form", async ({ page }) => {
     await page.goto("/contact");
-    await expect(page.locator("#support")).toContainText("[to be provided]");
-    await expect(page.locator("#office")).toContainText("Sector H-9, Islamabad");
+    await expect(page.locator("#support")).toContainText("051-90408184");
+    await expect(page.locator("#office")).toContainText("Higher Education Commission, Islamabad");
     await expect(page.getByLabel(/Full name/)).toBeVisible();
     await expect(page.getByLabel(/Subject/)).toBeVisible();
   });

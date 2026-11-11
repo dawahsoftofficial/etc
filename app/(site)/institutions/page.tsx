@@ -226,7 +226,7 @@ export default async function Page() {
             </li>
             <li className="border-t-2 border-gold-500 pt-4">
               <h3 className="font-semibold">Calibrated item bank</h3>
-              <p className="mt-1 text-sm text-muted">230,685 items developed, calibrated on national and regional norms.</p>
+              <p className="mt-1 text-sm text-muted">251,685 calibrated items, organized by subject, content area, thinking level and statistics.</p>
             </li>
             <li className="border-t-2 border-gold-500 pt-4">
               <h3 className="font-semibold">Trained subject experts</h3>
@@ -239,6 +239,16 @@ export default async function Page() {
             <li className="border-t-2 border-gold-500 pt-4">
               <h3 className="font-semibold">Three-tier monitoring</h3>
               <p className="mt-1 text-sm text-muted">Centre staff, ETC teams and senior HEC officials oversee every administration.</p>
+            </li>
+            <li className="border-t-2 border-gold-500 pt-4">
+              <h3 className="font-semibold">National and international reach</h3>
+              <p className="mt-1 text-sm text-muted">
+                203 test centres in 40 cities, and tests conducted abroad in cooperation with Pakistan’s embassies.
+              </p>
+            </li>
+            <li className="border-t-2 border-gold-500 pt-4">
+              <h3 className="font-semibold">Flexibility</h3>
+              <p className="mt-1 text-sm text-muted">National products and customized tests support different institutional needs.</p>
             </li>
           </ul>
         </div>

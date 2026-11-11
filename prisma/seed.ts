@@ -6,7 +6,7 @@ import path from "node:path";
 import { Prisma, PrismaClient } from "@prisma/client";
 import data from "./seed-data/mockup.json";
 import { heroSlides } from "./seed-data/hero";
-import { leaderPhoto, leaders } from "./seed-data/leaders";
+import { leaderPhotos, leaders } from "./seed-data/leaders";
 import { settingsDefaults } from "./seed-data/settings";
 import { hashPassword, PASSWORD_MIN } from "../lib/auth/password";
 
@@ -48,7 +48,7 @@ function seedMedia(): Prisma.MediaCreateManyInput[] {
     ...data.media.map(({ ref: _ref, ...m }) => m),
     crest("etc-crest.png", "Education Testing Council crest", 428, 480),
     crest("hec-crest.png", "Higher Education Commission crest", 422, 480),
-    { ...leaderPhoto, size: statSync(path.join(here, "../public", leaderPhoto.url)).size },
+    ...Object.values(leaderPhotos).map((photo) => ({ ...photo, size: statSync(path.join(here, "../public", photo.url)).size })),
     {
       key: SAMPLE_PDF_KEY,
       url: `${CDN}files/sample.pdf`,
@@ -175,7 +175,7 @@ export async function seed(prisma: PrismaClient, env: SeedEnv): Promise<SeedRepo
   );
 
   const leadersOutcome = await whenEmpty(prisma.leader.count(), () =>
-    prisma.leader.createMany({ data: leaders.map((l) => ({ ...l, photoId: mediaId(leaderPhoto.key) })) }),
+    prisma.leader.createMany({ data: leaders.map(({ photoKey, ...l }) => ({ ...l, photoId: mediaId(photoKey) })) }),
   );
 
   return {

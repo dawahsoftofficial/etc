@@ -18,7 +18,7 @@ export function LeadershipCards({ leaders }: { leaders: LeaderItem[] }) {
           </div>
           <blockquote className="mt-6 font-serif text-xl leading-snug text-green-800">“{l.quote}”</blockquote>
           <div
-            className="mt-4 space-y-3 text-sm leading-relaxed text-muted [&_a]:font-semibold [&_a]:text-green-700"
+            className="mt-4 space-y-3 text-sm leading-relaxed text-muted [&_a]:font-semibold [&_a]:text-green-700 [&_h4]:pt-2 [&_h4]:font-semibold [&_h4]:text-green-700 [&_li]:mt-1 [&_strong]:text-ink [&_ul]:list-disc [&_ul]:pl-5"
             dangerouslySetInnerHTML={{ __html: l.messageHtml }}
           />
         </article>

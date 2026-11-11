@@ -195,7 +195,7 @@ export function Numbers({ stats }: { stats: StatItem[] }) {
               Our record in numbers
             </h2>
           </div>
-          <p className="text-sm text-muted">Since 1 July 2021, as recorded in ETC’s institutional data.</p>
+          <p className="text-sm text-muted">Candidates tested since 2017; project and development figures since 1 July 2021, as recorded in ETC’s institutional data.</p>
         </div>
         <dl className="mt-12 grid grid-cols-2 gap-y-10 sm:grid-cols-4">
           {stats.map((s, k) => (
@@ -214,7 +214,7 @@ export function Numbers({ stats }: { stats: StatItem[] }) {
 
 const PROTECT: [string, string, string][] = [
   ["01", "Built to a blueprint", "A Table of Specifications fixes topics, number of questions and thinking levels in advance, using Bloom’s Taxonomy."],
-  ["02", "Tested before it counts", "Items pass blind peer review and five quality committees, then are piloted on real students — 802 test batteries so far."],
+  ["02", "Tested before it counts", "Items pass content, technical, language and fairness review, then are piloted on real candidates — 802 test batteries so far."],
   ["03", "Checked after every test", "Post-hoc analysis validates every key before results are released. Any faulty item is removed or credited to all candidates."],
 ];
 
@@ -329,7 +329,7 @@ export function ChairmanQuote({ leader }: { leader: LeaderItem | null }) {
             <span className="h-px w-10 bg-gold-500" />
             <span>
               <span className="block font-semibold text-ink">{leader.name}</span>
-              <span className="block text-sm text-muted">{leader.title}, Education Testing Council</span>
+              <span className="block text-sm text-muted">{leader.title}</span>
             </span>
           </figcaption>
           <Link href="/about#leadership" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-green-700 hover:text-green-900">

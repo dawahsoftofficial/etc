@@ -3,6 +3,7 @@ import { pageMetadata } from "@/lib/seo";
 import Image from "@/components/ui/image";
 import Link from "next/link";
 import { BankBars, Workflow } from "@/components/site/quality/Workflow";
+import { GLOSSARY } from "@/lib/content/glossary";
 import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
 
 export const metadata: Metadata = pageMetadata({
@@ -94,6 +95,11 @@ export default async function Page() {
           <li>
             <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#security">
               Fairness & security
+            </a>
+          </li>
+          <li>
+            <a className="block whitespace-nowrap px-3 py-3.5 text-muted hover:text-green-700" href="#glossary">
+              Glossary
             </a>
           </li>
         </ul>
@@ -202,9 +208,9 @@ export default async function Page() {
               A calibrated national resource
             </h2>
             <p className="mt-6 font-serif text-6xl font-semibold text-green-700">
-              <span data-counter="230685">230,685</span>
+              <span data-counter="251685">251,685</span>
             </p>
-            <p className="mt-1 text-muted">items developed to date</p>
+            <p className="mt-1 text-muted">calibrated items in a continuously updated bank</p>
             <p className="mt-6 text-sm text-ink/80">
               The bank lets ETC build many different but equivalent papers, avoid repeating questions, and respond quickly to new client
               needs. Every item is tagged with its subject, Bloom’s level, difficulty, discrimination, fairness flag, usage history and
@@ -218,7 +224,7 @@ export default async function Page() {
           <figure className="lg:col-span-8 min-w-0">
             <figcaption className="flex flex-wrap items-baseline justify-between gap-2">
               <span className="font-semibold">The twelve main subject banks</span>
-              <span className="text-xs text-muted">188,310 items in the listed banks</span>
+              <span className="text-xs text-muted">188,310 items in the listed banks; the overall total covers all banks</span>
             </figcaption>
             <BankBars />
           </figure>
@@ -291,6 +297,111 @@ export default async function Page() {
               </p>
             </div>
           </div>
+          <div className="mt-16 grid gap-10 lg:grid-cols-2">
+            <div>
+              <h3 className="font-serif text-2xl font-semibold">Item-level analysis</h3>
+              <dl className="mt-4 divide-y divide-white/10">
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Difficulty</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">The p-value is the proportion answering correctly; it is judged against the intended test difficulty.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Discrimination</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Corrected item–total correlation and upper–lower comparisons show how well an item separates stronger and weaker candidates.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Distractors</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Option choices are reviewed; options selected by fewer than 5% of candidates are non-functioning.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Rasch fit</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">The preferred Infit / Outfit mean-square range is 0.7–1.3.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Response patterns</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Blanks, invalid responses and possible miskeys are investigated.</dd>
+                </div>
+              </dl>
+            </div>
+            <div>
+              <h3 className="font-serif text-2xl font-semibold">Fairness and post-test review</h3>
+              <p className="mt-4 text-sm leading-relaxed text-white/80">
+                DIF (Differential Item Functioning) analysis checks whether equally able candidates from different groups perform
+                differently on an item. Mantel–Haenszel A/B/C classifications guide screening, and category C items receive independent
+                review.
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-white/80">
+                After every test, a psychometric report examines candidate results and item performance. Classical Test Theory works with
+                observed scores; the Rasch (1PL) model places candidate ability and item difficulty on a common scale measured in logits.
+                Wright maps, the Test Information Function and conditional SEM show where a test measures most precisely.
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-white/80">
+                Psychometric and subject experts then decide whether each item is retained, revised or critically reviewed — statistical
+                flags never delete an item automatically.
+              </p>
+            </div>
+          </div>
+          <div className="mt-16">
+            <h3 className="font-serif text-2xl font-semibold">Reliable, valid and fair decisions</h3>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-white/80">
+              Reliability concerns consistency; validity concerns the evidence supporting the interpretation and intended use of results;
+              fairness concerns equal opportunity to demonstrate ability. No single coefficient proves that a test is suitable for every
+              decision, so these are considered together — particularly around a passing or selection score.
+            </p>
+            <div className="mt-8 grid gap-10 lg:grid-cols-2">
+              <div>
+                <p className="eyebrow">Types of reliability</p>
+                <dl className="mt-2 divide-y divide-white/10">
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Internal consistency</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">KR-20 and Cronbach’s alpha examine how consistently items contribute to a test score.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Test–retest</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Checks score stability over time when ability is expected to remain comparable.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Parallel forms</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Examines consistency across different versions designed to measure the same ability.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Inter-rater</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Checks agreement between markers of written or practical responses.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Measurement error</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">SEM expresses the uncertainty around an individual score and helps avoid false precision.</dd>
+                </div>
+                </dl>
+              </div>
+              <div>
+                <p className="eyebrow">Sources of validity evidence</p>
+                <dl className="mt-2 divide-y divide-white/10">
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Content</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Blueprints and expert review check coverage of the intended knowledge and skills.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Construct</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">The assessment should measure the intended ability rather than unrelated factors.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Criterion relationships</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Relationships with relevant external outcomes can support the intended interpretation.</dd>
+                </div>
+                <div className="py-3">
+                  <dt className="font-semibold text-white">Consequences and use</dt>
+                  <dd className="mt-0.5 text-sm text-white/75">Selection rules and score use should match the purpose for which evidence was gathered.</dd>
+                </div>
+                </dl>
+                <p className="mt-6 rounded-xl bg-white/5 p-5 text-sm leading-relaxed text-white/80 ring-1 ring-white/10">
+                  A test score is an estimate with a margin of error. Scores should be used for the purpose the test was designed for,
+                  alongside the institution’s published selection rules, and never presented as a complete description of a candidate’s
+                  ability or potential.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
       {/* QA */}
@@ -301,29 +412,27 @@ export default async function Page() {
         </h2>
         <div className="mt-10 grid gap-10 lg:grid-cols-2">
           <div>
-            <h3 className="font-serif text-xl font-semibold">Five quality-control committees</h3>
+            <h3 className="font-serif text-xl font-semibold">Five stages of expert review</h3>
             <dl className="mt-5 divide-y divide-line rounded-2xl border border-line">
               <div className="p-5">
-                <dt className="font-semibold text-green-700">Academic Committee</dt>
-                <dd className="mt-1 text-sm text-muted">Sets academic policy and oversees the content and standards of assessments.</dd>
+                <dt className="font-semibold text-green-700">Content and subject review</dt>
+                <dd className="mt-1 text-sm text-muted">Checks correctness, relevance and subject coverage against the blueprint.</dd>
               </div>
               <div className="p-5">
-                <dt className="font-semibold text-green-700">Subject Committee</dt>
-                <dd className="mt-1 text-sm text-muted">
-                  Reviews content within each subject for correctness, relevance and full blueprint coverage.
-                </dd>
+                <dt className="font-semibold text-green-700">Technical review</dt>
+                <dd className="mt-1 text-sm text-muted">Examines item structure, keys, distractors and assessment design.</dd>
               </div>
               <div className="p-5">
-                <dt className="font-semibold text-green-700">Paper Review Committee</dt>
-                <dd className="mt-1 text-sm text-muted">Reviews assembled papers as a whole for balance, quality and suitability.</dd>
+                <dt className="font-semibold text-green-700">Language review</dt>
+                <dd className="mt-1 text-sm text-muted">Checks clarity, expression and language appropriate to the candidates.</dd>
               </div>
               <div className="p-5">
-                <dt className="font-semibold text-green-700">Peer Review Committee</dt>
-                <dd className="mt-1 text-sm text-muted">Independent, blind review of individual questions by subject experts.</dd>
+                <dt className="font-semibold text-green-700">Fairness review</dt>
+                <dd className="mt-1 text-sm text-muted">Looks for bias, stereotypes and context unrelated to the ability being tested.</dd>
               </div>
               <div className="p-5">
-                <dt className="font-semibold text-green-700">MCQ Contributors</dt>
-                <dd className="mt-1 text-sm text-muted">Trained subject specialists who write new questions to ETC guidelines.</dd>
+                <dt className="font-semibold text-green-700">Final review</dt>
+                <dd className="mt-1 text-sm text-muted">Confirms paper readiness and the resolution of issues identified earlier.</dd>
               </div>
             </dl>
           </div>
@@ -442,10 +551,25 @@ export default async function Page() {
             </li>
           </ul>
           <p className="mt-10 max-w-3xl text-sm text-muted">
-            Looking ahead, ETC plans to seek ISO certification for its testing operations and to introduce certification programmes for item
-            writers and reviewers.
+            Documented procedures, professional review and progress towards recognized quality standards support the Council’s
+            institutional development, as it works towards international certification.
           </p>
         </div>
+      </section>
+      {/* Glossary */}
+      <section id="glossary" aria-labelledby="gl-title" className="scroll-mt-48 max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+        <p className="eyebrow">Plain-language definitions</p>
+        <h2 id="gl-title" className="mt-3 font-serif text-3xl sm:text-4xl font-semibold text-green-700">
+          Assessment glossary
+        </h2>
+        <dl className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+          {GLOSSARY.map(([term, definition]) => (
+            <div key={term} className="border-t border-line pt-4">
+              <dt className="font-semibold text-green-700">{term}</dt>
+              <dd className="mt-1 text-sm text-muted">{definition}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
     </>
   );

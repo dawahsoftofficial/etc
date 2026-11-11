@@ -391,6 +391,10 @@ export default async function Page() {
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700"></span>
                   Keep the content of the test confidential.
                 </li>
+                <li className="flex gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-green-700"></span>
+                  Respect others and help keep a calm, fair environment for every candidate.
+                </li>
               </ul>
             </div>
           </div>
@@ -419,6 +423,29 @@ export default async function Page() {
               </Link>
             </div>
           </div>
+          <h3 className="mt-12 font-serif text-2xl font-semibold text-green-700">How we remain accountable</h3>
+          <ul className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            <li className="rounded-xl bg-white p-5 ring-1 ring-line">
+              <p className="font-semibold text-green-700">Published rules</p>
+              <p className="mt-1 text-sm text-muted">You can see the conditions under which every test is conducted.</p>
+            </li>
+            <li className="rounded-xl bg-white p-5 ring-1 ring-line">
+              <p className="font-semibold text-green-700">Communication channels</p>
+              <p className="mt-1 text-sm text-muted">The helpline and online portal provide support and a route for concerns.</p>
+            </li>
+            <li className="rounded-xl bg-white p-5 ring-1 ring-line">
+              <p className="font-semibold text-green-700">Unfair-means hearings</p>
+              <p className="mt-1 text-sm text-muted">Cases follow a documented process with an opportunity to be heard.</p>
+            </li>
+            <li className="rounded-xl bg-white p-5 ring-1 ring-line">
+              <p className="font-semibold text-green-700">Post-test review</p>
+              <p className="mt-1 text-sm text-muted">Statistical and operational findings inform improvements.</p>
+            </li>
+            <li className="rounded-xl bg-white p-5 ring-1 ring-line">
+              <p className="font-semibold text-green-700">Oversight</p>
+              <p className="mt-1 text-sm text-muted">Audit and governance arrangements support institutional accountability.</p>
+            </li>
+          </ul>
         </div>
       </section>
       <section className="max-w-site mx-auto px-4 sm:px-6 lg:px-8 py-16">

@@ -87,13 +87,13 @@ describe.skipIf(!process.env.DATABASE_URL)("content queries", () => {
   test("faqs, hero, stats, schedule, clients, leaders, settings", async () => {
     expect(await _getFaqs()).toHaveLength(19);
     expect((await _getHeroSlides()).map((h) => h.title)[0]).toBe("A fair test opens a door.");
-    expect((await _getStats())[0]).toEqual({ value: 1852391, label: "Candidates tested", note: "Since 1 July 2021" });
+    expect((await _getStats())[0]).toEqual({ value: 2000000, label: "Candidates tested", note: "Since 2017" });
     const schedule = await _getSchedule();
     expect(schedule.map((s) => s.regCloses)).toEqual([...schedule.map((s) => s.regCloses)].sort());
     const clients = await _getClients();
     expect(clients.FEDERAL[0]).toBe("Higher Education Commission (HRM & HRD Divisions)");
     expect(clients.UNIVERSITY).toHaveLength(16);
-    expect((await _getLeader("CHAIRMAN"))!.photo?.url).toBe("/img/leaders/imtiaz-haider.jpg");
+    expect((await _getLeader("CHAIRMAN"))!.photo?.url).toBe("/img/leaders/niaz-ahmed-akhtar.jpg");
     expect((await _getLeaders()).map((l) => l.role)).toEqual(["CHAIRMAN", "EXECUTIVE_DIRECTOR", "CEO"]);
     const settings = await _getSettings();
     expect(settings.portalRegistrationUrl).toBe("#portal-registration");

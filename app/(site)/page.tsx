@@ -46,8 +46,8 @@ export default async function HomePage() {
         aside={
           candidates && (
             <p className="ml-auto hidden text-sm text-white/70 lg:block">
-              <span className="font-serif text-2xl text-white">{(candidates.value / 1_000_000).toFixed(2)} M</span>&nbsp; candidates
-              tested since July 2021
+              <span className="font-serif text-2xl text-white">{Number((candidates.value / 1_000_000).toFixed(2))} M</span>&nbsp; candidates
+              tested {candidates.note.toLowerCase()}
             </p>
           )
         }

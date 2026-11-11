@@ -100,6 +100,11 @@ export default async function Page() {
             Tests are designed to a fixed plan, delivered under the same conditions everywhere, and scored in the same way for every
             candidate — so results from different cities, sessions and test forms can be compared fairly.
           </p>
+          <p className="mt-4 leading-relaxed text-ink/80">
+            ETC operates through 203 test centres in 40 cities, with capacity for about 100,000 candidates in a shift. It also conducts
+            tests abroad in cooperation with Pakistan’s embassies, with experience in the United Arab Emirates, Saudi Arabia, Afghanistan,
+            Bangladesh and Sri Lanka.
+          </p>
         </div>
         <dl className="lg:col-span-5 grid grid-cols-2 gap-4 content-start" data-reveal>
           <div className="rounded-xl bg-mint-50 p-5">
@@ -179,7 +184,7 @@ export default async function Page() {
               <p className="font-serif text-3xl text-green-700">Today</p>
               <p className="mt-1 font-semibold">National platform</p>
               <p className="mt-2 text-sm text-muted">
-                103 test centres, a 230,000+ item bank and more than 1.85 million candidates tested since July 2021.
+                203 test centres in 40 cities, a bank of 251,685 calibrated items and 2 million candidates tested since 2017.
               </p>
             </li>
           </ol>
@@ -242,14 +247,15 @@ export default async function Page() {
               <p className="eyebrow">Our vision</p>
               <p className="mt-4 font-serif text-2xl sm:text-3xl leading-snug">
                 To empower future generations of students to reach their full potential in service of the nation, by building a transparent,
-                merit-based and equitable system of education and professional opportunity.
+                merit-based and equitable system of education and professional opportunity, with an unwavering commitment to quality,
+                fairness and excellence.
               </p>
             </div>
             <div data-reveal>
               <p className="eyebrow">Our mission</p>
               <p className="mt-4 text-lg text-white/85 leading-relaxed">
                 To advance quality and equity in education, public service and the professions across Pakistan, by making sound decisions
-                possible through assessments built on quality, integrity and equal opportunity — using the best available technology, and
+                possible through assessments built on the core values of quality, integrity and equal opportunity — using the best available technology, and
                 developing our own tools, so that the true potential of our young people can be recognized and put to work for the country.
               </p>
             </div>
@@ -318,7 +324,7 @@ export default async function Page() {
             <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
               <dt className="font-semibold text-gold-300">Quality</dt>
               <dd className="mt-2 text-sm text-white/80">
-                Questions pass five review committees, piloting and statistical analysis before and after use.
+                Questions pass content, technical, language and fairness review, piloting and statistical analysis before and after use.
               </dd>
             </div>
           </dl>
@@ -463,7 +469,7 @@ export default async function Page() {
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4" data-reveal>
             <p className="eyebrow">Strategic roadmap</p>
-            <h2 className="mt-3 font-serif text-3xl sm:text-4xl font-semibold text-green-700">Where we are heading</h2>
+            <h2 className="mt-3 font-serif text-3xl sm:text-4xl font-semibold text-green-700">Priorities for the years ahead</h2>
             <p className="mt-5 font-serif text-xl leading-snug text-ink/80">
               ETC aims to become a fully digital, research-led and internationally certified national testing body that every candidate and
               institution in Pakistan can trust.
@@ -471,32 +477,24 @@ export default async function Page() {
           </div>
           <ul className="lg:col-span-8 grid gap-4 sm:grid-cols-2" data-reveal>
             <li className="rounded-xl bg-mint-50 p-5">
-              <p className="font-semibold text-green-700">National assessment policy</p>
-              <p className="mt-1 text-sm text-muted">
-                A Pakistan National Assessment Framework and data-driven policy input to higher-education reforms.
-              </p>
-            </li>
-            <li className="rounded-xl bg-cream-50 p-5">
-              <p className="font-semibold text-green-700">Standardized admissions</p>
-              <p className="mt-1 text-sm text-muted">Expand mandatory standardized admission tests such as USAT and HAT.</p>
-            </li>
-            <li className="rounded-xl bg-cream-50 p-5">
               <p className="font-semibold text-green-700">Digital transformation</p>
-              <p className="mt-1 text-sm text-muted">A gradual shift to nationwide computer-based testing (CBT).</p>
-            </li>
-            <li className="rounded-xl bg-mint-50 p-5">
-              <p className="font-semibold text-green-700">Secure technology</p>
-              <p className="mt-1 text-sm text-muted">
-                AI-assisted proctoring and biometric verification, with safeguards for data protection.
-              </p>
-            </li>
-            <li className="rounded-xl bg-mint-50 p-5">
-              <p className="font-semibold text-green-700">Advanced item bank</p>
-              <p className="mt-1 text-sm text-muted">A large-scale calibrated, psychometrically tagged and encrypted item bank.</p>
+              <p className="mt-1 text-sm text-muted">Strengthen technology across test development, delivery, candidate services and reporting.</p>
             </li>
             <li className="rounded-xl bg-cream-50 p-5">
-              <p className="font-semibold text-green-700">International standards</p>
-              <p className="mt-1 text-sm text-muted">ISO certification for testing operations and certification for item writers.</p>
+              <p className="font-semibold text-green-700">Research and innovation</p>
+              <p className="mt-1 text-sm text-muted">Use assessment research and psychometric evidence to improve tests and decisions.</p>
+            </li>
+            <li className="rounded-xl bg-cream-50 p-5">
+              <p className="font-semibold text-green-700">Quality and certification</p>
+              <p className="mt-1 text-sm text-muted">Strengthen standards, quality systems and progress towards international certification.</p>
+            </li>
+            <li className="rounded-xl bg-mint-50 p-5">
+              <p className="font-semibold text-green-700">Institutional capacity</p>
+              <p className="mt-1 text-sm text-muted">Develop professional skills, governance and the systems needed for sustained growth.</p>
+            </li>
+            <li className="rounded-xl bg-mint-50 p-5 sm:col-span-2">
+              <p className="font-semibold text-green-700">Stakeholder confidence</p>
+              <p className="mt-1 text-sm text-muted">Improve communication and responsiveness to candidates, partners and clients.</p>
             </li>
           </ul>
         </div>

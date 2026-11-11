@@ -1394,21 +1394,21 @@
   ],
   "stats": [
     {
-      "value": 1852391,
+      "value": 2000000,
       "label": "Candidates tested",
-      "note": "Since 1 July 2021",
+      "note": "Since 2017",
       "order": 0
     },
     {
       "value": 261,
       "label": "Test projects",
-      "note": "Delivered for clients",
+      "note": "Delivered for clients since July 2021",
       "order": 1
     },
     {
-      "value": 230685,
-      "label": "Question bank items",
-      "note": "Developed so far",
+      "value": 251685,
+      "label": "Calibrated test items",
+      "note": "In a continuously updated bank",
       "order": 2
     },
     {
@@ -1430,9 +1430,9 @@
       "order": 5
     },
     {
-      "value": 103,
+      "value": 203,
       "label": "Test centres",
-      "note": "Capacity of about 100,000",
+      "note": "Capacity of about 100,000 in a shift",
       "order": 6
     },
     {
