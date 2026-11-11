@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
-import { activeSection, NAV } from "@/lib/nav";
+import { activeSection, HEADER_NAV } from "@/lib/nav";
 
 const FOCUSABLE = 'a[href], button, summary, [tabindex]:not([tabindex="-1"])';
 
@@ -79,7 +79,7 @@ export function MobileDrawer() {
             </button>
           </div>
           <ul className="px-5">
-            {NAV.map((item) => (
+            {HEADER_NAV.map((item) => (
               <li key={item.id} className="border-b border-line">
                 <details className="group" open={item.id === active}>
                   <summary className="flex cursor-pointer list-none items-center justify-between py-3.5 font-medium text-ink [&::-webkit-details-marker]:hidden">

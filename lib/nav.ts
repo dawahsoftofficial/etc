@@ -112,6 +112,13 @@ export const NAV: NavItem[] = [
   },
 ];
 
+// Sections hidden from the header menu (desktop mega-menu and phone drawer). Their pages stay live and are linked
+// from the footer, quick links and page content.
+const HIDDEN_FROM_HEADER: NavId[] = ["candidate", "institutions"];
+
+/** The header menu's sections. */
+export const HEADER_NAV: NavItem[] = NAV.filter((item) => !HIDDEN_FROM_HEADER.includes(item.id));
+
 /** The nav section a pathname belongs to (detail pages map to their parent; FAQs sit under Candidate Services). */
 export function activeSection(pathname: string): NavId | undefined {
   if (pathname === "/faqs") return "candidate";

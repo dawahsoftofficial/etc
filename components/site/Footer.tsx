@@ -57,7 +57,6 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             <Col
               title="Candidates"
               links={[
-                ["Candidate Services", "/candidate-services"],
                 ["Resources", "/resources"],
                 ["Help & FAQs", "/faqs"],
                 ["Accessibility", "/candidate-services#accessibility"],
@@ -79,15 +78,6 @@ export function Footer({ settings }: { settings: SiteSettings }) {
                 <li className="flex gap-2">
                   <Icon name="mail" className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" />
                   <span>Email {settings.supportEmail}</span>
-                </li>
-                <li>
-                  <Link className="font-semibold text-white hover:text-gold-300" href="/institutions#enquiry">
-                    Institutional{" "}
-                    <span className="whitespace-nowrap">
-                      enquiry
-                      <Icon name="arrow" className="ml-1.5 inline h-4 w-4 align-[-3px]" />
-                    </span>
-                  </Link>
                 </li>
               </ul>
             </div>

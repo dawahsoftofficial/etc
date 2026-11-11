@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/icon";
-import { activeSection, NAV } from "@/lib/nav";
+import { activeSection, HEADER_NAV } from "@/lib/nav";
 
 // Short delays so a pointer passing over the bar doesn't flash panels, and crossing the gap into a panel doesn't close it.
 const OPEN_DELAY = 80;
@@ -67,7 +67,7 @@ export function MegaMenu() {
   return (
     <nav ref={navRef} aria-label="Main" className="hidden border-t border-line lg:block">
       <ul className="mx-auto flex max-w-site items-stretch justify-between px-8">
-        {NAV.map((item) => {
+        {HEADER_NAV.map((item) => {
           const cur = item.id === active;
           const isOpen = open === item.id;
           const panelId = `mega-${item.id}`;
