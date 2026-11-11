@@ -79,7 +79,8 @@ export function DataTable({
       </FilterForm>
 
       {rows.length ? (
-        <div className="overflow-x-auto" role="region" aria-label={caption} tabIndex={0}>
+        <div className="relative overflow-x-auto" role="region" aria-label={caption} tabIndex={0}>
+          {/* relative: keeps the sr-only caption and labels inside this scroller, so a wide table never widens the page */}
           <table className="w-full text-left text-sm">
             <caption className="sr-only">
               {caption} — {total} {total === 1 ? "item" : "items"}

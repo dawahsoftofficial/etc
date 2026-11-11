@@ -9,7 +9,7 @@ import { PortalLink } from "./PortalLink";
 
 function UtilityBar({ settings }: { settings: SiteSettings }) {
   return (
-    <div className="on-dark bg-green-950 text-xs text-white/80">
+    <div data-noprint className="on-dark bg-green-950 text-xs text-white/80">
       <div className="mx-auto flex h-9 max-w-site items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <p className="truncate">
           <span className="hidden sm:inline">An autonomous body of the </span>Higher Education Commission, Government of Pakistan
@@ -39,7 +39,7 @@ const QL = "inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 p
 
 function QuickLinks({ settings }: { settings: SiteSettings }) {
   return (
-    <div className="border-y border-gold-300/60 bg-cream-50">
+    <div data-noprint className="border-y border-gold-300/60 bg-cream-50">
       <div className="mx-auto flex h-11 max-w-site items-center gap-4 px-4 sm:px-6 lg:px-8">
         <span className="hidden shrink-0 text-[11px] font-semibold uppercase tracking-eyebrow text-gold-600 sm:block">Quick links</span>
         <ul className="no-scrollbar -mx-2 flex items-center gap-1 overflow-x-auto px-2">
@@ -73,11 +73,13 @@ function QuickLinks({ settings }: { settings: SiteSettings }) {
   );
 }
 
+// A fragment, not a wrapper: the header's `sticky` only holds within its parent, and the page's section navs
+// (About, Quality) are offset to sit directly below it, so it must stay pinned for the whole page.
 export function Header({ settings }: { settings: SiteSettings }) {
   return (
-    <div id="site-header">
+    <>
       <UtilityBar settings={settings} />
-      <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
+      <header data-noprint className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
         <div className="relative">
           <div className="mx-auto flex h-[72px] max-w-site items-center justify-between gap-4 px-4 sm:h-20 sm:px-6 lg:px-8">
             <Brand />
@@ -111,6 +113,6 @@ export function Header({ settings }: { settings: SiteSettings }) {
         </div>
       </header>
       <QuickLinks settings={settings} />
-    </div>
+    </>
   );
 }

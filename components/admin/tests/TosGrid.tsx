@@ -40,7 +40,7 @@ export function TosGrid({ value }: { value: Tos | null }) {
   return (
     <div id="field-tos" tabIndex={-1}>
       {error && <p className="mb-2 text-sm font-medium text-red-700">{error}</p>}
-      <div className="overflow-x-auto rounded-lg border border-line" role="region" aria-label="Table of specifications editor" tabIndex={0}>
+      <div className="relative overflow-x-auto rounded-lg border border-line" role="region" aria-label="Table of specifications editor" tabIndex={0}>
         <table className="w-full text-sm">
           <thead className="bg-mint-50/70 text-xs uppercase tracking-wider text-muted">
             <tr>

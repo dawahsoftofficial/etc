@@ -85,7 +85,7 @@ export function TestDetail({ test: t, settings }: { test: TestDetailData; settin
             </p>
             <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight sm:text-5xl">{t.name}</h1>
             <p className="mt-4 text-lg text-white/80">{t.short}</p>
-            <dl className="mt-8 grid max-w-xl grid-cols-3 gap-4 border-t border-white/15 pt-6">
+            <dl className="mt-8 grid max-w-xl grid-cols-2 gap-4 border-t border-white/15 pt-6 sm:grid-cols-3">
               <div>
                 <dt className="text-xs uppercase tracking-wider text-white/60">Fee*</dt>
                 <dd className="mt-1 font-serif text-lg sm:text-2xl">{formatFee(t.fee)}</dd>
@@ -96,7 +96,7 @@ export function TestDetail({ test: t, settings }: { test: TestDetailData; settin
               </div>
               <div>
                 <dt className="text-xs uppercase tracking-wider text-white/60">For</dt>
-                <dd className="mt-1 break-words font-serif text-lg sm:text-2xl">{t.level}</dd>
+                <dd className="mt-1 font-serif text-lg sm:text-2xl">{t.level}</dd>
               </div>
             </dl>
             <div className="mt-8 flex flex-wrap gap-3">

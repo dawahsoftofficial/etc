@@ -208,14 +208,14 @@ export default async function Page() {
           </div>
         </div>
         <ol className="lg:col-span-7 space-y-4" data-reveal>
-          <li className="flex gap-5 rounded-xl border border-line p-6">
+          <li className="flex flex-col gap-2 rounded-xl border border-line p-6 sm:flex-row sm:gap-5">
             <span className="font-serif text-xl text-gold-600 shrink-0">Para 8</span>
             <p>
               The Pakistan Bar Council (PBC) and the Higher Education Commission (HEC) are the key regulators responsible for supervising
               and enforcing professional standards in legal education.
             </p>
           </li>
-          <li className="flex gap-5 rounded-xl border border-line p-6">
+          <li className="flex flex-col gap-2 rounded-xl border border-line p-6 sm:flex-row sm:gap-5">
             <span className="font-serif text-xl text-gold-600 shrink-0">Para 15(1)</span>
             <p>
               A{" "}
@@ -226,7 +226,7 @@ export default async function Page() {
               prepared for the test.
             </p>
           </li>
-          <li className="flex gap-5 rounded-xl border border-line p-6">
+          <li className="flex flex-col gap-2 rounded-xl border border-line p-6 sm:flex-row sm:gap-5">
             <span className="font-serif text-xl text-gold-600 shrink-0">Para 15(2)</span>
             <p>
               A{" "}

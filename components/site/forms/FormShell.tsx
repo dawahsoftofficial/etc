@@ -125,7 +125,7 @@ export function FormShell({
               {f.type === "textarea" ? (
                 <textarea {...common} rows={f.rows ?? 5} placeholder={f.placeholder} />
               ) : f.type === "select" ? (
-                <select {...common} key={state.values?.[f.name] ?? ""}>
+                <select key={state.values?.[f.name] ?? ""} {...common}>
                   <option value="">{f.placeholder ?? "Choose an option"}</option>
                   {f.options!.map((o) => (
                     <option key={o}>{o}</option>

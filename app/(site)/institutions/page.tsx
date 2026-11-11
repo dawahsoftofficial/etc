@@ -58,18 +58,18 @@ export default async function Page() {
               Our quality approach
             </Link>
           </div>
-          <dl className="mt-12 grid max-w-3xl grid-cols-3 gap-6 border-t border-white/15 pt-6">
+          <dl className="mt-12 grid max-w-3xl grid-cols-3 gap-4 border-t border-white/15 pt-6 sm:gap-6">
             <div>
               <dt className="text-xs uppercase tracking-wider text-white/60">Test projects</dt>
-              <dd className="mt-1 font-serif text-3xl">261</dd>
+              <dd className="mt-1 font-serif text-2xl sm:text-3xl">261</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-wider text-white/60">Blueprints</dt>
-              <dd className="mt-1 font-serif text-3xl">850</dd>
+              <dd className="mt-1 font-serif text-2xl sm:text-3xl">850</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-wider text-white/60">In one shift</dt>
-              <dd className="mt-1 font-serif text-3xl">80,000</dd>
+              <dd className="mt-1 font-serif text-2xl sm:text-3xl">100,000</dd>
             </div>
           </dl>
         </div>

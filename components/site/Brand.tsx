@@ -20,7 +20,7 @@ export function Brand({ onDark = false }: { onDark?: boolean }) {
         </span>
         {onDark ? (
           <span className="mt-1 block text-[11px] font-semibold uppercase tracking-[0.16em] text-gold-300">
-            Higher Education Commission · Pakistan
+            Higher Education Commission <span className="whitespace-nowrap">· Pakistan</span>
           </span>
         ) : (
           <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.16em] text-gold-600 sm:text-[11px]">

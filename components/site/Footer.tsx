@@ -72,16 +72,21 @@ export function Footer({ settings }: { settings: SiteSettings }) {
                 </li>
                 <li className="flex gap-2">
                   <Icon name="phone" className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" />
-                  <span>Helpline {settings.helpline}</span>
+                  <span>
+                    Helpline <span className="whitespace-nowrap">{settings.helpline}</span>
+                  </span>
                 </li>
                 <li className="flex gap-2">
                   <Icon name="mail" className="mt-0.5 h-4 w-4 shrink-0 text-gold-300" />
                   <span>Email {settings.supportEmail}</span>
                 </li>
                 <li>
-                  <Link className="inline-flex items-center gap-1.5 font-semibold text-white hover:text-gold-300" href="/institutions#enquiry">
-                    Institutional enquiry
-                    <Icon name="arrow" className="h-4 w-4" />
+                  <Link className="font-semibold text-white hover:text-gold-300" href="/institutions#enquiry">
+                    Institutional{" "}
+                    <span className="whitespace-nowrap">
+                      enquiry
+                      <Icon name="arrow" className="ml-1.5 inline h-4 w-4 align-[-3px]" />
+                    </span>
                   </Link>
                 </li>
               </ul>

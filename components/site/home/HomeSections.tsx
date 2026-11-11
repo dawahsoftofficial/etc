@@ -197,11 +197,11 @@ export function Numbers({ stats }: { stats: StatItem[] }) {
           </div>
           <p className="text-sm text-muted">Candidates tested since 2017; project and development figures since 1 July 2021, as recorded in ETC’s institutional data.</p>
         </div>
-        <dl className="mt-12 grid grid-cols-2 gap-y-10 sm:grid-cols-4">
+        <dl className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-4">
           {stats.map((s, k) => (
             <div key={s.label} className={`flex flex-col px-2 lg:px-6 ${k % 4 ? "lg:border-l lg:border-gold-300/50" : "lg:pl-0"}`}>
               <dt className="order-2 text-sm font-medium text-muted">{s.label}</dt>
-              <dd className="order-1 font-serif text-4xl font-semibold text-green-700 sm:text-[2.6rem]">
+              <dd className="order-1 font-serif text-3xl font-semibold text-green-700 sm:text-[2.6rem]">
                 <Counter value={s.value} />
               </dd>
             </div>
@@ -257,9 +257,9 @@ export function Protect({ omr, sealed }: { omr: { url: string; alt: string }; se
                 <figure className="relative aspect-square overflow-hidden rounded-2xl ring-1 ring-white/10">
                   <Image src={sealed.url} alt={sealed.alt} fill sizes="(min-width: 1024px) 20vw, 40vw" className="object-cover" />
                 </figure>
-                <div className="flex-1 rounded-2xl bg-gold-500 p-5 text-green-950">
-                  <p className="font-serif text-4xl font-semibold">3-tier</p>
-                  <p className="mt-1 text-sm font-medium">monitoring at every centre, including senior HEC officials</p>
+                <div className="flex-1 rounded-2xl bg-gold-500 p-4 text-green-950 sm:p-5">
+                  <p className="whitespace-nowrap font-serif text-2xl font-semibold sm:text-4xl">3-tier</p>
+                  <p className="mt-1 text-xs font-medium sm:text-sm">monitoring at every centre, including senior HEC officials</p>
                 </div>
               </div>
             </div>
