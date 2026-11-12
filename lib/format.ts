@@ -2,8 +2,10 @@ const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 
 export const FEE_NOTE = "As per ETC Institutional Profile 2026; always confirm in the official announcement.";
 
-export function formatFee(fee: number | null): string {
-  return fee == null ? "By agreement" : `Rs. ${fee.toLocaleString("en-US")}`;
+/** A missing fee is "By agreement" for client-specific (recruitment/customized) tests and "As announced" otherwise. */
+export function formatFee(fee: number | null, category?: string): string {
+  if (fee != null) return `Rs. ${fee.toLocaleString("en-US")}`;
+  return category === "RECRUITMENT" ? "By agreement" : "As announced";
 }
 
 /** "15 Oct 2026". Date-only values are stored at UTC midnight, so UTC parts are the calendar date. */

@@ -103,7 +103,7 @@ export function FindYourTest({ tests }: { tests: TestCardData[] }) {
             Find your test
           </h2>
           <p className="mt-4 text-lg text-muted">
-            Five national standardized tests and customized assessments — each built to a blueprint, piloted before use and
+            Six national standardized tests and customized assessments — each built to a blueprint, piloted before use and
             analysed after every session.
           </p>
         </div>

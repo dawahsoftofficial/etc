@@ -52,6 +52,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
                 ["HAT-General", "/tests/hat"],
                 ["HAAT-Subject", "/tests/haat"],
                 ["USAT", "/tests/usat"],
+                ["NSCT", "/tests/nsct"],
               ]}
             />
             <Col

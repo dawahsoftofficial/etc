@@ -22,7 +22,9 @@ describe("format", () => {
   test("formatFee", () => {
     expect(formatFee(2000)).toBe("Rs. 2,000");
     expect(formatFee(0)).toBe("Rs. 0");
-    expect(formatFee(null)).toBe("By agreement");
+    expect(formatFee(null, "RECRUITMENT")).toBe("By agreement");
+    expect(formatFee(null, "SKILLS")).toBe("As announced");
+    expect(formatFee(null)).toBe("As announced");
   });
   test("formatDate reads UTC parts from strings and dates", () => {
     expect(formatDate("2026-10-15")).toBe("15 Oct 2026");

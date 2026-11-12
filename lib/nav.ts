@@ -21,7 +21,7 @@ export const NAV: NavItem[] = [
     id: "tests",
     label: "Tests & Assessments",
     href: "/tests",
-    blurb: "Five national standardized tests plus customized assessments.",
+    blurb: "Six national standardized tests plus customized assessments.",
     links: [
       ["Test directory", "/tests"],
       ["LAT — Law Admission Test", "/tests/lat"],
@@ -29,6 +29,7 @@ export const NAV: NavItem[] = [
       ["HAT-General", "/tests/hat"],
       ["HAAT-Subject", "/tests/haat"],
       ["USAT", "/tests/usat"],
+      ["NSCT — Computing & IT graduates", "/tests/nsct"],
       ["Customized tests", "/tests/customized"],
     ],
   },

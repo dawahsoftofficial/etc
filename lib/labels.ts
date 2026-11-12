@@ -15,6 +15,7 @@ export const TEST_CATEGORY: LabelMap<TestCategory> = {
   POSTGRADUATE: { label: "Postgraduate", param: "postgraduate" },
   LICENSING: { label: "Licensing", param: "licensing" },
   RECRUITMENT: { label: "Recruitment", param: "recruitment" },
+  SKILLS: { label: "Skills & competency", param: "skills" },
 };
 
 export const NOTICE_TYPE: LabelMap<NoticeType> = {

@@ -21,6 +21,7 @@ enum TestCategory {
   POSTGRADUATE
   LICENSING
   RECRUITMENT
+  SKILLS
 }
 
 enum NoticeType {
@@ -132,6 +133,8 @@ model Test {
   measures       String          @db.Text
   frequency      String
   frequencyNote  String          @db.VarChar(500)
+  /// How long a result stays valid, e.g. "2 years" or "Lifetime" (A4 profile 2026, "Test validity").
+  validity       String?         @db.VarChar(100)
   fee            Int?
   resultsUse     String          @db.Text
   patternNote    String          @db.Text

@@ -35,6 +35,7 @@ export default async function NewTestPage() {
           measures: "",
           frequency: "",
           frequencyNote: "",
+          validity: null,
           fee: null,
           resultsUse: "",
           patternNote: "",

@@ -1,26 +1,29 @@
 // Leadership messages from the 2026 A4 Institutional Profile (a4/index.html: Chairman's foreword, Strategic direction,
 // Leadership navigation). Portraits are the booklet's own cut-outs (profile/img/chairman-cutout.png,
-// zia-extended-transparent.png, ceo-transparent.png) as transparent WebP, served locally (never uploaded to Spaces).
+// zia-extended-transparent.png, ceo-transparent.png) as transparent WebP, served from Spaces (ETC/mockup/site/leaders/).
 export const leaderPhotos = {
   chairman: {
-    key: "local/img/leaders/niaz-ahmed-akhtar.webp",
-    url: "/img/leaders/niaz-ahmed-akhtar.webp",
+    key: "mockup/site/leaders/niaz-ahmed-akhtar.webp",
+    url: "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/site/leaders/niaz-ahmed-akhtar.webp",
+    size: 84500,
     mime: "image/webp",
     width: 640,
     height: 896,
     alt: "Prof. Dr. Niaz Ahmed Akhtar",
   },
   executiveDirector: {
-    key: "local/img/leaders/zia-ul-haq.webp",
-    url: "/img/leaders/zia-ul-haq.webp",
+    key: "mockup/site/leaders/zia-ul-haq.webp",
+    url: "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/site/leaders/zia-ul-haq.webp",
+    size: 57350,
     mime: "image/webp",
     width: 640,
     height: 853,
     alt: "Prof. Dr Zia ul Haq",
   },
   ceo: {
-    key: "local/img/leaders/imtiaz-haider.webp",
-    url: "/img/leaders/imtiaz-haider.webp",
+    key: "mockup/site/leaders/imtiaz-haider.webp",
+    url: "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/site/leaders/imtiaz-haider.webp",
+    size: 59512,
     mime: "image/webp",
     width: 640,
     height: 1063,

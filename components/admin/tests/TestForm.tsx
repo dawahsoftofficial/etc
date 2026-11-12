@@ -25,6 +25,7 @@ export type TestFormValues = {
   measures: string;
   frequency: string;
   frequencyNote: string;
+  validity: string | null;
   fee: number | null;
   resultsUse: string;
   patternNote: string;
@@ -97,6 +98,7 @@ export function TestForm({ action, test: t }: { action: FormAction; test: TestFo
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField name="frequency" label="Frequency" required defaultValue={t.frequency} />
           <TextField name="frequencyNote" label="Frequency note" required defaultValue={t.frequencyNote} />
+          <TextField name="validity" label="Result validity" defaultValue={t.validity ?? ""} hint="How long a result stays valid, e.g. 2 years or Lifetime. Leave empty to hide." />
         </div>
       </Panel>
 

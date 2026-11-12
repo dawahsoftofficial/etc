@@ -1,8 +1,9 @@
 // Homepage hero slides. The first mirrors the 2026 A4 Institutional Profile cover; the others are ported from
 // mockup/index.html. *Asterisks* in a title show those words in gold.
 export const heroCoverPhoto = {
-  key: "local/img/hero/cover-assessment.jpg",
-  url: "/img/hero/cover-assessment.jpg",
+  key: "mockup/site/hero/cover-assessment.jpg",
+  url: "https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/site/hero/cover-assessment.jpg",
+  size: 186421,
   mime: "image/jpeg",
   width: 1713,
   height: 918,
@@ -11,9 +12,9 @@ export const heroCoverPhoto = {
 
 export const heroSlides = [
   {
-    eyebrow: "Higher Education Commission · Pakistan",
+    eyebrow: "One Nation, One Standard, Equal Opportunity.",
     title: "Assessment, Testing and *Evaluation.*",
-    body: "A national assessment platform opening pathways to education, scholarships and professional opportunity through merit.",
+    body: "A national assessment platform supporting admissions, scholarships, recruitment, licensing and professional opportunities across Pakistan, the Sub-continent and the Middle East region.",
     cta1Label: "Find a Test",
     cta1Href: "/tests",
     cta2Label: "About ETC",

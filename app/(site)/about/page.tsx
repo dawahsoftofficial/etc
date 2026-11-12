@@ -262,17 +262,16 @@ export default async function Page() {
             <div data-reveal>
               <p className="eyebrow">Our vision</p>
               <p className="mt-4 font-serif text-2xl sm:text-3xl leading-snug">
-                To empower future generations of students to reach their full potential in service of the nation, by building a transparent,
-                merit-based and equitable system of education and professional opportunity, with an unwavering commitment to quality,
-                fairness and excellence.
+                Be the enabler for coming generations of students to unlock their true potential in service of the nation, as well as help
+                establish and ensure meritocracy at all levels of education, public service and professional endeavour through
+                uncompromising commitment to equity and fairness in all our efforts.
               </p>
             </div>
             <div data-reveal>
               <p className="eyebrow">Our mission</p>
               <p className="mt-4 text-lg text-white/85 leading-relaxed">
-                To advance quality and equity in education, public service and the professions across Pakistan, by making sound decisions
-                possible through assessments built on the core values of quality, integrity and equal opportunity — using the best available technology, and
-                developing our own tools, so that the true potential of our young people can be recognized and put to work for the country.
+                To advance quality and equity in education, public service and professional endeavour throughout the nation by making such
+                prudent decisions possible that are informed by core values of quality, integrity and equal opportunity.
               </p>
             </div>
           </div>
@@ -280,70 +279,33 @@ export default async function Page() {
           <ul className="mt-8 grid gap-px overflow-hidden rounded-2xl bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
             <li className="bg-green-900 p-6">
               <p className="font-serif text-xl text-gold-300">Merit</p>
-              <p className="mt-2 text-sm text-white/75">Opportunity is earned through ability and performance.</p>
+              <p className="mt-2 text-sm text-white/75">Opportunity based on ability and performance.</p>
             </li>
             <li className="bg-green-900 p-6">
               <p className="font-serif text-xl text-gold-300">Transparency</p>
-              <p className="mt-2 text-sm text-white/75">Processes are clear, explained and open to scrutiny.</p>
+              <p className="mt-2 text-sm text-white/75">Clear, accountable and understandable processes.</p>
             </li>
             <li className="bg-green-900 p-6">
               <p className="font-serif text-xl text-gold-300">Fairness</p>
-              <p className="mt-2 text-sm text-white/75">Every candidate is assessed impartially, under the same rules.</p>
+              <p className="mt-2 text-sm text-white/75">Impartial assessment for every candidate.</p>
             </li>
             <li className="bg-green-900 p-6">
               <p className="font-serif text-xl text-gold-300">Integrity</p>
-              <p className="mt-2 text-sm text-white/75">We act ethically and protect the credibility of every test.</p>
+              <p className="mt-2 text-sm text-white/75">Ethical conduct and protection of assessment credibility.</p>
             </li>
             <li className="bg-green-900 p-6">
               <p className="font-serif text-xl text-gold-300">Quality</p>
-              <p className="mt-2 text-sm text-white/75">We apply consistent standards and keep improving.</p>
+              <p className="mt-2 text-sm text-white/75">Consistent standards and continuous improvement.</p>
             </li>
             <li className="bg-green-900 p-6">
               <p className="font-serif text-xl text-gold-300">Innovation</p>
-              <p className="mt-2 text-sm text-white/75">We use modern methods and technology responsibly.</p>
+              <p className="mt-2 text-sm text-white/75">Responsible use of technology and modern assessment practices.</p>
             </li>
-            <li className="bg-green-900 p-6">
+            <li className="bg-green-900 p-6 lg:col-span-2">
               <p className="font-serif text-xl text-gold-300">Accountability</p>
-              <p className="mt-2 text-sm text-white/75">We take ownership of our results and our service.</p>
-            </li>
-            <li className="bg-green-900 p-6">
-              <p className="font-serif text-xl text-gold-300">Service</p>
-              <p className="mt-2 text-sm text-white/75">Candidates and institutions are at the centre of our work.</p>
+              <p className="mt-2 text-sm text-white/75">Ownership, governance and responsible service delivery.</p>
             </li>
           </ul>
-          <h2 className="mt-16 font-serif text-3xl font-semibold">What our values mean in practice</h2>
-          <dl className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-              <dt className="font-semibold text-gold-300">Merit</dt>
-              <dd className="mt-2 text-sm text-white/80">
-                Scores are based only on answers given; seat allocation and selection follow published rules.
-              </dd>
-            </div>
-            <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-              <dt className="font-semibold text-gold-300">Transparency</dt>
-              <dd className="mt-2 text-sm text-white/80">
-                Test formats, syllabi and rules are published in advance; answer keys and results are released on time.
-              </dd>
-            </div>
-            <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-              <dt className="font-semibold text-gold-300">Fairness</dt>
-              <dd className="mt-2 text-sm text-white/80">
-                Every question is checked for bias; candidates with special needs can request suitable arrangements.
-              </dd>
-            </div>
-            <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-              <dt className="font-semibold text-gold-300">Integrity</dt>
-              <dd className="mt-2 text-sm text-white/80">
-                Papers are generated in a secure environment; unfair-means cases are heard and decided by a set procedure.
-              </dd>
-            </div>
-            <div className="rounded-2xl bg-white/5 p-6 ring-1 ring-white/10">
-              <dt className="font-semibold text-gold-300">Quality</dt>
-              <dd className="mt-2 text-sm text-white/80">
-                Questions pass content, technical, language and fairness review, piloting and statistical analysis before and after use.
-              </dd>
-            </div>
-          </dl>
         </div>
       </section>
       {/* Governance */}

@@ -29,6 +29,7 @@ export const saveTest = defineAction({
       measures: input.measures,
       frequency: input.frequency,
       frequencyNote: input.frequencyNote,
+      validity: input.validity,
       fee: input.fee,
       resultsUse: input.resultsUse,
       patternNote: input.patternNote,

@@ -5,6 +5,7 @@ import { statSync } from "node:fs";
 import path from "node:path";
 import { Prisma, PrismaClient } from "@prisma/client";
 import data from "./seed-data/mockup.json";
+import { CLIENTS_2026, nsctPhoto, nsctTest, RESULT_VALIDITY_FAQ, TEST_VALIDITY } from "./seed-data/a4-2026";
 import { heroCoverPhoto, heroSlides } from "./seed-data/hero";
 import { leaderPhotos, leaders } from "./seed-data/leaders";
 import { settingsDefaults } from "./seed-data/settings";
@@ -48,8 +49,10 @@ function seedMedia(): Prisma.MediaCreateManyInput[] {
     ...data.media.map(({ ref: _ref, ...m }) => m),
     crest("etc-crest.png", "Education Testing Council crest", 428, 480),
     crest("hec-crest.png", "Higher Education Commission crest", 422, 480),
-    ...Object.values(leaderPhotos).map((photo) => ({ ...photo, size: statSync(path.join(here, "../public", photo.url)).size })),
-    { ...heroCoverPhoto, size: statSync(path.join(here, "../public", heroCoverPhoto.url)).size },
+    // site photos on Spaces (ETC/mockup/site/)
+    ...Object.values(leaderPhotos),
+    heroCoverPhoto,
+    nsctPhoto,
     {
       key: SAMPLE_PDF_KEY,
       url: `${CDN}files/sample.pdf`,
@@ -100,7 +103,12 @@ export async function seed(prisma: PrismaClient, env: SeedEnv): Promise<SeedRepo
   });
 
   const tests = await whenEmpty(prisma.test.count(), async () => {
-    for (const { sections, imageRef, categories, tos, ...t } of data.tests) {
+    // the mockup's tests plus the NSCT, with result validity from the 2026 A4 profile
+    const allTests = [
+      ...data.tests.map((t) => ({ ...t, validity: TEST_VALIDITY[t.slug] ?? null, sortOrder: t.slug === "customized" ? 6 : t.sortOrder })),
+      { ...nsctTest, imageRef: nsctPhoto.key, tos: null },
+    ];
+    for (const { sections, imageRef, categories, tos, ...t } of allTests) {
       await prisma.test.create({
         data: {
           ...t,
@@ -147,7 +155,11 @@ export async function seed(prisma: PrismaClient, env: SeedEnv): Promise<SeedRepo
 
   const faqs = await whenEmpty(prisma.faq.count(), () =>
     prisma.faq.createMany({
-      data: data.faqs.map((f) => ({ ...f, category: f.category as Prisma.FaqCreateManyInput["category"] })),
+      data: data.faqs.map((f) => ({
+        ...f,
+        answer: f.question === RESULT_VALIDITY_FAQ.question ? RESULT_VALIDITY_FAQ.answer : f.answer,
+        category: f.category as Prisma.FaqCreateManyInput["category"],
+      })),
     }),
   );
 
@@ -171,7 +183,7 @@ export async function seed(prisma: PrismaClient, env: SeedEnv): Promise<SeedRepo
 
   const clients = await whenEmpty(prisma.client.count(), () =>
     prisma.client.createMany({
-      data: data.clients.map((c) => ({ ...c, sector: c.sector as Prisma.ClientCreateManyInput["sector"] })),
+      data: CLIENTS_2026.map(([name, sector], order) => ({ name, sector, order })),
     }),
   );
 

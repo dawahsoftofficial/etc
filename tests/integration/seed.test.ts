@@ -40,6 +40,6 @@ describe.skipIf(!process.env.DATABASE_URL)("seed", () => {
     expect(notice.test?.slug).toBe("usat");
     expect(notice.attachments).toHaveLength(2);
     const chairman = await prisma.leader.findUniqueOrThrow({ where: { role: "CHAIRMAN" }, include: { photo: true } });
-    expect(chairman.photo?.url).toBe("/img/leaders/niaz-ahmed-akhtar.webp");
+    expect(chairman.photo?.url).toBe("https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/site/leaders/niaz-ahmed-akhtar.webp");
   });
 });

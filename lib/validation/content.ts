@@ -67,6 +67,7 @@ export const testInput = z.object({
   measures: text("What it measures", 5000),
   frequency: text("Frequency", 100),
   frequencyNote: text("Frequency note", 500),
+  validity: optionalText(100),
   fee: z.number().int().min(0, "Enter a fee of zero or more.").nullable(),
   resultsUse: text("How results are used", 5000),
   patternNote: text("Pattern note", 5000),

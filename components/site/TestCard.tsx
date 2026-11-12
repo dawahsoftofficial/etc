@@ -39,7 +39,7 @@ export function TestCard({ test: t }: { test: TestCardData }) {
           </div>
           <div>
             <dt className="text-xs text-muted">Fee*</dt>
-            <dd className="font-medium text-ink">{formatFee(t.fee)}</dd>
+            <dd className="font-medium text-ink">{formatFee(t.fee, t.category)}</dd>
           </div>
           <div className="col-span-2">
             <dt className="text-xs text-muted">Frequency</dt>

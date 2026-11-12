@@ -64,7 +64,7 @@ export default async function TestsAdminPage({ searchParams }: { searchParams: P
               </div>
             ),
             category: TEST_CATEGORY[t.category].label,
-            fee: <span className="whitespace-nowrap">{formatFee(t.fee)}</span>,
+            fee: <span className="whitespace-nowrap">{formatFee(t.fee, t.category)}</span>,
             linked: `${t._count.notices} / ${t._count.resources}`,
             state: <PublishedBadge published={t.published} />,
           },

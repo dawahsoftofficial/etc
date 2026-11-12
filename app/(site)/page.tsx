@@ -46,11 +46,12 @@ export default async function HomePage() {
   const coverStats = [
     candidates && {
       value: candidates.value >= 1_000_000 ? `${Number((candidates.value / 1_000_000).toFixed(2))} million` : candidates.value.toLocaleString("en-US"),
-      label: `Candidates tested ${candidates.note.toLowerCase()}`,
+      label: candidates.label,
+      sub: candidates.note,
     },
-    centres && { value: centres.value.toLocaleString("en-US"), label: cities ? `Test centres in ${cities.value} cities` : "Test centres" },
-    items && { value: items.value.toLocaleString("en-US"), label: items.label },
-  ].filter((x): x is { value: string; label: string } => Boolean(x));
+    centres && { value: centres.value.toLocaleString("en-US"), label: centres.label, sub: cities ? `In ${cities.value} cities` : "" },
+    items && { value: items.value.toLocaleString("en-US"), label: items.label, sub: "Continuously updated" },
+  ].filter((x): x is { value: string; label: string; sub: string } => Boolean(x));
 
   return (
     <>
@@ -58,7 +59,7 @@ export default async function HomePage() {
         slides={slides}
         firstSlideExtra={
           <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-1 border-y border-gold-500/50 py-3 font-serif text-base text-gold-300 sm:mt-7 sm:gap-x-6 sm:py-4 sm:text-xl">
-            {["Merit", "Transparency", "Fairness", "Quality"].map((v) => (
+            {["National Assessment", "Standardization", "Merit", "Fairness"].map((v) => (
               <li key={v}>{v}</li>
             ))}
           </ul>
@@ -68,8 +69,9 @@ export default async function HomePage() {
             <dl className="ml-auto hidden grid-cols-3 gap-6 lg:grid">
               {coverStats.map((c) => (
                 <div key={c.label} className="flex w-44 flex-col border-t-2 border-gold-500 pt-3">
-                  <dt className="order-2 mt-1 text-xs leading-snug text-white/75">{c.label}</dt>
+                  <dt className="order-2 mt-1 text-xs font-semibold leading-snug text-white/85">{c.label}</dt>
                   <dd className="order-1 font-serif text-2xl text-white">{c.value}</dd>
+                  {c.sub && <dd className="order-3 text-xs leading-snug text-white/65">{c.sub}</dd>}
                 </div>
               ))}
             </dl>
@@ -77,6 +79,13 @@ export default async function HomePage() {
         }
       />
       <QuickActions />
+      {/* The A4 profile's opening quotation (page 2) */}
+      <figure className="mx-auto max-w-3xl px-4 pt-16 text-center sm:px-6 sm:pt-20">
+        <blockquote className="font-serif text-2xl leading-snug text-green-800 sm:text-3xl">
+          “Assessment is not about proving what students know, but about improving what they learn.”
+        </blockquote>
+        <figcaption className="mt-4 text-sm font-semibold uppercase tracking-eyebrow text-gold-600">Dylan Wiliam</figcaption>
+      </figure>
       <Announcements notices={notices} schedule={schedule} />
       <FindYourTest tests={tests} />
       <Journeys institutionsImage={img(SECTION_IMAGES.institutions).url} />

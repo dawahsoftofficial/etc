@@ -62,7 +62,7 @@ test("the dashboard shows content counts, the inbox and recent activity", async 
   await login(page, ADMIN);
   await expect(page.getByRole("heading", { name: "Dashboard" })).toBeVisible();
   const tests = page.getByRole("link", { name: /^Tests/ }).filter({ hasText: "published" });
-  await expect(tests).toContainText("6 published");
+  await expect(tests).toContainText("7 published");
   await expect(page.getByRole("heading", { name: "Recent activity" })).toBeVisible();
   await expect(page.getByRole("link", { name: "New notice" })).toHaveAttribute("href", "/admin/notices/new");
 });

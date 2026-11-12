@@ -31,6 +31,7 @@ export async function _getTestBySlug(slug: string): Promise<TestDetail | null> {
     eligibility: t.eligibility,
     measures: t.measures,
     frequencyNote: t.frequencyNote,
+    validity: t.validity,
     resultsUse: t.resultsUse,
     patternNote: t.patternNote,
     reliability: t.reliability,

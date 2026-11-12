@@ -41,6 +41,7 @@ export default async function EditTestPage({ params }: { params: Promise<{ id: s
           measures: t.measures,
           frequency: t.frequency,
           frequencyNote: t.frequencyNote,
+          validity: t.validity,
           fee: t.fee,
           resultsUse: t.resultsUse,
           patternNote: t.patternNote,

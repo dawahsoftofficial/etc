@@ -5,10 +5,9 @@
 // Usage: npx tsx scripts/apply-a4-content.ts            (dry run: prints what would change)
 //        npx tsx scripts/apply-a4-content.ts --apply    (writes, and records each change in the audit log)
 // Afterwards restart the app (or clear .next/cache) so cached pages pick up the new content.
-import { statSync } from "node:fs";
-import path from "node:path";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import data from "../prisma/seed-data/mockup.json";
+import { CLIENTS_2026, nsctPhoto, nsctTest, RESULT_VALIDITY_FAQ, TEST_VALIDITY } from "../prisma/seed-data/a4-2026";
 import { heroCoverPhoto, heroSlides } from "../prisma/seed-data/hero";
 import { leaderPhotos, leaders } from "../prisma/seed-data/leaders";
 import { settingsDefaults } from "../prisma/seed-data/settings";
@@ -56,10 +55,9 @@ async function main() {
   console.log(`${apply ? "Applying" : "Dry run"} against database ${db}`);
 
   // Leader portraits from the booklet, and the hero cover photo.
-  const here = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
-  for (const photo of [...Object.values(leaderPhotos), heroCoverPhoto]) {
+  for (const photo of [...Object.values(leaderPhotos), heroCoverPhoto, nsctPhoto]) {
     if (await prisma.media.findUnique({ where: { key: photo.key } })) continue;
-    if (apply) await prisma.media.create({ data: { ...photo, size: statSync(path.join(here, "../public", photo.url)).size } });
+    if (apply) await prisma.media.create({ data: { ...photo } });
     await audit("Media", photo.key, `Added image: ${photo.alt}`);
   }
 
@@ -133,6 +131,84 @@ async function main() {
     }
     if (apply) await prisma.stat.update({ where: { id: row.id }, data: { value: next.value, label: next.label, note: next.note } });
     await audit("Stat", String(row.id), `${label} ${value} → ${next.label} ${next.value} (${next.note})`);
+  }
+
+  // ---- Updated A4 profile (Shoaib 3c92ccd) ----
+
+  // Result validity on LAT, HAT, USAT and LAW-GAT (only where not set yet).
+  for (const [slug, validity] of Object.entries(TEST_VALIDITY)) {
+    const t = await prisma.test.findUnique({ where: { slug } });
+    if (!t || t.validity) continue;
+    if (apply) await prisma.test.update({ where: { slug }, data: { validity } });
+    await audit("Test", slug, `Result validity: ${validity}`);
+  }
+
+  // The NSCT (new in the booklet), after USAT and before customized tests.
+  if (!(await prisma.test.findUnique({ where: { slug: nsctTest.slug } }))) {
+    if (apply) {
+      const photo = await prisma.media.findUniqueOrThrow({ where: { key: nsctPhoto.key } });
+      const { sections, categories: _c, ...t } = nsctTest;
+      await prisma.test.create({
+        data: { ...t, categories: Prisma.DbNull, tos: Prisma.DbNull, imageId: photo.id, sections: { create: sections.map((x, order) => ({ ...x, order })) } },
+      });
+      await prisma.test.updateMany({ where: { slug: "customized", sortOrder: 5 }, data: { sortOrder: 6 } });
+    }
+    await audit("Test", nsctTest.slug, `Added ${nsctTest.code}: ${nsctTest.name}`);
+  }
+
+  // FAQ: how long a result is valid (only while it still has the original vague answer).
+  const faq = await prisma.faq.findFirst({ where: { question: RESULT_VALIDITY_FAQ.question, answer: { startsWith: "Validity depends on the test" } } });
+  if (faq) {
+    if (apply) await prisma.faq.update({ where: { id: faq.id }, data: { answer: RESULT_VALIDITY_FAQ.answer } });
+    await audit("Faq", String(faq.id), `Answered “${RESULT_VALIDITY_FAQ.question}” with the booklet's validity periods`);
+  }
+
+  // First hero slide: the updated cover wording (only while it shows the first cover version).
+  const coverNow = await prisma.heroSlide.findFirst({ where: { title: heroSlides[0].title, body: { startsWith: "A national assessment platform opening pathways" } } });
+  if (coverNow) {
+    if (apply) await prisma.heroSlide.update({ where: { id: coverNow.id }, data: { eyebrow: heroSlides[0].eyebrow, body: heroSlides[0].body } });
+    await audit("HeroSlide", String(coverNow.id), `Cover wording: “${heroSlides[0].eyebrow}”`);
+  }
+
+  // Clients: the booklet's 48 "Our Clients", only if the list is still exactly the original mockup list.
+  const current = (await prisma.client.findMany({ select: { name: true } })).map((c) => c.name).sort();
+  const original = data.clients.map((c) => c.name).sort();
+  if (current.length === original.length && current.every((n, i) => n === original[i])) {
+    if (apply) {
+      await prisma.$transaction([
+        prisma.client.deleteMany({}),
+        prisma.client.createMany({ data: CLIENTS_2026.map(([name, sector], order) => ({ name, sector, order })) }),
+      ]);
+    }
+    await audit("Client", "all", `Replaced the ${original.length} mockup clients with the booklet's ${CLIENTS_2026.length}`);
+  } else if (current.length !== CLIENTS_2026.length) {
+    console.log("  skip clients: the list was edited in the admin panel");
+  }
+
+  // ---- Site photos now served from Spaces (ETC/mockup/site/) instead of the app's public/ folder ----
+  const LOCAL_TO_SPACES: [local: string, spaces: string][] = [
+    ["local/img/leaders/niaz-ahmed-akhtar.webp", leaderPhotos.chairman.key],
+    ["local/img/leaders/zia-ul-haq.webp", leaderPhotos.executiveDirector.key],
+    ["local/img/leaders/imtiaz-haider.webp", leaderPhotos.ceo.key],
+    ["local/img/leaders/imtiaz-haider.jpg", leaderPhotos.ceo.key],
+    ["local/img/hero/cover-assessment.jpg", heroCoverPhoto.key],
+    ["local/img/tests/nsct-cbt.jpg", nsctPhoto.key],
+  ];
+  for (const [localKey, spacesKey] of LOCAL_TO_SPACES) {
+    const local = await prisma.media.findUnique({ where: { key: localKey } });
+    if (!local) continue;
+    if (apply) {
+      const target = await prisma.media.findUniqueOrThrow({ where: { key: spacesKey } });
+      await prisma.$transaction([
+        prisma.leader.updateMany({ where: { photoId: local.id }, data: { photoId: target.id } }),
+        prisma.heroSlide.updateMany({ where: { imageId: local.id }, data: { imageId: target.id } }),
+        prisma.test.updateMany({ where: { imageId: local.id }, data: { imageId: target.id } }),
+        prisma.resource.updateMany({ where: { mediaId: local.id }, data: { mediaId: target.id } }),
+        prisma.noticeAttachment.updateMany({ where: { mediaId: local.id }, data: { mediaId: target.id } }),
+        prisma.media.delete({ where: { id: local.id } }),
+      ]);
+    }
+    await audit("Media", localKey, `Now served from Spaces: ${spacesKey}`);
   }
 
   console.log(changes.length ? changes.map((c) => `  ${apply ? "changed" : "would change"} ${c}`).join("\n") : "  nothing to change");

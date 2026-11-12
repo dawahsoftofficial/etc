@@ -85,10 +85,12 @@ export function TestDetail({ test: t, settings }: { test: TestDetailData; settin
             </p>
             <h1 className="mt-4 font-serif text-4xl font-semibold leading-tight sm:text-5xl">{t.name}</h1>
             <p className="mt-4 text-lg text-white/80">{t.short}</p>
-            <dl className="mt-8 grid max-w-xl grid-cols-2 gap-4 border-t border-white/15 pt-6 sm:grid-cols-3">
+            <dl
+              className={`mt-8 grid grid-cols-2 gap-4 border-t border-white/15 pt-6 ${t.validity ? "max-w-2xl sm:grid-cols-4" : "max-w-xl sm:grid-cols-3"}`}
+            >
               <div>
                 <dt className="text-xs uppercase tracking-wider text-white/60">Fee*</dt>
-                <dd className="mt-1 font-serif text-lg sm:text-2xl">{formatFee(t.fee)}</dd>
+                <dd className="mt-1 font-serif text-lg sm:text-2xl">{formatFee(t.fee, t.category)}</dd>
               </div>
               <div>
                 <dt className="text-xs uppercase tracking-wider text-white/60">Frequency</dt>
@@ -98,6 +100,12 @@ export function TestDetail({ test: t, settings }: { test: TestDetailData; settin
                 <dt className="text-xs uppercase tracking-wider text-white/60">For</dt>
                 <dd className="mt-1 font-serif text-lg sm:text-2xl">{t.level}</dd>
               </div>
+              {t.validity && (
+                <div>
+                  <dt className="text-xs uppercase tracking-wider text-white/60">Result valid for</dt>
+                  <dd className="mt-1 font-serif text-lg sm:text-2xl">{t.validity}</dd>
+                </div>
+              )}
             </dl>
             <div className="mt-8 flex flex-wrap gap-3">
               {isCustom ? (
@@ -259,7 +267,7 @@ export function TestDetail({ test: t, settings }: { test: TestDetailData; settin
 
           <Section id="fees" eyebrow="Fees & notices" title="Fee and official notices">
             <div className="mt-6 flex flex-col gap-4 rounded-xl border border-gold-300 bg-cream-50 p-6 sm:flex-row sm:items-center">
-              <p className="font-serif text-4xl font-semibold text-green-700">{formatFee(t.fee)}</p>
+              <p className="font-serif text-4xl font-semibold text-green-700">{formatFee(t.fee, t.category)}</p>
               <p className="text-sm text-ink/80 sm:border-l sm:border-gold-300 sm:pl-4">
                 {isCustom ? "Fees are agreed with each client institution." : `Per candidate. ${FEE_NOTE}`}
               </p>

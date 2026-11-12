@@ -18,7 +18,8 @@ describe.skipIf(!process.env.DATABASE_URL)("content queries", () => {
 
   test("published tests come back in sortOrder with fees and images", async () => {
     const t = await _getPublishedTests();
-    expect(t.map((x) => x.slug)).toEqual(["lat", "law-gat", "hat", "haat", "usat", "customized"]);
+    expect(t.map((x) => x.slug)).toEqual(["lat", "law-gat", "hat", "haat", "usat", "nsct", "customized"]);
+    expect(t.find((x) => x.slug === "nsct")!.image?.url).toMatch(/\/ETC\/mockup\/site\/tests\/nsct-cbt\.jpg$/);
     expect(t.find((x) => x.slug === "customized")!.fee).toBeNull();
     expect(t[0].image?.url).toMatch(/\/ETC\/mockup\/images\/test-lat\.jpg$/);
     expect((await _getTestOptions()).map((o) => o.code)).toContain("USAT");
@@ -91,9 +92,11 @@ describe.skipIf(!process.env.DATABASE_URL)("content queries", () => {
     const schedule = await _getSchedule();
     expect(schedule.map((s) => s.regCloses)).toEqual([...schedule.map((s) => s.regCloses)].sort());
     const clients = await _getClients();
-    expect(clients.FEDERAL[0]).toBe("Higher Education Commission (HRM & HRD Divisions)");
-    expect(clients.UNIVERSITY).toHaveLength(16);
-    expect((await _getLeader("CHAIRMAN"))!.photo?.url).toBe("/img/leaders/niaz-ahmed-akhtar.webp");
+    // the 2026 A4 profile's 48 clients, in its numbering
+    expect(clients.FEDERAL[0]).toBe("Supreme Court of Pakistan");
+    expect(clients.UNIVERSITY).toHaveLength(19);
+    expect(Object.values(clients).flat()).toHaveLength(48);
+    expect((await _getLeader("CHAIRMAN"))!.photo?.url).toBe("https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/site/leaders/niaz-ahmed-akhtar.webp");
     expect((await _getLeaders()).map((l) => l.role)).toEqual(["CHAIRMAN", "EXECUTIVE_DIRECTOR", "CEO"]);
     const settings = await _getSettings();
     expect(settings.portalRegistrationUrl).toBe("#portal-registration");

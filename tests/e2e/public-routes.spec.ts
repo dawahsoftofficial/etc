@@ -7,7 +7,7 @@ test.describe("home", () => {
     await expect(page.getByText("Candidates tested", { exact: true })).toBeVisible();
     await expect(page.getByText("Prof. Dr. Niaz Ahmed Akhtar (S.I)").first()).toBeVisible();
     await expect(page.locator("#home-notices li")).toHaveCount(5);
-    await expect(page.locator("#home-tests article")).toHaveCount(6);
+    await expect(page.locator("#home-tests article")).toHaveCount(7);
     await expect(page.locator("#home-schedule li")).toHaveCount(4);
     await expect(page.getByRole("link", { name: "Law Admission Test" }).first()).toHaveAttribute("href", "/tests/lat");
   });
@@ -68,16 +68,16 @@ test("quality workflow tabs switch by keyboard", async ({ page }) => {
 test.describe("tests", () => {
   test("directory filters by purpose and level with URL state", async ({ page }) => {
     await page.goto("/tests");
-    await expect(page.locator("#test-grid article")).toHaveCount(6);
+    await expect(page.locator("#test-grid article")).toHaveCount(7);
     await page.getByRole("link", { name: "Postgraduate & scholarships" }).click();
     await expect(page).toHaveURL(/category=postgraduate/);
     await expect(page.locator("#test-grid article")).toHaveCount(2);
     await page.getByRole("link", { name: "PhD", exact: true }).click();
     await expect(page.locator("#test-grid article")).toHaveCount(1);
-    await expect(page.getByText("Showing 1 of 6 tests")).toBeVisible();
+    await expect(page.getByText("Showing 1 of 7 tests")).toBeVisible();
     await page.goto("/tests?category=licensing&level=PhD");
     await expect(page.getByText("No tests match these filters.").first()).toBeVisible();
-    await expect(page.locator("#compare-body tr")).toHaveCount(6);
+    await expect(page.locator("#compare-body tr")).toHaveCount(7);
   });
 
   test("/tests/usat shows the TOS table with Common Core total 45", async ({ page }) => {

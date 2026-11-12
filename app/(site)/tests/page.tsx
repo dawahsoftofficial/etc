@@ -20,6 +20,7 @@ const PURPOSES: [TestCategory | "", string][] = [
   ["POSTGRADUATE", "Postgraduate & scholarships"],
   ["LICENSING", "Licensing"],
   ["RECRUITMENT", "Recruitment & customized"],
+  ["SKILLS", "Skills & competency"],
 ];
 const LEVELS = ["Undergraduate", "MS / MPhil", "PhD", "Professional"];
 
@@ -63,7 +64,7 @@ export default async function TestsPage({ searchParams }: { searchParams: Promis
           <p className="eyebrow mt-8">Tests &amp; Assessments</p>
           <h1 className="mt-3 max-w-3xl font-serif text-4xl font-semibold leading-tight sm:text-5xl">A standardized national assessment portfolio</h1>
           <p className="mt-4 max-w-2xl text-lg text-white/80">
-            Five national tests and customized assessments. Every test follows the same quality process — blueprint, review, piloting
+            Six national tests and customized assessments. Every test follows the same quality process — blueprint, review, piloting
             and analysis — with content, format and scoring tailored to the decision it supports.
           </p>
         </div>
@@ -140,7 +141,7 @@ export default async function TestsPage({ searchParams }: { searchParams: Promis
                     <td>{t.audience}</td>
                     <td>{t.short}</td>
                     <td>{t.frequency}</td>
-                    <td className="whitespace-nowrap">{formatFee(t.fee)}</td>
+                    <td className="whitespace-nowrap">{formatFee(t.fee, t.category)}</td>
                   </tr>
                 ))}
               </tbody>

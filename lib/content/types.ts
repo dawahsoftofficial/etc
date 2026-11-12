@@ -64,6 +64,7 @@ export type TestDetail = TestCard & {
   eligibility: string;
   measures: string;
   frequencyNote: string;
+  validity: string | null;
   resultsUse: string;
   patternNote: string;
   reliability: string;
