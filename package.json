@@ -5,6 +5,7 @@
   "description": "Education Testing Council website (Next.js), with the Phase 1 HTML mockup and the Institutional Profile alongside",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
