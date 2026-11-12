@@ -93,7 +93,7 @@ describe.skipIf(!process.env.DATABASE_URL)("content queries", () => {
     const clients = await _getClients();
     expect(clients.FEDERAL[0]).toBe("Higher Education Commission (HRM & HRD Divisions)");
     expect(clients.UNIVERSITY).toHaveLength(16);
-    expect((await _getLeader("CHAIRMAN"))!.photo?.url).toBe("/img/leaders/niaz-ahmed-akhtar.jpg");
+    expect((await _getLeader("CHAIRMAN"))!.photo?.url).toBe("/img/leaders/niaz-ahmed-akhtar.webp");
     expect((await _getLeaders()).map((l) => l.role)).toEqual(["CHAIRMAN", "EXECUTIVE_DIRECTOR", "CEO"]);
     const settings = await _getSettings();
     expect(settings.portalRegistrationUrl).toBe("#portal-registration");

@@ -5,11 +5,15 @@ import { test, expect } from "@playwright/test";
 test("leadership: the HEC Chairman, the HEC Executive Director and the ETC CEO, each with their own portrait", async ({ page }) => {
   await page.goto("/about#leadership");
   const section = page.locator("#leadership");
-  await expect(section.getByText("Prof. Dr Niaz Ahmed Akhtar")).toBeVisible();
-  await expect(section.getByText("Chairman, Higher Education Commission", { exact: true })).toBeVisible();
-  await expect(section.getByText("Dr. Zia Ul Haq")).toBeVisible();
-  await expect(section.getByText("Executive Director, Higher Education Commission", { exact: true })).toBeVisible();
-  await expect(section.getByText("Dr Muhammad Imtiaz Haider")).toHaveCount(1);
+  await expect(section.getByText("Prof. Dr. Niaz Ahmed Akhtar (S.I)")).toBeVisible();
+  await expect(section.getByText("Chairman, Higher Education Commission of Pakistan", { exact: true })).toBeVisible();
+  await expect(section.getByText("Meritorious Prof. Dr Zia ul Haq (S.I)")).toBeVisible();
+  await expect(section.getByText("Executive Director, Higher Education Commission of Pakistan", { exact: true })).toBeVisible();
+  await expect(section.getByText("Dr. Muhammad Imtiaz Haider")).toHaveCount(1);
+  // each leader shows their own booklet portrait (the Chairman's and Executive Director's were once swapped)
+  await expect(section.locator("#chairman img")).toHaveAttribute("src", /niaz-ahmed-akhtar\.webp/);
+  await expect(section.locator("#executive-director img")).toHaveAttribute("src", /zia-ul-haq\.webp/);
+  await expect(section.locator("#ceo img")).toHaveAttribute("src", /imtiaz-haider\.webp/);
   await expect(section.getByText("Chief Executive Officer, Education Testing Council", { exact: true })).toBeVisible();
   await expect(section).toContainText("For a candidate, a single test result can influence the course of a life.");
   const photos = await section.locator("img").evaluateAll((imgs) => imgs.map((i) => (i as HTMLImageElement).currentSrc));
@@ -19,7 +23,7 @@ test("leadership: the HEC Chairman, the HEC Executive Director and the ETC CEO, 
 test("home: the Chairman's message and the record in numbers", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText("A fair test opens a door. Our responsibility is to ensure that it opens on the strength of merit.")).toBeVisible();
-  await expect(page.getByText("Prof. Dr Niaz Ahmed Akhtar").first()).toBeVisible();
+  await expect(page.getByText("Prof. Dr. Niaz Ahmed Akhtar (S.I)").first()).toBeVisible();
   // the hero mirrors the A4 cover: title, values and the three headline figures
   await expect(page.getByRole("heading", { level: 1, name: "Assessment, Testing and Evaluation." })).toBeVisible();
   for (const v of ["Merit", "Transparency", "Fairness", "Quality"]) await expect(page.locator("[data-carousel]").getByText(v, { exact: true })).toBeVisible();

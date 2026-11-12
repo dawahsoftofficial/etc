@@ -17,8 +17,20 @@ const apply = process.argv.includes("--apply");
 const prisma = new PrismaClient();
 const changes: string[] = [];
 
-const OLD_LEADER_NAME = "Dr Muhammad Imtiaz Haider";
-const OLD_CEO_TITLE = "Chief Executive Officer, ETC";
+// Every name/title the seed has used before, per role: a leader still holding one of these was never edited by hand.
+const PREVIOUS_LEADERS: Record<string, { names: string[]; titles: string[] }> = {
+  CHAIRMAN: {
+    names: ["Dr Muhammad Imtiaz Haider", "Prof. Dr Niaz Ahmed Akhtar"],
+    titles: ["Chairman, Board of Governors", "Chairman, Higher Education Commission"],
+  },
+  EXECUTIVE_DIRECTOR: {
+    names: ["Dr Muhammad Imtiaz Haider", "Dr. Zia Ul Haq"],
+    titles: ["Executive Director, Higher Education Commission"],
+  },
+  CEO: { names: ["Dr Muhammad Imtiaz Haider"], titles: ["Chief Executive Officer, ETC", "Chief Executive Officer, Education Testing Council"] },
+};
+// Portraits added on 2026-11-09 under each other's names (the Chairman's and Executive Director's photos were swapped).
+const MISLABELLED_PHOTOS = ["local/img/leaders/niaz-ahmed-akhtar.jpg", "local/img/leaders/zia-ul-haq.jpg"];
 const OLD_HERO_TITLE = "A fair test opens a door.";
 const OLD_SETTINGS = {
   helpline: "[to be provided]",
@@ -43,7 +55,7 @@ async function main() {
   const db = new URL(process.env.DATABASE_URL ?? "").pathname.slice(1);
   console.log(`${apply ? "Applying" : "Dry run"} against database ${db}`);
 
-  // Portraits for the Chairman and Executive Director (the CEO's already exists).
+  // Leader portraits from the booklet, and the hero cover photo.
   const here = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, "$1"));
   for (const photo of [...Object.values(leaderPhotos), heroCoverPhoto]) {
     if (await prisma.media.findUnique({ where: { key: photo.key } })) continue;
@@ -52,19 +64,40 @@ async function main() {
   }
 
   for (const next of leaders) {
-    const row = await prisma.leader.findUnique({ where: { role: next.role } });
-    if (!row || (row.name === next.name && row.title === next.title)) continue; // missing, or already up to date
-    const untouched = next.role === "CEO" ? row.title === OLD_CEO_TITLE : row.name === OLD_LEADER_NAME;
+    const row = await prisma.leader.findUnique({ where: { role: next.role }, include: { photo: { select: { key: true } } } });
+    if (!row) continue;
+    const { photoKey, ...fields } = next;
+    if (row.name === next.name && row.title === next.title && row.photo?.key === photoKey) continue; // already up to date
+    const prev = PREVIOUS_LEADERS[next.role];
+    const untouched = (row.name === next.name || prev.names.includes(row.name)) && (row.title === next.title || prev.titles.includes(row.title));
     if (!untouched) {
       console.log(`  skip leader ${next.role}: edited in the admin panel`);
       continue;
     }
-    const { photoKey, ...fields } = next;
     if (apply) {
       const photo = await prisma.media.findUniqueOrThrow({ where: { key: photoKey } });
       await prisma.leader.update({ where: { role: next.role }, data: { ...fields, photoId: photo.id } });
     }
-    await audit("Leader", next.role, `Updated ${next.title}: ${next.name}`);
+    await audit("Leader", next.role, `${next.title}: ${next.name}, with the booklet portrait`);
+  }
+
+  // Remove the swapped portraits once nothing uses them (a wrong face under a leader's name must not stay in the library).
+  for (const key of MISLABELLED_PHOTOS) {
+    const m = await prisma.media.findUnique({ where: { key } });
+    if (!m) continue;
+    const used = apply
+      ? (await prisma.leader.count({ where: { photoId: m.id } })) +
+        (await prisma.test.count({ where: { imageId: m.id } })) +
+        (await prisma.heroSlide.count({ where: { imageId: m.id } })) +
+        (await prisma.resource.count({ where: { mediaId: m.id } })) +
+        (await prisma.noticeAttachment.count({ where: { mediaId: m.id } }))
+      : 0;
+    if (used) {
+      console.log(`  keep ${key}: still used somewhere`);
+      continue;
+    }
+    if (apply) await prisma.media.delete({ where: { id: m.id } });
+    await audit("Media", key, "Removed a mislabelled portrait (Chairman and Executive Director photos were swapped)");
   }
 
   // First hero slide → the A4 cover (only while it still shows the original mockup slide).

@@ -5,7 +5,7 @@ test.describe("home", () => {
     await page.goto("/");
     await expect(page.getByRole("heading", { level: 1, name: "Assessment, Testing and Evaluation." })).toBeVisible();
     await expect(page.getByText("Candidates tested", { exact: true })).toBeVisible();
-    await expect(page.getByText("Prof. Dr Niaz Ahmed Akhtar").first()).toBeVisible();
+    await expect(page.getByText("Prof. Dr. Niaz Ahmed Akhtar (S.I)").first()).toBeVisible();
     await expect(page.locator("#home-notices li")).toHaveCount(5);
     await expect(page.locator("#home-tests article")).toHaveCount(6);
     await expect(page.locator("#home-schedule li")).toHaveCount(4);

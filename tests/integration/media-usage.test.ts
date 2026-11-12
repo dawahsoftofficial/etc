@@ -21,7 +21,7 @@ describe.skipIf(!process.env.DATABASE_URL)("media usage", () => {
   test("seed media is reported where used", async () => {
     const usat = await prisma.media.findUniqueOrThrow({ where: { key: "mockup/images/test-usat.jpg" } });
     expect(await findMediaUsage(usat.id)).toContain("Test: USAT");
-    const photo = await prisma.media.findUniqueOrThrow({ where: { key: "local/img/leaders/imtiaz-haider.jpg" } });
+    const photo = await prisma.media.findUniqueOrThrow({ where: { key: "local/img/leaders/imtiaz-haider.webp" } });
     expect(await findMediaUsage(photo.id)).toEqual(expect.arrayContaining(["Leader: CEO"]));
   });
 });

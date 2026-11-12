@@ -1,29 +1,30 @@
 // Leadership messages from the 2026 A4 Institutional Profile (a4/index.html: Chairman's foreword, Strategic direction,
-// Leadership navigation). Photos are real supplied portraits, served locally (never uploaded to Spaces).
+// Leadership navigation). Portraits are the booklet's own cut-outs (profile/img/chairman-cutout.png,
+// zia-extended-transparent.png, ceo-transparent.png) as transparent WebP, served locally (never uploaded to Spaces).
 export const leaderPhotos = {
   chairman: {
-    key: "local/img/leaders/niaz-ahmed-akhtar.jpg",
-    url: "/img/leaders/niaz-ahmed-akhtar.jpg",
-    mime: "image/jpeg",
-    width: 400,
-    height: 400,
-    alt: "Prof. Dr Niaz Ahmed Akhtar",
+    key: "local/img/leaders/niaz-ahmed-akhtar.webp",
+    url: "/img/leaders/niaz-ahmed-akhtar.webp",
+    mime: "image/webp",
+    width: 640,
+    height: 896,
+    alt: "Prof. Dr. Niaz Ahmed Akhtar",
   },
   executiveDirector: {
-    key: "local/img/leaders/zia-ul-haq.jpg",
-    url: "/img/leaders/zia-ul-haq.jpg",
-    mime: "image/jpeg",
-    width: 300,
-    height: 300,
-    alt: "Dr. Zia Ul Haq",
+    key: "local/img/leaders/zia-ul-haq.webp",
+    url: "/img/leaders/zia-ul-haq.webp",
+    mime: "image/webp",
+    width: 640,
+    height: 853,
+    alt: "Prof. Dr Zia ul Haq",
   },
   ceo: {
-    key: "local/img/leaders/imtiaz-haider.jpg",
-    url: "/img/leaders/imtiaz-haider.jpg",
-    mime: "image/jpeg",
-    width: 300,
-    height: 300,
-    alt: "Dr Muhammad Imtiaz Haider",
+    key: "local/img/leaders/imtiaz-haider.webp",
+    url: "/img/leaders/imtiaz-haider.webp",
+    mime: "image/webp",
+    width: 640,
+    height: 1063,
+    alt: "Dr. Muhammad Imtiaz Haider",
   },
 } as const;
 
@@ -32,8 +33,8 @@ const p = (...paragraphs: string[]) => paragraphs.map((t) => `<p>${t}</p>`).join
 export const leaders = [
   {
     role: "CHAIRMAN",
-    name: "Prof. Dr Niaz Ahmed Akhtar",
-    title: "Chairman, Higher Education Commission",
+    name: "Prof. Dr. Niaz Ahmed Akhtar (S.I)",
+    title: "Chairman, Higher Education Commission of Pakistan",
     photoKey: leaderPhotos.chairman.key,
     quote: "A fair test opens a door. Our responsibility is to ensure that it opens on the strength of merit.",
     messageHtml: p(
@@ -46,8 +47,8 @@ export const leaders = [
   },
   {
     role: "EXECUTIVE_DIRECTOR",
-    name: "Dr. Zia Ul Haq",
-    title: "Executive Director, Higher Education Commission",
+    name: "Meritorious Prof. Dr Zia ul Haq (S.I)",
+    title: "Executive Director, Higher Education Commission of Pakistan",
     photoKey: leaderPhotos.executiveDirector.key,
     quote: "Strengthening assessment through integrity, innovation, standardization and excellent service.",
     messageHtml:
@@ -70,7 +71,7 @@ export const leaders = [
   },
   {
     role: "CEO",
-    name: "Dr Muhammad Imtiaz Haider",
+    name: "Dr. Muhammad Imtiaz Haider",
     title: "Chief Executive Officer, Education Testing Council",
     photoKey: leaderPhotos.ceo.key,
     quote: "Building confidence in assessment by placing merit, integrity and the candidate experience at the heart of everything we do.",
