@@ -44,6 +44,69 @@ for t,ids in groups:
  reflowed.append((t,ids))
  if t=='Assessment glossary': reflowed.append(('Assessment glossary — continued',[83]))
 groups=reflowed
+groups=[g for g in groups if g[0]!='Capabilities, track record and partners']+[('Our Clients',[76,77])]
+groups.append(('Our Clients — continued',[76,77]))
+
+CLIENTS=[
+ 'Supreme Court of Pakistan.',
+ 'Gilgit Baltistan Chief Court, Public Sector/Judicial Institution',
+ 'Election Commission Gilgit Baltistan.',
+ 'National AML / CFT Recruitment Tests',
+ 'Federal Ombudsman/Wafaqi Mohtasib Secretariat Recruitment',
+ 'Ministry of Federal Education & Professional Training, Government of Pakistan. (Daanish Schools Authority)',
+ 'Shaheed Zulfiqar Ali Bhutto Medical University (SZABMU)(MDCAT)',
+ 'Pakistan Infrastructure Development Company Limited (PIDCL)',
+ 'Federal Directorate of Education',
+ 'Balochistan Public Procurement Regulatory Authority (BPPRA)',
+ 'GB Board of Revenue',
+ 'NAVTTAC',
+ 'GB Police Recruitment Tests',
+ 'GB Health Department',
+ 'HEC (HRM and HRD Divisions)',
+ 'Rawalpindi Women University',
+ 'Emerson University Multan',
+ 'Interim Placement of Fresh PhDs (IPFP)',
+ 'University of Karachi',
+ 'University of Mianwali',
+ 'Shah Abdul Latif University, Kahirpur',
+ 'Pakistan Social Protection Authority (PSPA)',
+ 'University of Education Lahore',
+ 'University of Loralai',
+ 'University of Turbat',
+ 'University of Layyah',
+ 'Allama Iqbal Open University(AIOU)',
+ 'University of Baltistan',
+ 'University of Haripur',
+ 'University of Haveli Kahuta AJK',
+ 'National Curriculum Council',
+ 'Fatima Jinnah Women University',
+ 'Drug Regulatory Authority of Pakistan (DRAP)',
+ 'Ministry of Defence Production Pakistan (MODP)',
+ 'Chief Minister’s Inspection Team Balochistan (CMIT)',
+ 'University Of Makran Panjgur.Balochistan',
+ 'University of Engineering and Technology,Taxila',
+ 'Balochistan Residential College (BRC )',
+ 'Quaid-i-Azam University,Islamabad(Under Graduate Admission Test)',
+ 'PMU-BESP (Project/Education Sector)',
+ 'Balochistan Education Endowment Fund -(BEEF) Scholarship (LLM and Bar at LAW)',
+ 'BALFATA Scholarship',
+ 'Shaheed Zulfiqar Ali Bhutto Medical University SZABMU-MDCAT (Soudi Arab & Dubai)',
+ 'Afghan Student-Scholarship',
+ 'Sri-Lanka Student -Scholarship',
+ 'Bangaladash Scholarship',
+ 'BRC Zhob',
+ 'BRC Khuzdar'
+]
+
+CORE_VALUES=[
+ ('Merit','Opportunity based on ability and performance.'),
+ ('Transparency','Clear, accountable and understandable processes.'),
+ ('Fairness','Impartial assessment for every candidate.'),
+ ('Integrity','Ethical conduct and protection of assessment credibility.'),
+ ('Quality','Consistent standards and continuous improvement.'),
+ ('Innovation','Responsible use of technology and modern assessment practices.'),
+ ('Accountability','Ownership, governance and responsible service delivery.')
+]
 
 def text(node):
  return re.sub(r'\s+', ' ', ' '.join(node.itertext())).strip()
@@ -195,9 +258,8 @@ def condensed(title):
  if title=='Mandate, vision and mission': return topic('A public mandate',[
  'ETC works under the Higher Education Commission to provide credible assessment for admissions, scholarships, recruitment, licensing and other institutional needs. Its purpose is to make selection fairer, more transparent and based on merit.',
  'Its national role includes legal education testing. Following the Supreme Court’s directions on legal education reforms, LAT and LAW-GAT provide gateways to legal study and professional practice.'])+topic('Legal education reforms',rows=[('Regulators','The Pakistan Bar Council and HEC regulate professional standards and legal education.'),('LAT','The Law Admission Test is held twice a year for admission to LLB programmes.'),('LAW-GAT','The Law Graduate Assessment Test is held quarterly for law graduates seeking enrolment as advocates.')])+topic('Our vision',[
- 'To empower future generations of students to reach their full potential in service of the nation, by building a transparent, merit-based and equitable system of education and professional opportunity, with an unwavering commitment to quality, fairness and excellence.'])+topic('Our mission',[
- 'To advance quality and equity in education, public service and the professions across Pakistan, by making sound decisions possible through assessments built on the core values of quality, integrity and equal opportunity.',
- 'To use the best available technology, and to develop our own tools, so that the true potential of our young people can be recognized and put to work for the country.'])
+ 'Be the enabler for coming generations of students to unlock their true potential in service of the nation, as well as help establish and ensure meritocracy at all levels of education, public service and professional endeavor through uncompromising commitment to equity and fairness in all our efforts.'])+topic('Our mission',[
+ 'To advance quality and equity in education, public service and professional endeavour throughout the nation by making such prudent decisions possible that are informed by core values of quality, integrity and equal opportunity.'])
  if title=='Values and governance': return topic('Values in daily practice',rows=[('Merit','Scores are based on answers given; selection follows published rules.'),('Transparency','Test formats, syllabi and rules are published in advance, with timely keys and results.'),('Fairness','Items are checked for bias and suitable arrangements can be requested for special needs.'),('Integrity','Papers are generated securely and unfair-means cases follow a defined hearing procedure.'),('Quality','Questions pass through expert review, piloting and statistical analysis.')])+topic('Oversight and representation',[
  'ETC’s governance connects policy oversight with clear operational responsibility. The Board of Governors sets direction and provides oversight. The Chief Executive Officer leads the Council and its day-to-day work.',
  'Institutional representation and specialist advice support decisions on standards, operations and the needs of stakeholders. Internal Audit reports independently, while the Secretariat provides technical, legal, financial and administrative advice.'])+topic('Accountable administration',[
@@ -269,18 +331,18 @@ def condensed(title):
 def section(title,indices,number):
  if not indices:
   picture,position={
-   'About ETC':('campus.jpg','54% center'),
+   'About ETC':('future-office-headquarters.png','50% center'),
    'Assessments & Methodology':('experts.jpg','50% center'),
    'Quality & Operations':('real-hall-wide.jpg','62% center')
   }[title]
   return '<article class="page chapter" data-title="'+escape(title)+'"><img class="chapter-photo" src="/profile/img/'+picture+'" alt="'+escape(title)+'" style="object-position:'+position+'"><div class="chapter-title"><h2>'+escape(title).replace(' &amp; ',' &amp;<br>')+'.</h2></div>'+foot(number,title)+'</article>'
  lead = number in [3,4,5]
  if lead:
-  src={3:'chairman-cutout.png',4:'chairman-niaz.jpg',5:'real-ceo-portrait.jpg'}[number]
-  name={3:'Prof. Dr Niaz Ahmed Akhtar',4:'Dr. Zia Ul Haq',5:'Dr Muhammad Imtiaz Haider'}[number]
-  role={3:'Chairman, Higher Education Commission of Pakistan',4:'Executive Director, Higher Education Commission of Pakistan',5:'Chief Executive Officer, Education Testing Council'}[number]
+  src={3:'chairman-cutout.png',4:'zia-extended-transparent.png',5:'ceo-transparent.png'}[number]
+  name={3:'Prof. Dr. Niaz Ahmed Akhtar (S.I)',4:'Meritorious Prof. Dr Zia ul Haq (S.I)',5:'Dr. Muhammad Imtiaz Haider'}[number]
+  role={3:'Chairman Higher Education Commission Of Pakistan',4:'Executive Director, Higher Education Commission of Pakistan',5:'Chief Executive Officer, Education Testing Council'}[number]
   quote={3:'A fair test opens a door. Our responsibility is to ensure that it opens on the strength of merit.',4:'Strengthening assessment through integrity, innovation, standardization and excellent service.',5:'Building confidence in assessment by placing merit, integrity and the candidate experience at the heart of everything we do.'}[number]
-  hero='<div class="leader"><img src="/profile/img/'+src+'" alt="'+name+'"><div><blockquote>“'+quote+'”</blockquote><b>'+name+'</b><small>'+role+'</small></div></div>'
+  hero='<div class="leader"><div class="leader-portrait"><img src="/profile/img/'+src+'" alt="'+name+'"></div><div><blockquote>“'+quote+'”</blockquote><b>'+name+'</b><small>'+role+'</small></div></div>'
   body=body_for(indices[0])
   if number==3:
    paragraphs=[
@@ -321,6 +383,29 @@ def section(title,indices,number):
   else: body='<section><h3>Assessment glossary · continued</h3><div class="glossary-grid">'+''.join(terms[16:])+'</div></section><section class="contact-compact"><h3>Education Testing Council</h3><p>Higher Education Commission, Islamabad, Pakistan</p><div class="contacts"><article><span>Email</span><h3>etc@hec.gov.pk</h3></article><article><span>Phone</span><h3>051-90408184</h3></article><article><span>Website</span><h3>etc.hec.gov.pk</h3></article></div></section>'
  edited=condensed(title)
  if edited: body=edited
+ if title in ['Our Clients','Our Clients — continued']:
+  body='<div class="client-columns">'
+  for start in ([0] if title=='Our Clients' else [24]):
+   body+='<ol class="client-list" start="'+str(start+1)+'">'+''.join('<li><span class="client-number">'+str(n+1).zfill(2)+'</span><span>'+escape(CLIENTS[n])+'</span></li>' for n in range(start,min(start+24,len(CLIENTS))))+'</ol>'
+  body+='</div>'
+ if title=='Assessment portfolio and legal tests':
+  portfolio=html.fromstring('<div>'+body+'</div>')
+  # Keep the portfolio readable in one page: a shared overview, paired legal
+  # test summaries, the approved NSCT overview, and validity strip.
+  overview=portfolio[0]
+  portfolio_table=overview.xpath('.//table')[0]
+  haat_row=portfolio_table.xpath('./tr[td[1]="HAAT-Subject"]')[0]
+  haat_row.addnext(html.fromstring('<tr><td>NSCT</td><td>National Skill Competency Test for Computing &amp; IT Graduates</td></tr>'))
+  body=''.join(html.tostring(s,encoding='unicode') for s in list(portfolio)[:3])
+  body+=topic('National Skill Competency Test (NSCT) for Computing & IT Graduates',[
+   'The NSCT is a standardized national-level assessment for 7th and 8th semester students in Computer Science and IT-related degree programmes at Higher Education Institutions (HEIs) across Pakistan. It assesses the application of technical knowledge, problem-solving skills and professional competencies to practical scenarios and real-world industry requirements.',
+   'Purpose and objectives: Assess industry readiness; identify gaps between academic preparation, practical skills and market requirements; benchmark graduate competencies across institutions; strengthen academia–industry linkages for relevant curricula and practical learning; and enhance employability through targeted skills development, industry engagement, internships and employment pathways.'
+  ])
+  body+='<section class="topic validity-topic"><h3>Test validity</h3><div class="validity-grid">'+''.join('<div><b>'+test+'</b><span>'+duration+'</span></div>' for test,duration in [('LAT','2 years'),('HAT','2 years'),('USAT','1 year'),('LAW-GAT','Lifetime')])+'</div></section>'
+ if title=='Governance, values and services':
+  fragments=html.fromstring('<div>'+body+'</div>')
+  fragments.replace(fragments[0],html.fromstring(topic('Core values',rows=CORE_VALUES)))
+  body=''.join(html.tostring(s,encoding='unicode') for s in fragments)
  if title=='The item life cycle and measurement':
   body+=topic('Precision and review decisions',[
    'The Test Information Function and Conditional SEM show where a test measures most precisely and where uncertainty is greater. Item characteristic curves and Wright maps help assess difficulty and targeting.',
@@ -346,17 +431,41 @@ header{flex:none}h2{font:600 40px/1.05 Outfit,sans-serif;letter-spacing:-1.2px;m
 '''
 
 cover='''<article class="page cover" data-title="Cover"><img class="cover-photo" src="/profile/img/cover-assessment-enhanced.png" alt="Candidates sitting an assessment"><div class="brand"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="ETC crest"><span>HIGHER EDUCATION COMMISSION<br>PAKISTAN</span></div><div class="cover-main"><h1>Assessment,<br>Testing and<br><span>Evaluation.</span></h1><p class="strap">Education Testing Council · Institutional Profile</p><p class="intro">A national assessment platform opening pathways to education, scholarships and professional opportunity through merit.</p></div><div class="cover-stats"><div><b>2 million</b><span>Candidates tested since 2017</span></div><div><b>203</b><span>Test centres in 40 cities</span></div><div><b>251,685</b><span>Calibrated test items</span></div></div><div class="edition"><span>To advance quality and equity in education through assessments for a brighter Pakistan</span><b>2026 Edition</b></div></article>'''
-cover=cover.replace('<div class="cover-stats">','<div class="cover-values"><span>Merit</span><span>Transparency</span><span>Fairness</span><span>Quality</span></div><div class="cover-stats">')
-tocitems='<li><span>Welcome</span><span>03</span></li>'+''.join('<li><span>'+escape(title)+'</span><span>'+str(i+5).zfill(2)+'</span></li>' for i,(title,_) in enumerate(groups))+'<li><span>Conclusion</span><span>30</span></li>'
+cover=cover.replace('<div class="brand"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="ETC crest">','<div class="brand"><div class="cover-logos"><span class="logo-roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/hec-crest.png" alt="Higher Education Commission crest"></span><span class="logo-roundel"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="Education Testing Council crest"></span></div>')
+cover=cover.replace('Education Testing Council · Institutional Profile','Institutional Profile · Merit · Transparency · Fairness · Quality')
+cover=cover.replace('A national assessment platform opening pathways to education, scholarships and professional opportunity through merit.','A national assessment platform supporting admissions, scholarships, recruitment, licensing and professional opportunities across Pakistan, the Sub-continent and the Middle East region.')
+cover=cover.replace('Candidates tested since 2017','Candidates tested<small>Since 2017</small>').replace('Test centres in 40 cities','Test centres<small>In 40 cities</small>').replace('Calibrated test items</span>','Calibrated test items<small>Continuously updated</small></span>')
+cover=cover.replace('<h1>Assessment,<br>Testing and<br><span>Evaluation.</span></h1>','<h1><span class="cover-abbr">ETC —</span>Educational<br>Testing Council</h1>')
+cover=cover.replace('<p class="strap">Institutional Profile · Merit · Transparency · Fairness · Quality</p>','<p class="strap">One Nation, One Standard, Equal Opportunity.</p><p class="cover-focus">National Assessment · Standardization · Merit · Fairness</p>')
+cover=cover.replace('One Nation, One Standard, Equal Opportunity.','One Nation, One Standard,<br>Equal Opportunity.').replace('the Middle East region.','the <span style="white-space:nowrap">Middle East region.</span>')
+tocitems='<li><span>Opening quotation</span><span>03</span></li><li><span>Welcome</span><span>04</span></li>'+''.join('<li><span>'+escape(title)+'</span><span>'+str(i+6).zfill(2)+'</span></li>' for i,(title,_) in enumerate(groups))+'<li><span>Conclusion</span><span>32</span></li>'
 toc='<article class="page" data-title="Contents"><header><span class="eyebrow">CONTENTS</span><h2>Inside this profile.</h2></header><div class="content"><p class="toc-intro">Who we are, how we work, and the evidence behind every ETC assessment.</p><ol class="toc">'+tocitems+'</ol><div class="principles"><div><b>Merit</b><p>Opportunity earned through ability and performance.</p></div><div><b>Transparency</b><p>Processes clear, explained and open to scrutiny.</p></div><div><b>Fairness</b><p>Every candidate assessed impartially.</p></div><div><b>Quality</b><p>Consistent standards, continuously improved.</p></div></div></div>'+foot(2,'Contents')+'</article>'
 blank='<article class="page blank-page" data-title="Blank inside cover"></article>'
 welcome='<article class="page bookend" data-title="Welcome"><header><span class="eyebrow">WELCOME</span><h2>Opportunity begins<br>with merit.</h2></header><div class="content">'+topic('Welcome to the Education Testing Council',['Behind every assessment is a person looking towards the next stage of life: a place at university, a scholarship, a profession or a new opportunity. ETC’s work is to help make those decisions credible, consistent and fair.'])+topic('Inside this profile',['Explore the Council’s purpose, leadership and services, followed by the assessments and methods that support its work. The final chapters explain quality assurance, secure operations, partnerships and the priorities guiding ETC’s future.'])+'<blockquote>Merit · Transparency · Fairness · Quality</blockquote><p>Education Testing Council<br>Higher Education Commission, Pakistan</p></div>'+foot(3,'Welcome')+'</article>'
 conclusion='<article class="page bookend" data-title="Conclusion"><header><span class="eyebrow">CONCLUSION</span><h2>Confidence in assessment.<br>Opportunity through merit.</h2></header><div class="content">'+topic('A shared public trust',['Assessment connects individual ambition with institutional decisions. That responsibility calls for clear test purposes, sound questions, secure delivery, reliable scoring and fair treatment of every candidate.'])+topic('A connected system',['ETC brings these elements together through expert review, a calibrated item bank, psychometric analysis and coordinated operations. Its partnerships with institutions support selection for education, scholarships, employment and professional pathways.'])+topic('Looking ahead',['The Council’s direction is to strengthen technology, research, professional capacity and quality systems. Continued improvement—and clear communication with candidates and partners—will help sustain confidence in the results.'])+'<blockquote>Every assessment should support a decision that candidates and institutions can trust.</blockquote></div>'+foot(30,'Conclusion')+'</article>'
-content=[cover,blank,welcome,toc]+[section(t,ids,i+3) for i,(t,ids) in enumerate(groups)]+[conclusion,blank]
+quote_page='<article class="page quotation-page" data-title="Opening quotation"><div class="quote-frame"><blockquote>“Assessment is not about proving what students know, but about improving what they learn.”</blockquote><p class="quote-author">— Dylan Wiliam</p></div>'+foot(2,'Opening quotation')+'</article>'
+# Swap the previous Welcome/Contents order and remove both inside-cover blanks.
+content=[cover,quote_page,toc,welcome]+[section(t,ids,i+3) for i,(t,ids) in enumerate(groups)]+[conclusion]
 content.append('''<article class="page back" data-title="Back cover"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="ETC crest"><h2>Education<br>Testing Council.</h2><p>Higher Education Commission<br>Islamabad, Pakistan</p><p class="motto">Merit · Transparency · Fairness · Quality</p><p>etc.hec.gov.pk</p></article>''')
 assert len(content)==32
 content[-1]=content[-1].replace('<p>etc.hec.gov.pk</p>','<p class="back-contact">etc@hec.gov.pk<br>051-90408184<br>etc.hec.gov.pk</p>')
-for actual in range(2,30):
+content[-1]=content[-1].replace('<h2>Education<br>Testing Council.</h2>','<h2>Education<br>Testing Council <span class="back-acronym">(ETC)</span></h2>')
+content[-1]='''<article class="page back" data-title="Back cover"><img src="https://sbsi-cdn.sgp1.digitaloceanspaces.com/ETC/mockup/brand/etc-crest.png" alt="ETC crest"><h2>Education<br>Testing Council <span class="back-acronym">(ETC)</span></h2><p class="back-subtitle">One Nation, One Standard, Equal Opportunity.</p><p class="back-assessment">Assessment, Testing and Evaluation.</p><p class="motto">Merit · Transparency · Fairness · Quality</p><p class="back-institution">Higher Education Commission<br>Islamabad, Pakistan</p></article>'''
+content[-1]=content[-1].replace('</article>','<p class="back-contact">etc@hec.gov.pk<br>051-90408184<br>etc.hec.gov.pk</p></article>')
+# Contents entries derive from the final sequence, excluding the quotation.
+toc_root=html.fromstring(content[2])
+toc_list=toc_root.xpath('.//ol[@class="toc"]')[0]
+toc_list.clear()
+toc_list.set('class','toc')
+for actual,page_markup in enumerate(content):
+ page_root=html.fromstring(page_markup)
+ page_title=page_root.get('data-title')
+ if page_title in ['Cover','Back cover','Contents','Opening quotation']: continue
+ entry=etree.SubElement(toc_list,'li')
+ etree.SubElement(entry,'span').text=page_title
+ etree.SubElement(entry,'span').text=str(actual+1).zfill(2)
+content[2]=html.tostring(toc_root,encoding='unicode')
+for actual in range(1,len(content)-1):
  root=html.fromstring(content[actual])
  footer=root.find('footer')
  if footer is not None: footer[-1].text=str(actual+1).zfill(2)
@@ -365,7 +474,7 @@ for actual in range(2,30):
  content[actual]=html.tostring(root,encoding='unicode')
 content=[decorate(page) for page in content]
 spreads=['<div class="spread">'+content[0]+'</div>']
-for i in range(1,31,2): spreads.append('<div class="spread">'+''.join(content[i:i+2])+'</div>')
+for i in range(1,len(content)-1,2): spreads.append('<div class="spread">'+''.join(content[i:min(i+2,len(content)-1)])+'</div>')
 spreads.append('<div class="spread">'+content[-1]+'</div>')
 css+='''
 .topic p{margin-bottom:8px}.topic p.fact{padding-left:10px;margin-bottom:7px;line-height:1.45}.topic h4{margin:9px 0 5px;font-size:1.05em}.topic h3{margin-bottom:9px}.topic{padding-top:12px}.content{gap:16px}.topic dl{font-size:.94em;grid-template-columns:135px 1fr;gap:9px 15px}.topic td,.topic th{padding:7px}.leadership .content>p{font-size:inherit;line-height:1.65}.leader{padding:16px}.leader img{height:175px;width:145px}.leader{grid-template-columns:145px 1fr}.leader blockquote{font-size:19px}.toc li{padding:10px 0;font-size:14px}.principles{gap:15px;margin-top:8px;padding-top:15px}.content>blockquote{font-size:1.15em}.topic blockquote{font-size:1.1em}.content .topic table{font-size:.9em}.content>.topic:only-child dl{grid-template-columns:155px 1fr;gap:11px 18px}.topic .fact{font-size:inherit}
@@ -408,6 +517,98 @@ css+='''
 css+='''
 .page[data-title="Undergraduate admission testing"] .topic:nth-child(2) td:first-child{width:43%;white-space:nowrap}.page[data-title="Undergraduate admission testing"] .topic:nth-child(2) td:first-child .point-label>span{white-space:nowrap}
 '''
+css+='''
+.cover-logos{display:flex;gap:12px;flex:none;padding-right:20px;border-right:1px solid #d9be7c88}.cover .brand{gap:20px;font-size:12px;letter-spacing:1.4px}.cover .logo-roundel{display:grid;place-items:center;width:82px;height:82px;border-radius:50%;border:2px solid #cdb879;background:#fff;padding:6px}.cover .logo-roundel img{width:66px;height:66px;object-fit:contain}.cover .strap{font-size:17px}.cover .intro{font-size:20px;line-height:1.7}.cover-stats small{display:block;font-size:11px;font-weight:400;opacity:.72;margin-top:3px}
+'''
+css+='''
+.client-columns{display:grid;grid-template-columns:1fr 1fr;gap:28px;height:100%}.client-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:space-between;gap:5px;font-size:12.5px;line-height:1.45}.client-list li{display:grid;grid-template-columns:23px 1fr;gap:7px;margin:0;padding:5px 0;border-bottom:1px solid var(--line);break-inside:avoid}.client-number{color:var(--gold);font-family:Outfit,sans-serif;font-weight:700}
+'''
+css+='''
+.client-columns{grid-template-columns:1fr}.client-list{font-size:15px;line-height:1.5;gap:6px}.client-list li{grid-template-columns:30px 1fr;gap:10px;padding:8px 0}.client-number{font-size:16px}
+'''
+css+='''
+.client-list{font-size:14.5px;gap:4px}.client-list li{padding:4px 0}
+'''
+css+='''
+.page:has(.client-list){padding-bottom:110px}.page:has(.client-list)>footer{position:absolute;left:58px;right:58px;bottom:40px}.client-columns{min-height:0}.client-list{min-height:0;height:100%;font-size:14px;line-height:1.4;gap:3px}.client-list li{flex:none;padding:3px 0}.client-number{line-height:1.3}
+'''
+css+='''
+.cover h1{font-size:76px;line-height:1.08;letter-spacing:-2.5px}.cover h1 .cover-abbr{display:block;font-size:43px;letter-spacing:1px;margin-bottom:15px;color:#D9BE7C}.cover .strap{font-family:Outfit,sans-serif;font-size:29px;line-height:1.35;margin-top:34px;color:#D9BE7C;max-width:650px}.cover-focus{font-size:17px;line-height:1.6;font-weight:700;color:#E2C77F;margin:18px 0 0}.cover .intro{margin-top:22px}
+'''
+css+='''
+.cover h1,.cover h1 .cover-abbr{color:#fff}
+'''
+css+='''
+.quotation-page{background:var(--deep);padding:40px;gap:0}.quotation-page:before{display:none}.quote-frame{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:var(--paper);border-top:3px solid var(--gold);padding:60px 48px}.quotation-page .opening-mark{font-family:Georgia,serif;font-size:135px;color:var(--gold);height:115px;line-height:1}.quotation-page blockquote{font-size:43px;line-height:1.45;border:0;padding:0;margin:0;color:var(--deep);letter-spacing:-.6px}.quote-author{font-family:Outfit,sans-serif;font-size:23px;color:var(--green);margin:42px 0 0}.quotation-page footer{color:#e0e8df;padding-top:22px}.quotation-page footer span:last-child{color:white}
+'''
+css+='''
+.quotation-page{background:var(--paper);padding:58px}.quote-frame{background:transparent;border:0;padding:40px;justify-content:center}.quotation-page blockquote{font-size:21px;line-height:1.6;letter-spacing:0;max-width:560px}.quotation-page .opening-mark{font-size:65px;height:58px}.quote-author{font-size:16px;margin-top:24px}.quotation-page footer{color:var(--muted)}.quotation-page footer span:last-child{color:var(--deep)}
+'''
+css+='''
+.roadmap-art{object-fit:cover;object-position:center top;background:#f8f4eb}
+'''
+css+='''
+/* Cover: editorial hierarchy, controlled contrast and a unified information grid. */
+.cover{padding:58px 58px 48px;gap:0;background:#0B231A}.cover-photo{object-position:62% center}.cover:after{background:linear-gradient(90deg,rgba(6,28,19,.97) 0%,rgba(6,28,19,.84) 42%,rgba(6,28,19,.34) 100%),linear-gradient(0deg,#0B231A 0%,rgba(11,35,26,.75) 18%,transparent 70%)}
+.cover .brand{font-size:10px;line-height:1.6;letter-spacing:1.7px;gap:21px;align-items:center;flex:none}.cover-logos{gap:11px;padding-right:21px;border-color:rgba(217,190,124,.4)}.cover .logo-roundel{width:68px;height:68px;border:1px solid #D9BE7C;padding:5px}.cover .logo-roundel img{width:56px;height:56px}.cover .brand>span{max-width:370px}
+.cover-main{margin-top:64px;flex:none}.cover h1{font-weight:500;font-size:70px;line-height:1.06;letter-spacing:-2px;max-width:660px;color:#fff}.cover h1 .cover-abbr{font-size:25px;font-weight:600;line-height:1.2;letter-spacing:4px;margin-bottom:20px;color:#fff}.cover .strap{font-family:Outfit,sans-serif;font-size:28px;font-weight:500;line-height:1.35;margin:30px 0 0;max-width:570px;color:#E2C77F;letter-spacing:-.35px}.cover-focus{font-size:12px;line-height:1.8;font-weight:700;letter-spacing:.65px;color:#DCC791;margin:21px 0 0;max-width:610px}.cover .intro{font-size:17px;line-height:1.8;font-weight:400;max-width:560px;width:100%;margin:23px 0 0;color:#D9E1DA}
+.cover-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;flex:none;margin-top:auto;padding:24px 0 0;border-top:1px solid rgba(217,190,124,.7)}.cover-stats>div{padding:0 20px;border:0;border-left:1px solid rgba(217,190,124,.25)}.cover-stats>div:first-child{padding-left:0;border-left:0}.cover-stats>div:last-child{padding-right:0}.cover-stats b{font:500 38px/1.1 Outfit,sans-serif;letter-spacing:-1px;color:#fff}.cover-stats span{font-size:12px;font-weight:600;line-height:1.5;margin-top:10px;color:#F0F3EC}.cover-stats small{font-size:10px;line-height:1.5;font-weight:400;margin-top:4px;opacity:1;color:#AABCAE}
+.cover .edition{flex:none;align-items:center;gap:25px;padding-top:21px;margin-top:29px;border-color:rgba(217,190,124,.25)}.cover .edition span{font-size:9px;line-height:1.8;letter-spacing:.85px;max-width:470px;color:#BBCBBE}.cover .edition b{font-size:19px;white-space:nowrap;color:#fff;font-weight:500}
+'''
+css+='''
+.cover-main{margin-top:88px}.cover h1{font-size:82px;line-height:1.08}.cover .strap{font-size:31px;max-width:520px;line-height:1.3}.cover-focus{font-size:14px;line-height:1.6}.cover .intro{font-size:19px;line-height:1.75;max-width:570px}
+'''
+css+='''
+.page[data-title="ETC, mandate and direction"] .topic:nth-child(2) td:first-child{width:39%;white-space:nowrap}.page[data-title="ETC, mandate and direction"] .topic:nth-child(2) td:first-child .point-label>span{white-space:nowrap}
+'''
+css+='''
+.quotation-page blockquote{max-width:400px;width:100%;margin-left:auto;margin-right:auto}
+'''
+css+='''
+/* Shared footer geometry for every numbered page, including chapter openers. */
+.page:not(.cover):not(.back):not(.blank-page){padding-bottom:100px}
+.page>footer{position:absolute;left:58px;right:58px;bottom:40px;height:27px;padding:12px 0 0;margin:0;display:flex;align-items:flex-end;justify-content:space-between;font-size:9px;line-height:1.3;letter-spacing:1.4px}
+.page>footer span:last-child{font-family:Outfit,sans-serif;font-size:13px;font-weight:600;line-height:1;letter-spacing:1.4px}
+'''
+css+='''
+.back .back-acronym{white-space:nowrap}.back .back-slogan{font-family:Outfit,sans-serif;font-size:23px;line-height:1.4;color:#E2C77F;margin:0}.back{gap:26px}.back h2{font-size:40px}.back .back-subtitle{font-family:Outfit,sans-serif;font-size:20px;font-weight:400;line-height:1.4;letter-spacing:.15px;color:#fff;margin:0}.back .back-assessment{font-family:Outfit,sans-serif;font-size:31px;font-weight:500;line-height:1.3;letter-spacing:-.35px;color:#E2C77F;margin:0}.back .motto,.back .back-institution{margin:0}.back img{width:160px}
+'''
+css+='''
+.cover h1{font-size:66px;line-height:1.1}.cover h1 .title-acronym{color:#fff;white-space:nowrap}.cover-main{margin-top:115px}
+'''
+css+='''
+.cover .cover-subtitle{font-family:Outfit,sans-serif;font-size:20px;font-weight:400;line-height:1.4;letter-spacing:.15px;color:#fff;margin:18px 0 0}
+'''
+css+='''
+/* All three leadership portraits share the chairman's flush card geometry. */
+.leadership .leader{height:209px;grid-template-columns:145px 1fr;gap:26px;padding:16px 16px 0 0;align-items:center}
+.leadership .leader-portrait{position:relative;width:145px;height:191px;align-self:end;overflow:hidden}
+.leadership .leader .leader-portrait img{position:absolute;display:block;left:0;top:0;width:100%;height:100%;border-radius:0;object-fit:cover;object-position:center top}
+.leadership .leader>div:last-child{padding-bottom:16px}
+.page[data-title="Strategic direction"] .leader-portrait img,
+.page[data-title="Leadership navigation"] .leader-portrait img{transform:scaleX(-1)}
+.page[data-title="Strategic direction"] .leader .leader-portrait img{object-fit:contain;object-position:left bottom;transform:translateY(10px) scaleX(-1)}
+.page[data-title="Assessment portfolio and legal tests"] .content{display:grid;grid-template-columns:1fr 1fr;align-content:start;justify-content:start;gap:15px 22px!important}
+.page[data-title="Assessment portfolio and legal tests"] .content>.topic:first-child,
+.page[data-title="Assessment portfolio and legal tests"] .content>.topic:nth-child(4),
+.page[data-title="Assessment portfolio and legal tests"] .content>.validity-topic{grid-column:1/-1}
+.page[data-title="Assessment portfolio and legal tests"] .topic{padding-top:11px}
+.page[data-title="Assessment portfolio and legal tests"] .topic h3{font-size:18px}
+.page[data-title="Assessment portfolio and legal tests"] .topic p{line-height:1.55}
+.page[data-title="Assessment portfolio and legal tests"] table{margin:0;font-size:.92em}
+.page[data-title="Assessment portfolio and legal tests"] td{padding:7px 5px}
+.validity-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.validity-grid>div{display:flex;flex-direction:column;gap:6px;border-left:2px solid var(--gold);padding-left:12px}
+.validity-grid b{font:600 16px Outfit,sans-serif;color:var(--green)}
+'''
+css+='''
+/* Print contrast: dark ink for all text on light paper, including small labels. */
+.page:not(.cover):not(.back):not(.chapter){--ink:#111111;--muted:#252525;--deep:#081A10;--green:#0A3320;--gold:#634200;color:var(--ink);font-weight:500}
+.page:not(.cover):not(.back):not(.chapter) .content{font-weight:500}
+.leadership .leader small{color:#111111;font-weight:500}
+.cover .intro,.cover-stats span,.cover-stats small,.cover .edition span,.chapter footer{color:#FFFFFF;opacity:1}
+.cover .intro,.cover-stats small,.cover .edition span{font-weight:500}
+'''
 js='''
 const sheets=[...document.querySelectorAll('.spread')], book=document.querySelector('#book'), frame=document.querySelector('#frame'), stage=document.querySelector('#stage');let current=0,all=false;
 function fit(){const width=all?1588:sheets[current].querySelectorAll('.page').length*794;const scale=all?Math.min(1,stage.clientWidth/1588):Math.min(stage.clientWidth/width,stage.clientHeight/1123);book.style.width=width+'px';book.style.transform='scale('+scale+')';frame.style.width=width*scale+'px';frame.style.height=(all?book.scrollHeight:1123)*scale+'px'}
@@ -418,8 +619,24 @@ document.fonts.ready.then(()=>{typeset();fit()});show(parseInt(location.hash.rep
 '''
 out='<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>A4 Institutional Profile — Education Testing Council</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Mulish:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@1,8..60,400&display=swap" rel="stylesheet"><style>'+css+'</style></head><body><div class="toolbar"><div><b>Education Testing Council</b><small>A4 portrait · 210 × 297 mm · 32 pages</small></div><div><button id="mode">All pages</button> <button id="print">Print / PDF</button></div></div><main id="stage"><div id="frame"><div id="book">'+''.join(spreads)+'</div></div></main><button class="nav" id="prev" aria-label="Previous spread">‹</button><button class="nav" id="next" aria-label="Next spread">›</button><div class="pager"><b id="label"></b><span id="count"></span></div><script>'+js+'</script></body></html>'
 symbols=re.findall(r'<symbol\b[^>]*>.*?</symbol>',open('profile/index.html',encoding='utf-8').read(),re.S)
+out=out.replace('32 pages',str(len(content))+' pages').replace("+' / 32'","+' / "+str(len(content))+"'")
+out=out.replace("'Pages '+(current*2)+'–'+(current*2+1)","'Pages '+(current*2)+(pp.length===2?'–'+(current*2+1):'')")
 sprite='<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true"><defs>'+''.join(symbols)+'</defs></svg>'
 out=out.replace('<body>','<body>'+sprite,1)
+out=out.replace('Educational<br>Testing Council','Education<br>Testing Council')
+out=out.replace('<h1><span class="cover-abbr">ETC —</span>Education<br>Testing Council</h1>','<h1>Education<br>Testing Council <span class="title-acronym">(ETC)</span></h1>')
+for old_heading,new_heading in [('Our vision','VISION'),('Our mission','MISSION'),('Core values','CORE VALUES')]:
+ out=out.replace(old_heading,new_heading)
+out=out.replace('<span class="cover-abbr">ETC —</span>','<span class="cover-abbr">ETC</span>')
+out=out.replace('<span class="title-acronym">(ETC)</span></h1>','<span class="title-acronym">(ETC)</span></h1><p class="cover-subtitle">Assessment, Testing and Evaluation.</p>')
+out=out.replace('<p class="cover-subtitle">Assessment, Testing and Evaluation.</p>','<p class="cover-subtitle">One Nation, One Standard, Equal Opportunity.</p>').replace('<p class="strap">One Nation, One Standard,<br>Equal Opportunity.</p>','<p class="strap">Assessment, Testing and Evaluation.</p>')
+out=re.sub(r'<div class="principles">.*?</div></div></div>', '<div class="principles"><p style="grid-column:1/-1"><strong>Core values</strong><br>'+escape(' · '.join(v[0] for v in CORE_VALUES))+'</p></div></div>',out,count=1,flags=re.S)
+out=re.sub(r'\bDr\b(?!\.)','Dr.',out)
+out=out.replace('Prof. Dr. Zia ul Haq','Prof. Dr Zia ul Haq')
+# Preserve the opened file/HTTP URL when moving between spreads.
+out=out.replace("'/a4/'+location.search+'#s'+current", "location.href.split('#')[0]+'#s'+current")
+# Resolve local assets beside this edition for both file:// and HTTP previews.
+out=out.replace('/profile/img/','../profile/img/')
 # Emit an apply_patch update so the generated artifact uses the standard edit mechanism.
 print('*** Begin Patch\n*** Add File: D:\\GitHub\\ETC\\a5\\a4\\index.html')
 for line in out.splitlines(): print('+'+line)
