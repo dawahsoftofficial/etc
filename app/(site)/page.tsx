@@ -3,15 +3,16 @@ import { pageMetadata } from "@/lib/seo";
 import { Carousel } from "@/components/site/Carousel";
 import {
   Announcements,
+  CandidateJourney,
   ChairmanQuote,
   ClientsMarquee,
   FindYourTest,
-  Journeys,
   Numbers,
   Protect,
   QuickActions,
   Services,
 } from "@/components/site/home/HomeSections";
+import { LatestAnnouncement } from "@/components/site/home/LatestAnnouncement";
 import { getClients, getHeroSlides, getSchedule, getStats } from "@/lib/content/home";
 import { getLeader } from "@/lib/content/leaders";
 import { getMediaByKeys, SECTION_IMAGES } from "@/lib/content/media";
@@ -34,7 +35,7 @@ export default async function HomePage() {
     getStats(),
     getLeader("CHAIRMAN"),
     getClients(),
-    getMediaByKeys([SECTION_IMAGES.institutions, SECTION_IMAGES.qualityOmr, SECTION_IMAGES.qualitySealed]),
+    getMediaByKeys([SECTION_IMAGES.qualityOmr, SECTION_IMAGES.qualitySealed]),
   ]);
   const img = (key: string) => media[key] ?? { url: "/brand/etc-crest.png", alt: "" };
   // The A4 cover's three headline figures, read from the homepage numbers so admins keep them current.
@@ -55,6 +56,7 @@ export default async function HomePage() {
 
   return (
     <>
+      {notices[0] && <LatestAnnouncement key={notices[0].slug} notice={notices[0]} />}
       <Carousel
         slides={slides}
         firstSlideExtra={
@@ -81,7 +83,7 @@ export default async function HomePage() {
       <QuickActions />
       <Announcements notices={notices} schedule={schedule} />
       <FindYourTest tests={tests} />
-      <Journeys institutionsImage={img(SECTION_IMAGES.institutions).url} />
+      <CandidateJourney />
       <Numbers stats={stats} />
       <Protect omr={img(SECTION_IMAGES.qualityOmr)} sealed={img(SECTION_IMAGES.qualitySealed)} />
       <Services />

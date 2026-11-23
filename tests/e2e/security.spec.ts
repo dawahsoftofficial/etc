@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { dismissLatestAnnouncement } from "./fixtures";
 
 const HEADERS = {
   "strict-transport-security": "max-age=31536000; includeSubDomains",
@@ -38,6 +39,7 @@ test("the homepage runs under the CSP: no violations, and its scripts work", asy
     if (/Content Security Policy|Refused to/i.test(m.text())) violations.push(m.text());
   });
   await page.goto("/");
+  await dismissLatestAnnouncement(page);
   // the hydrated mega-menu opens on click: proves Next's scripts were allowed to run
   await page.getByRole("button", { name: /^Tests/ }).first().click();
   await expect(page.getByRole("button", { name: /^Tests/ }).first()).toHaveAttribute("aria-expanded", "true");

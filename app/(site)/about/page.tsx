@@ -261,7 +261,7 @@ export default async function Page() {
           <div className="grid gap-10 lg:grid-cols-2">
             <div data-reveal>
               <p className="eyebrow">Our vision</p>
-              <p className="mt-4 font-serif text-2xl sm:text-3xl leading-snug">
+              <p className="mt-4 text-lg text-white/85 leading-relaxed">
                 Be the enabler for coming generations of students to unlock their true potential in service of the nation, as well as help
                 establish and ensure meritocracy at all levels of education, public service and professional endeavour through
                 uncompromising commitment to equity and fairness in all our efforts.

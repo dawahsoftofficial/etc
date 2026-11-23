@@ -13,3 +13,7 @@ export async function login(page: Page, who: Account) {
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(page).toHaveURL(/\/admin$/);
 }
+
+export async function dismissLatestAnnouncement(page: Page) {
+  await page.getByRole("button", { name: "Dismiss announcement" }).click();
+}

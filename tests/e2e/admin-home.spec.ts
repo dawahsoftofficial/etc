@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { PrismaClient } from "@prisma/client";
-import { EDITOR, login } from "./fixtures";
+import { dismissLatestAnnouncement, EDITOR, login } from "./fixtures";
 
 const prisma = new PrismaClient();
 
@@ -21,6 +21,7 @@ test("changing a stat shows on the homepage", async ({ page }) => {
   await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
   await page.goto("/");
+  await dismissLatestAnnouncement(page);
   const numbers = page.locator("section", { has: page.getByRole("heading", { name: "Our record in numbers" }) });
   await expect(numbers.getByText("41", { exact: true }).first()).toBeAttached();
 });

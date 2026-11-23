@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { dismissLatestAnnouncement } from "./fixtures";
 
 // Content from the 2026 A4 Institutional Profile (a4/index.html), the client's current source of truth.
 
@@ -22,6 +23,7 @@ test("leadership: the HEC Chairman, the HEC Executive Director and the ETC CEO, 
 
 test("home: the Chairman's message and the record in numbers", async ({ page }) => {
   await page.goto("/");
+  await dismissLatestAnnouncement(page);
   await expect(page.getByText("A fair test opens a door. Our responsibility is to ensure that it opens on the strength of merit.")).toBeVisible();
   await expect(page.getByText("Prof. Dr. Niaz Ahmed Akhtar (S.I)").first()).toBeVisible();
   // the hero mirrors the A4 cover: title, values and the three headline figures

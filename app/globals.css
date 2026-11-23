@@ -13,6 +13,24 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 :focus-visible { outline: 3px solid #8A6A24; outline-offset: 2px; border-radius: 4px; }
 .on-dark :focus-visible { outline-color: #D9BE7C; }
 
+/* Homepage announcement */
+body:has(#latest-announcement[open]) { overflow: hidden; }
+
+@media (prefers-reduced-motion: no-preference) {
+  #latest-announcement[open] { animation: announcement-in 280ms cubic-bezier(.2, .75, .3, 1) both; }
+  #latest-announcement[open]::backdrop { animation: announcement-backdrop-in 280ms ease-out both; }
+}
+
+@keyframes announcement-in {
+  from { opacity: 0; transform: translateY(.75rem) scale(.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes announcement-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Eyebrow line, echoing the profile's "S E C T I O N" styling */
 .eyebrow { display: inline-flex; align-items: center; gap: .75rem; font-size: .75rem; font-weight: 600;
   letter-spacing: .22em; text-transform: uppercase; color: #7E6224; }

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { dismissLatestAnnouncement } from "./fixtures";
 import { PREVIEW } from "./preview-access";
 
 // Plain fetch: Playwright's request contexts answer a 401 with the suite's viewer login, so they can't play a stranger.
@@ -31,6 +32,7 @@ test("the health check stays open for Ploi's uptime monitor", async ({ baseURL }
 
 test("a signed-in viewer browses the site normally, crests and photos included", async ({ page }) => {
   await page.goto("/");
+  await dismissLatestAnnouncement(page);
   await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
   // local images must not go through the optimizer: its internal fetch carries no login and would get the 401
   const crests = page.locator('header img[src*="crest"]');

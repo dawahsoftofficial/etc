@@ -1,10 +1,38 @@
 import { test, expect } from "@playwright/test";
+import { dismissLatestAnnouncement } from "./fixtures";
 
 test.describe("home", () => {
+  test("opens the latest announcement once per tab session and lets visitors dismiss it with Escape", async ({ page }) => {
+    await page.goto("/");
+    const dialog = page.getByRole("dialog", { name: /^Latest announcement/ });
+    const latest = page.locator("#home-notices h3 a").first();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole("heading")).toHaveText(await latest.innerText());
+    await expect(dialog.getByRole("button", { name: "Dismiss announcement" })).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden();
+
+    await page.reload();
+    await page.getByRole("button", { name: "Pause slideshow" }).click();
+    await expect(dialog).toBeHidden();
+  });
+
+  test("opens the full latest notice from the announcement popup", async ({ page }) => {
+    await page.goto("/");
+    const latest = await page.locator("#home-notices h3 a").first().getAttribute("href");
+    const dialog = page.getByRole("dialog", { name: /^Latest announcement/ });
+    const link = dialog.getByRole("link", { name: "Read full announcement" });
+    await expect(link).toHaveAttribute("href", latest!);
+    await link.click();
+    await expect(page).toHaveURL(latest!);
+    await expect(dialog).toBeHidden();
+  });
+
   test("renders DB content", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     await expect(page.getByRole("heading", { level: 1, name: "Assessment, Testing and Evaluation." })).toBeVisible();
-    await expect(page.getByText("Candidates tested", { exact: true })).toBeVisible();
+    await expect(page.getByRole("region", { name: "Our record in numbers" }).getByText("Candidates tested", { exact: true })).toBeVisible();
     await expect(page.getByText("Prof. Dr. Niaz Ahmed Akhtar (S.I)").first()).toBeVisible();
     await expect(page.locator("#home-notices li")).toHaveCount(5);
     await expect(page.locator("#home-tests article")).toHaveCount(7);
@@ -14,6 +42,7 @@ test.describe("home", () => {
 
   test("hero pause control toggles", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     await page.getByRole("button", { name: "Pause slideshow" }).click();
     await expect(page.getByRole("button", { name: "Play slideshow" })).toBeVisible();
     await page.getByRole("button", { name: "Next slide" }).click();

@@ -1,10 +1,12 @@
 import { test, expect } from "@playwright/test";
+import { dismissLatestAnnouncement } from "./fixtures";
 
 test.describe("desktop chrome", () => {
   test.use({ viewport: { width: 1280, height: 900 } });
 
   test("mega-menu opens by keyboard and Escape returns focus", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     const trigger = page.getByRole("button", { name: "Tests & Assessments" });
     await trigger.focus();
     await page.keyboard.press("Enter");
@@ -17,6 +19,7 @@ test.describe("desktop chrome", () => {
 
   test("mega-menu opens on hover, stays open while the pointer moves into the panel, and closes when it leaves", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     const about = page.getByRole("button", { name: "About ETC" });
     const tests = page.getByRole("button", { name: "Tests & Assessments" });
     await about.hover();
@@ -43,6 +46,7 @@ test.describe("desktop chrome", () => {
 
   test("only one mega panel is open at a time and an outside click closes it", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     const about = page.getByRole("button", { name: "About ETC" });
     const tests = page.getByRole("button", { name: "Tests & Assessments" });
     await about.click();
@@ -60,6 +64,7 @@ test.describe("desktop chrome", () => {
 
   test("footer and quick links render settings-driven content", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     await expect(page.getByRole("contentinfo")).toContainText("Merit · Transparency · Fairness · Quality");
     await expect(page.getByRole("link", { name: /Results.*official ETC portal/ }).first()).toHaveAttribute("target", "_blank");
   });
@@ -70,6 +75,7 @@ test.describe("mobile drawer", () => {
 
   test("drawer opens full screen, above the sticky header, with a usable menu", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     await page.getByRole("button", { name: "Open menu" }).click();
     const dialog = page.getByRole("dialog", { name: "Site menu" });
     // the header's backdrop-filter once trapped this fixed drawer inside the 72px header
@@ -85,6 +91,7 @@ test.describe("mobile drawer", () => {
 
   test("drawer traps focus and returns it on close", async ({ page }) => {
     await page.goto("/");
+    await dismissLatestAnnouncement(page);
     const toggle = page.getByRole("button", { name: "Open menu" });
     await toggle.click();
     const dialog = page.getByRole("dialog", { name: "Site menu" });

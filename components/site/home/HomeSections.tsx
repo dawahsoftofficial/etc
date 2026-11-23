@@ -128,64 +128,38 @@ export function FindYourTest({ tests }: { tests: TestCardData[] }) {
   );
 }
 
-function Step({ n, title, text, gold, dark }: { n: number; title: string; text: string; gold?: boolean; dark?: boolean }) {
-  const dot = gold ? "bg-gold-500 text-green-950" : dark ? "bg-white/15" : "bg-green-700 text-white";
+function Step({ n, title, text, gold }: { n: number; title: string; text: string; gold?: boolean }) {
+  const dot = gold ? "bg-gold-500 text-green-950" : "bg-green-700 text-white";
   return (
     <li className="flex gap-4">
       <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full font-serif ${dot}`}>{n}</span>
       <div>
         <p className="font-semibold">{title}</p>
-        <p className={`text-sm ${dark ? "text-white/70" : "text-muted"}`}>{text}</p>
+        <p className="text-sm text-muted">{text}</p>
       </div>
     </li>
   );
 }
 
-export function Journeys({ institutionsImage }: { institutionsImage: string }) {
+export function CandidateJourney() {
   return (
-    <section aria-labelledby="journeys-title" className="mx-auto max-w-site px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
-      <h2 id="journeys-title" className="sr-only">
-        How can we help you?
-      </h2>
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="rounded-2xl bg-cream-50 p-8 ring-1 ring-gold-300/50 sm:p-10" data-reveal>
-          <p className="eyebrow">For candidates</p>
-          <h3 className="mt-3 font-serif text-3xl font-semibold text-green-700">I’m taking a test</h3>
-          <ol className="mt-8 space-y-5">
-            <Step n={1} title="Find the right test" text="Admissions, scholarships, licensing or recruitment." />
-            <Step n={2} title="Check eligibility and syllabus" text="Test pattern, fee and preparation PDFs." />
-            <Step n={3} title="Read the current notice" text="Dates, deadlines and instructions." />
-            <Step n={4} title="Register on the official ETC portal" text="Registration, payment, admit cards and results." gold />
-          </ol>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link href="/tests" className="rounded-md bg-green-700 px-5 py-3 font-semibold text-white hover:bg-green-800">
-              Find a test
-            </Link>
-            <Link href="/candidate-services" className="rounded-md border border-green-700/30 px-5 py-3 font-semibold text-green-700 hover:bg-white">
-              Candidate services
-            </Link>
-          </div>
-        </div>
-        <div className="on-dark relative overflow-hidden rounded-2xl bg-green-900 p-8 text-white sm:p-10" data-reveal>
-          <Image src={institutionsImage} alt="" fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover opacity-20" />
-          <div className="absolute inset-0 bg-gradient-to-br from-green-900 via-green-900/90 to-green-900/70" aria-hidden="true" />
-          <div className="relative">
-            <p className="eyebrow">For institutions</p>
-            <h3 className="mt-3 font-serif text-3xl font-semibold">I represent an institution</h3>
-            <ol className="mt-8 space-y-5">
-              <Step n={1} dark title="Understand what ETC can do" text="Admissions, recruitment, scholarships, promotions and more." />
-              <Step n={2} dark title="Review our quality approach" text="Blueprints, piloting, psychometrics and three-tier monitoring." />
-              <Step n={3} dark gold title="Submit an enquiry" text="Tell us your posts or programme, candidates and timeline." />
-            </ol>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <Link href="/institutions#enquiry" className="rounded-md bg-gold-500 px-5 py-3 font-semibold text-green-950 hover:bg-gold-300">
-                Make an enquiry
-              </Link>
-              <Link href="/institutions" className="rounded-md border border-white/40 px-5 py-3 font-semibold hover:bg-white/10">
-                Institutional solutions
-              </Link>
-            </div>
-          </div>
+    <section aria-labelledby="journeys-title" className="mx-auto max-w-site px-4 py-20 sm:px-6 sm:py-24 lg:grid lg:grid-cols-2 lg:gap-6 lg:px-8">
+      <div className="rounded-2xl bg-cream-50 p-8 ring-1 ring-gold-300/50 sm:p-10" data-reveal>
+        <p className="eyebrow">For candidates</p>
+        <h2 id="journeys-title" className="mt-3 font-serif text-3xl font-semibold text-green-700">I’m taking a test</h2>
+        <ol className="mt-8 space-y-5">
+          <Step n={1} title="Find the right test" text="Admissions, scholarships, licensing or recruitment." />
+          <Step n={2} title="Check eligibility and syllabus" text="Test pattern, fee and preparation PDFs." />
+          <Step n={3} title="Read the current notice" text="Dates, deadlines and instructions." />
+          <Step n={4} title="Register on the official ETC portal" text="Registration, payment, admit cards and results." gold />
+        </ol>
+        <div className="mt-9 flex flex-wrap gap-3">
+          <Link href="/tests" className="rounded-md bg-green-700 px-5 py-3 font-semibold text-white hover:bg-green-800">
+            Find a test
+          </Link>
+          <Link href="/candidate-services" className="rounded-md border border-green-700/30 px-5 py-3 font-semibold text-green-700 hover:bg-white">
+            Candidate services
+          </Link>
         </div>
       </div>
     </section>
