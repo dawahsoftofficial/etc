@@ -85,7 +85,7 @@ test("contact details from the booklet", async ({ page }) => {
   await expect(page.locator("main")).not.toContainText("[to be provided]");
 });
 
-test("updated A4 profile: NSCT, result validity, 48 clients, values, vision and the opening quote", async ({ page }) => {
+test("updated A4 profile: NSCT, result validity, 48 clients, values and vision", async ({ page }) => {
   await page.goto("/tests/nsct");
   await expect(page.getByRole("heading", { level: 1, name: "National Skill Competency Test" })).toBeVisible();
   await page.goto("/tests/law-gat");
@@ -95,8 +95,6 @@ test("updated A4 profile: NSCT, result validity, 48 clients, values, vision and 
   await page.goto("/about");
   await expect(page.locator("#vision")).toContainText("Be the enabler for coming generations of students");
   await expect(page.locator("#vision ul li")).toHaveCount(7);
-  await page.goto("/");
-  await expect(page.getByText("Assessment is not about proving what students know, but about improving what they learn.")).toBeVisible();
   // site photos come from DigitalOcean Spaces, not the app server
   await page.goto("/about#leadership");
   for (const id of ["chairman", "executive-director", "ceo"]) {

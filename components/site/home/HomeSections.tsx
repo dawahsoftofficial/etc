@@ -107,9 +107,17 @@ export function FindYourTest({ tests }: { tests: TestCardData[] }) {
             analysed after every session.
           </p>
         </div>
-        <div id="home-tests" className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          id="home-tests"
+          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:flex xl:flex-wrap xl:justify-center xl:gap-x-5 xl:*:basis-[calc((100%_-_3.75rem)/4)]"
+        >
           {tests.map((t) => (
-            <TestCard key={t.slug} test={t} />
+            <TestCard
+              key={t.slug}
+              test={t}
+              compact
+              imageSizes="(min-width: 1280px) 289px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            />
           ))}
         </div>
         <p className="mt-6 text-xs text-muted">

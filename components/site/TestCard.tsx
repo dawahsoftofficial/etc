@@ -5,7 +5,18 @@ import { TEST_CATEGORY } from "@/lib/labels";
 import type { TestCard as TestCardData } from "@/lib/content/types";
 
 /** Card in the tests directory and on the homepage (mockup R.testCard). */
-export function TestCard({ test: t }: { test: TestCardData }) {
+export function TestCard({
+  test: t,
+  compact = false,
+  imageSizes = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
+}: {
+  test: TestCardData;
+  compact?: boolean;
+  imageSizes?: string;
+}) {
+  const textClamp = compact ? "line-clamp-2 min-h-[2lh]" : "";
+  const detailsLayout = compact ? "flex-1 grid-rows-[1fr_auto]" : "mt-auto";
+
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-card transition hover:-translate-y-0.5 hover:shadow-lift">
       <div className="relative aspect-[16/10] overflow-hidden bg-mint-50">
@@ -14,7 +25,7 @@ export function TestCard({ test: t }: { test: TestCardData }) {
             src={t.image.url}
             alt=""
             fill
-            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            sizes={imageSizes}
             className="object-cover transition duration-500 group-hover:scale-[1.03]"
           />
         )}
@@ -28,11 +39,11 @@ export function TestCard({ test: t }: { test: TestCardData }) {
       <div className="flex flex-1 flex-col p-6">
         <h3 className="font-serif text-xl font-semibold leading-snug text-ink">
           <Link href={`/tests/${t.slug}`} className="after:absolute after:inset-0 group-hover:text-green-700">
-            {t.name}
+            <span className={textClamp}>{t.name}</span>
           </Link>
         </h3>
-        <p className="mb-5 mt-2 text-sm text-muted">{t.short}</p>
-        <dl className="mt-auto grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm">
+        <p className={`mb-5 mt-2 text-sm text-muted ${textClamp}`}>{t.short}</p>
+        <dl className={`grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm ${detailsLayout}`}>
           <div>
             <dt className="text-xs text-muted">For</dt>
             <dd className="font-medium text-ink">{t.level}</dd>

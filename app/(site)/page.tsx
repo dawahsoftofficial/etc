@@ -79,13 +79,6 @@ export default async function HomePage() {
         }
       />
       <QuickActions />
-      {/* The A4 profile's opening quotation (page 2) */}
-      <figure className="mx-auto max-w-3xl px-4 pt-16 text-center sm:px-6 sm:pt-20">
-        <blockquote className="font-serif text-2xl leading-snug text-green-800 sm:text-3xl">
-          “Assessment is not about proving what students know, but about improving what they learn.”
-        </blockquote>
-        <figcaption className="mt-4 text-sm font-semibold uppercase tracking-eyebrow text-gold-600">Dylan Wiliam</figcaption>
-      </figure>
       <Announcements notices={notices} schedule={schedule} />
       <FindYourTest tests={tests} />
       <Journeys institutionsImage={img(SECTION_IMAGES.institutions).url} />
