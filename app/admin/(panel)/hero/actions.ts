@@ -6,7 +6,7 @@ import type { SaveData } from "@/lib/admin/result";
 import { prisma } from "@/lib/db";
 import { heroForm, idInput, publishInput } from "@/lib/validation/admin";
 
-/** The homepage needs a hero: refuse anything that would leave no published slide. */
+/** Keep one slide ready for when the homepage carousel is shown. */
 async function assertAnotherPublished(id: number) {
   const others = await prisma.heroSlide.count({ where: { published: true, NOT: { id } } });
   if (others === 0) throw new UserFacingError("Keep at least one hero slide published.");
@@ -35,10 +35,10 @@ export const saveHero = defineAction({
       if (!input.published) await assertAnotherPublished(input.id);
       await updateLocked(prisma.heroSlide, input.id, input.updatedAt, data);
       const h = await prisma.heroSlide.findUniqueOrThrow({ where: { id: input.id }, select: { updatedAt: true } });
-      return { id: input.id, title: input.title, viewHref: "/", updatedAt: h.updatedAt.toISOString() };
+      return { id: input.id, title: input.title, updatedAt: h.updatedAt.toISOString() };
     }
     const h = await prisma.heroSlide.create({ data });
-    return { id: h.id, title: h.title, redirect: `/admin/hero/${h.id}?saved=1`, viewHref: "/", updatedAt: h.updatedAt.toISOString() };
+    return { id: h.id, title: h.title, redirect: `/admin/hero/${h.id}?saved=1`, updatedAt: h.updatedAt.toISOString() };
   },
   entityId: (d) => String(d.id),
   summary: (d, i) => `${i.id ? "Updated" : "Created"} hero slide “${d.title}”`,

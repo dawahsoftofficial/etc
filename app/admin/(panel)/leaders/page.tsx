@@ -17,7 +17,7 @@ export default async function LeadersPage() {
 
   return (
     <>
-      <PageHeader title="Leaders" description="Leadership messages on About ETC. The Chairman’s quote also appears on the homepage." />
+      <PageHeader title="Leaders" description="Leadership messages on About ETC." />
       <ul className="grid gap-4 md:grid-cols-3">
         {leaders.map((l) => (
           <li key={l.role}>

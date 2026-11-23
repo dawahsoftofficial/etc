@@ -67,6 +67,12 @@ body:has(#latest-announcement[open]) { overflow: hidden; }
 /* Marquee pauses on hover/focus */
 .marquee:hover .animate-marquee, .marquee:focus-within .animate-marquee { animation-play-state: paused; }
 
+.news-ticker-track[data-paused="true"], .news-ticker-viewport:hover .news-ticker-track { animation-play-state: paused; }
+
+.news-ticker-viewport:has(:focus-visible) { overflow-x: auto; }
+.news-ticker-viewport:has(:focus-visible) .news-ticker-track { animation: none; min-width: 0; }
+.news-ticker-viewport:has(:focus-visible) .news-ticker-copy { display: none; }
+
 /* Crest on dark: white roundel */
 .crest-roundel { background: #fff; border-radius: 9999px; padding: .5rem; box-shadow: 0 0 0 3px rgba(217,190,124,.5); }
 
@@ -80,6 +86,9 @@ body:has(#latest-announcement[open]) { overflow: hidden; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .js-motion [data-reveal] { opacity: 1; transform: none; }
+  .news-ticker-viewport { overflow-x: auto; }
+  .news-ticker-track { animation: none; min-width: 0; }
+  .news-ticker-copy { display: none; }
 }
 
 /* Sanitised rich text (notice bodies, leadership messages): only h2–h4, p, lists, links, blockquote survive */

@@ -62,11 +62,20 @@ test.describe("desktop chrome", () => {
     await expect(page.getByRole("button", { name: "Tests & Assessments" })).toHaveAttribute("aria-current", "page");
   });
 
-  test("footer and quick links render settings-driven content", async ({ page }) => {
+  test("the header shows the latest notices in a pausable ticker", async ({ page }) => {
     await page.goto("/");
     await dismissLatestAnnouncement(page);
     await expect(page.getByRole("contentinfo")).toContainText("Merit · Transparency · Fairness · Quality");
-    await expect(page.getByRole("link", { name: /Results.*official ETC portal/ }).first()).toHaveAttribute("target", "_blank");
+    const ticker = page.getByRole("region", { name: "Latest News" });
+    await expect(ticker.getByRole("link", { name: "Latest News", exact: true })).toHaveAttribute("href", "/news");
+    const latest = page.locator("#home-notices h3 a").first();
+    await expect(ticker.getByRole("list").getByRole("link").first()).toHaveAttribute("href", (await latest.getAttribute("href"))!);
+
+    const track = ticker.locator(".news-ticker-track");
+    await ticker.getByRole("button", { name: "Pause news ticker" }).click();
+    await expect(track).toHaveCSS("animation-play-state", "paused");
+    await ticker.getByRole("button", { name: "Play news ticker" }).click();
+    await expect(track).toHaveCSS("animation-play-state", "running");
   });
 });
 

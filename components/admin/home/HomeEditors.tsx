@@ -29,11 +29,10 @@ export function HeroForm({ action, slide: s }: { action: FormAction; slide: Hero
       action={action}
       cancelHref="/admin/hero"
       version={s.updatedAt}
-      viewHref={s.id ? "/" : null}
       aside={
         <Panel title="Publishing">
-          <Toggle name="published" label="Published" description="Shown in the homepage carousel." defaultChecked={s.published} />
-          <NumberField name="order" label="Position" defaultValue={s.order} hint="Lower numbers come first. The first slide's title is the page heading." />
+          <Toggle name="published" label="Published" description="Included when the homepage carousel is visible." defaultChecked={s.published} />
+          <NumberField name="order" label="Position" defaultValue={s.order} hint="Lower numbers come first." />
         </Panel>
       }
     >

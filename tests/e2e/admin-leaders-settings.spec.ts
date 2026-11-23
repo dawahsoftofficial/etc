@@ -51,21 +51,21 @@ test("editors get the 403 page on settings", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "You don’t have access to this page." })).toBeVisible();
 });
 
-test("editing the Chairman's quote shows on the homepage", async ({ page }) => {
+test("editing the Chairman's quote shows on the About page", async ({ page }) => {
   await login(page, EDITOR);
   await page.goto("/admin/leaders");
   await page.getByRole("link", { name: /Chairman/ }).first().click();
   await page.getByLabel(/^Quote/).fill("E2E Merit opens every door.");
   await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
-  await page.goto("/");
-  await expect(page.getByText("“E2E Merit opens every door.”")).toBeVisible();
+  await page.goto("/about#chairman");
+  await expect(page.locator("#chairman blockquote")).toHaveText("“E2E Merit opens every door.”");
 
   await page.goto("/admin/leaders");
   await page.getByRole("link", { name: /Chairman/ }).first().click();
   await page.getByLabel(/^Quote/).fill(quote);
   await page.getByRole("button", { name: "Save" }).click();
   await expect(page.getByRole("status").filter({ hasText: /^Saved$/ })).toBeVisible();
-  await page.goto("/");
-  await expect(page.getByText(`“${quote}”`)).toBeVisible();
+  await page.goto("/about#chairman");
+  await expect(page.locator("#chairman blockquote")).toHaveText(`“${quote}”`);
 });

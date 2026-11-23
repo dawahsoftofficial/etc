@@ -20,7 +20,7 @@ export default async function HeroAdminPage() {
     <>
       <PageHeader
         title="Hero"
-        description="The homepage carousel. Published slides rotate in order; at least one must stay published."
+        description="Manage slides for the homepage carousel, which is currently hidden."
         actions={<PrimaryLink href="/admin/hero/new">New slide</PrimaryLink>}
       />
       <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

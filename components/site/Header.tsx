@@ -1,11 +1,12 @@
 import Image from "@/components/ui/image";
 import Link from "next/link";
 import { Icon } from "@/components/ui/icon";
+import type { NoticeRow } from "@/lib/content/types";
 import type { SiteSettings } from "@/lib/validation/content";
 import { Brand } from "./Brand";
+import { LatestNewsTicker } from "./LatestNewsTicker";
 import { MegaMenu } from "./MegaMenu";
 import { MobileDrawer } from "./MobileDrawer";
-import { PortalLink } from "./PortalLink";
 
 function UtilityBar({ settings }: { settings: SiteSettings }) {
   return (
@@ -35,47 +36,9 @@ function UtilityBar({ settings }: { settings: SiteSettings }) {
   );
 }
 
-const QL = "inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] font-medium text-green-800 hover:bg-white hover:text-green-700";
-
-function QuickLinks({ settings }: { settings: SiteSettings }) {
-  return (
-    <div data-noprint className="border-y border-gold-300/60 bg-cream-50">
-      <div className="mx-auto flex h-11 max-w-site items-center gap-4 px-4 sm:px-6 lg:px-8">
-        <span className="hidden shrink-0 text-[11px] font-semibold uppercase tracking-eyebrow text-gold-600 sm:block">Quick links</span>
-        <ul className="no-scrollbar -mx-2 flex items-center gap-1 overflow-x-auto px-2">
-          <li>
-            <PortalLink which="registration" settings={settings} className={QL}>
-              <Icon name="register" className="h-4 w-4" />
-              Registration
-            </PortalLink>
-          </li>
-          <li>
-            <PortalLink which="admitCard" settings={settings} className={QL}>
-              <Icon name="card" className="h-4 w-4" />
-              Roll Number Slip
-            </PortalLink>
-          </li>
-          <li>
-            <PortalLink which="results" settings={settings} className={QL}>
-              <Icon name="results" className="h-4 w-4" />
-              Results
-            </PortalLink>
-          </li>
-          <li>
-            <Link className={QL} href="/faqs">
-              <Icon name="help" className="h-4 w-4" />
-              Help &amp; FAQs
-            </Link>
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-}
-
 // A fragment, not a wrapper: the header's `sticky` only holds within its parent, and the page's section navs
 // (About, Quality) are offset to sit directly below it, so it must stay pinned for the whole page.
-export function Header({ settings }: { settings: SiteSettings }) {
+export function Header({ settings, notices }: { settings: SiteSettings; notices: NoticeRow[] }) {
   return (
     <>
       <UtilityBar settings={settings} />
@@ -112,7 +75,7 @@ export function Header({ settings }: { settings: SiteSettings }) {
           <MegaMenu />
         </div>
       </header>
-      <QuickLinks settings={settings} />
+      <LatestNewsTicker notices={notices.map(({ slug, title, isSample }) => ({ slug, title, isSample }))} />
     </>
   );
 }

@@ -28,5 +28,5 @@ export const saveLeader = defineAction({
   },
   entityId: (d) => String(d.id),
   summary: (d) => `Updated leadership message (${d.title})`,
-  paths: () => ["/", "/about"],
+  paths: () => ["/about"],
 });

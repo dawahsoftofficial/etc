@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { prisma } from "@/lib/db";
 import { cached, TAGS } from "@/lib/cache";
 import { formatBytes } from "@/lib/format";
@@ -55,6 +56,6 @@ export async function _getClosingSoon(today: Date, days: number): Promise<Notice
 }
 
 const tags = [TAGS.notices, TAGS.tests, TAGS.media];
-export const getLatestNotices = cached(_getLatestNotices, "notices:latest", tags);
+export const getLatestNotices = cache(cached(_getLatestNotices, "notices:latest", tags));
 export const searchNotices = cached(_searchNotices, "notices:search", tags);
 export const getNoticeBySlug = cached(_getNoticeBySlug, "notices:detail", tags);

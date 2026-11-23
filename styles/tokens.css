@@ -38,6 +38,7 @@
   --shadow-lift: 0 2px 4px rgba(18, 38, 30, .06), 0 18px 40px -18px rgba(18, 38, 30, .35);
 
   --animate-marquee: marquee 180s linear infinite;
+  --animate-news-ticker: marquee 48s linear infinite;
   @keyframes marquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }

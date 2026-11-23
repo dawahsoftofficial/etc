@@ -13,7 +13,7 @@ test.describe("home", () => {
     await expect(dialog).toBeHidden();
 
     await page.reload();
-    await page.getByRole("button", { name: "Pause slideshow" }).click();
+    await page.getByRole("button", { name: "Pause news ticker" }).click();
     await expect(dialog).toBeHidden();
   });
 
@@ -31,22 +31,19 @@ test.describe("home", () => {
   test("renders DB content", async ({ page }) => {
     await page.goto("/");
     await dismissLatestAnnouncement(page);
-    await expect(page.getByRole("heading", { level: 1, name: "Assessment, Testing and Evaluation." })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "Latest announcements" })).toBeVisible();
     await expect(page.getByRole("region", { name: "Our record in numbers" }).getByText("Candidates tested", { exact: true })).toBeVisible();
-    await expect(page.getByText("Prof. Dr. Niaz Ahmed Akhtar (S.I)").first()).toBeVisible();
+    await expect(page.locator("main :is(#quote-title, #services-title, #protect-title, #journeys-title)")).toHaveCount(0);
     await expect(page.locator("#home-notices li")).toHaveCount(5);
     await expect(page.locator("#home-tests article")).toHaveCount(7);
     await expect(page.locator("#home-schedule li")).toHaveCount(4);
     await expect(page.getByRole("link", { name: "Law Admission Test" }).first()).toHaveAttribute("href", "/tests/lat");
   });
 
-  test("hero pause control toggles", async ({ page }) => {
+  test("homepage starts with announcements and hides the hero and action cards", async ({ page }) => {
     await page.goto("/");
-    await dismissLatestAnnouncement(page);
-    await page.getByRole("button", { name: "Pause slideshow" }).click();
-    await expect(page.getByRole("button", { name: "Play slideshow" })).toBeVisible();
-    await page.getByRole("button", { name: "Next slide" }).click();
-    await expect(page.getByRole("heading", { level: 2, name: "Registration is open for USAT." })).toBeVisible();
+    await expect(page.locator("main > section").first()).toHaveAttribute("aria-labelledby", "news-title");
+    await expect(page.locator("main :is([data-carousel], #qa-title)")).toHaveCount(0);
   });
 });
 
