@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // The 13-step test development workflow (mockup quality.html inline script).
 const STEPS: [string, string, "In-house" | "External"][] = [
@@ -19,17 +19,58 @@ const STEPS: [string, string, "In-house" | "External"][] = [
   ["Databank placement", "Items that meet the standards are stored in the calibrated bank with their statistics.", "In-house"],
 ];
 
-/** Vertical tabs on large screens, a numbered grid on small ones; arrow keys, Home and End move between steps. */
+const STEP_INTERVAL = 7000;
+
+/** The workflow advances while visible. Choosing a step switches to manual navigation. */
 export function Workflow() {
   const [sel, setSel] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [inView, setInView] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
-  const select = (i: number) => {
+  const panels = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const motion = window.matchMedia?.("(prefers-reduced-motion: reduce)");
+    if (!motion) return;
+    const pauseForReducedMotion = () => {
+      if (motion.matches) setPlaying(false);
+    };
+    pauseForReducedMotion();
+    motion.addEventListener("change", pauseForReducedMotion);
+    return () => motion.removeEventListener("change", pauseForReducedMotion);
+  }, []);
+
+  useEffect(() => {
+    const target = panels.current;
+    if (!target || !window.IntersectionObserver) return;
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.intersectionRatio >= 0.35), { threshold: 0.35 });
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!playing || !inView || hovered || focused) return;
+    const timer = window.setTimeout(() => setSel((current) => (current + 1) % STEPS.length), STEP_INTERVAL);
+    return () => window.clearTimeout(timer);
+  }, [playing, inView, hovered, focused, sel]);
+
+  const select = (i: number, moveFocus = false) => {
     const n = (i + STEPS.length) % STEPS.length;
+    setPlaying(false);
     setSel(n);
-    refs.current[n]?.focus();
+    if (moveFocus) refs.current[n]?.focus();
   };
+
   return (
-    <div className="mt-10 grid gap-8 lg:grid-cols-12">
+    <div
+      className="mt-10 grid gap-8 lg:grid-cols-12"
+      onPointerEnter={(event) => { if (event.pointerType === "mouse") setHovered(true); }}
+      onPointerLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
+    >
       <div role="tablist" aria-label="Workflow steps" aria-orientation="vertical" className="grid grid-cols-4 gap-2 sm:grid-cols-7 lg:col-span-5 lg:grid-cols-1">
         {STEPS.map(([title], i) => (
           <button
@@ -43,16 +84,16 @@ export function Workflow() {
             aria-controls={`wf-panel-${i + 1}`}
             aria-selected={i === sel}
             tabIndex={i === sel ? 0 : -1}
-            onClick={() => setSel(i)}
+            onClick={() => select(i)}
             onKeyDown={(e) => {
               const k = e.key;
               const next =
                 k === "ArrowDown" || k === "ArrowRight" ? sel + 1 : k === "ArrowUp" || k === "ArrowLeft" ? sel - 1 : k === "Home" ? 0 : k === "End" ? STEPS.length - 1 : null;
               if (next === null) return;
               e.preventDefault();
-              select(next);
+              select(next, true);
             }}
-            className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm ring-1 ring-line hover:ring-green-700 aria-selected:bg-green-700 aria-selected:text-white aria-selected:ring-green-700"
+            className="group flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm ring-1 ring-line motion-safe:transition-colors hover:ring-green-700 aria-selected:bg-green-700 aria-selected:text-white aria-selected:ring-green-700"
           >
             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-mint-50 font-serif text-green-700 group-aria-selected:bg-gold-500 group-aria-selected:text-green-950">
               {i + 1}
@@ -62,34 +103,38 @@ export function Workflow() {
         ))}
       </div>
       <div className="lg:col-span-7">
-        {STEPS.map(([title, text, who], i) => {
-          const ext = who === "External";
-          return (
-            <div
-              key={title}
-              role="tabpanel"
-              id={`wf-panel-${i + 1}`}
-              aria-labelledby={`wf-tab-${i + 1}`}
-              tabIndex={0}
-              hidden={i !== sel}
-              className="on-dark rounded-2xl bg-green-900 p-8 text-white sm:p-10 lg:sticky lg:top-48"
-            >
-              <p className="font-serif text-7xl font-semibold text-gold-300">
-                {String(i + 1).padStart(2, "0")}
-                <span className="text-2xl text-white/40"> / 13</span>
-              </p>
-              <h3 className="mt-4 font-serif text-3xl font-semibold">{title}</h3>
-              <p className="mt-4 text-lg text-white/85">{text}</p>
-              <p
-                className={`mt-8 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${
-                  ext ? "bg-gold-500 text-green-950" : "bg-white/10 text-white"
-                }`}
+        <div ref={panels} className="on-dark isolate grid rounded-2xl bg-green-900 text-white lg:sticky lg:top-48">
+          {STEPS.map(([title, text, who], i) => {
+            const ext = who === "External";
+            const active = i === sel;
+            return (
+              <div
+                key={title}
+                role="tabpanel"
+                id={`wf-panel-${i + 1}`}
+                aria-labelledby={`wf-tab-${i + 1}`}
+                tabIndex={active ? 0 : -1}
+                aria-hidden={!active}
+                inert={!active}
+                className={`col-start-1 row-start-1 rounded-2xl p-8 motion-safe:transition-opacity motion-safe:duration-300 sm:p-10 ${active ? "z-10 opacity-100" : "opacity-0"}`}
               >
-                {ext ? "Involves external experts" : "Carried out in-house by ETC"}
-              </p>
-            </div>
-          );
-        })}
+                <p className="font-serif text-7xl font-semibold text-gold-300">
+                  {String(i + 1).padStart(2, "0")}
+                  <span className="text-2xl text-white/40"> / 13</span>
+                </p>
+                <h3 className="mt-4 font-serif text-3xl font-semibold">{title}</h3>
+                <p className="mt-4 text-lg text-white/85">{text}</p>
+                <p
+                  className={`mt-8 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ${
+                    ext ? "bg-gold-500 text-green-950" : "bg-white/10 text-white"
+                  }`}
+                >
+                  {ext ? "Involves external experts" : "Carried out in-house by ETC"}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

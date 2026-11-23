@@ -144,6 +144,16 @@ test("quality workflow tabs switch by keyboard", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 3, name: "Item development" })).toBeVisible();
 });
 
+test("quality workflow advances automatically with a fade", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/quality#workflow");
+  const workflow = page.locator("#workflow");
+  await workflow.getByRole("tabpanel").scrollIntoViewIfNeeded();
+  await expect(workflow.getByRole("tab", { name: /Item development/ })).toHaveAttribute("aria-selected", "true", { timeout: 14_000 });
+  await expect(workflow.getByRole("tabpanel")).toHaveCSS("transition-duration", "0.3s");
+  await expect(workflow.getByRole("button", { name: /autoplay|play workflow/i })).toHaveCount(0);
+});
+
 test.describe("tests", () => {
   test("directory filters by purpose and level with URL state", async ({ page }) => {
     await page.goto("/tests");

@@ -111,8 +111,8 @@ export default async function Page() {
           The 13-step test development workflow
         </h2>
         <p className="mt-4 max-w-3xl text-muted">
-          Every question follows the same path before it can count towards a candidate’s score. Select a step to see what happens. Use the
-          arrow keys to move between steps.
+          Every question follows the same path before it can count towards a candidate’s score. Select a step or use the arrow keys to
+          browse at your own pace.
         </p>
         <Workflow />
       </section>

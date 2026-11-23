@@ -93,7 +93,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
               ))}
             </select>
           </div>
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
             <label htmlFor="ntest" className="block text-sm font-semibold">
               Related test
             </label>
@@ -118,7 +118,7 @@ export default async function NewsPage({ searchParams }: { searchParams: Promise
               <option value="year">This year</option>
             </select>
           </div>
-          <div className="flex gap-2 lg:col-span-1 lg:flex-col">
+          <div className="flex gap-2 lg:col-span-2">
             <button type="submit" className="w-full rounded-md bg-green-700 px-3 py-2.5 text-sm font-semibold text-white hover:bg-green-800">
               Filter
             </button>
