@@ -12,6 +12,8 @@ const PATHS = [
   "/quality",
   "/news",
   "/news/usat-reg-dec-2026",
+  "/results",
+  "/gallery",
   "/resources",
   "/faqs",
   "/contact",

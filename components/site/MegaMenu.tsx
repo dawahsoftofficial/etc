@@ -69,6 +69,22 @@ export function MegaMenu() {
       <ul className="mx-auto flex max-w-site items-stretch gap-9 px-8">
         {HEADER_NAV.map((item) => {
           const cur = item.id === active;
+          if (item.links.length === 0) {
+            return (
+              <li key={item.id} className="flex">
+                <Link
+                  href={item.href}
+                  onPointerEnter={hoverClose}
+                  onFocus={() => setOpen(null)}
+                  aria-current={cur ? "page" : undefined}
+                  className={`relative flex items-center py-3.5 text-[13.5px] font-medium ${cur ? "text-green-700" : "text-ink/80 hover:text-green-700"}`}
+                >
+                  {item.label}
+                  {cur && <span aria-hidden="true" className="absolute inset-x-0 -bottom-px h-[3px] rounded-t bg-gold-500" />}
+                </Link>
+              </li>
+            );
+          }
           const isOpen = open === item.id;
           const panelId = `mega-${item.id}`;
           return (

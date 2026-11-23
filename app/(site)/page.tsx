@@ -4,6 +4,7 @@ import {
   Announcements,
   ClientsMarquee,
   FindYourTest,
+  HomeResults,
   Numbers,
 } from "@/components/site/home/HomeSections";
 import { LatestAnnouncement } from "@/components/site/home/LatestAnnouncement";
@@ -19,8 +20,9 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function HomePage() {
-  const [notices, schedule, tests, stats, clients] = await Promise.all([
+  const [notices, results, schedule, tests, stats, clients] = await Promise.all([
     getLatestNotices(5),
+    getLatestNotices(3, "RESULT"),
     getSchedule(),
     getPublishedTests(),
     getStats(),
@@ -30,6 +32,7 @@ export default async function HomePage() {
   return (
     <>
       {notices[0] && <LatestAnnouncement key={notices[0].slug} notice={notices[0]} />}
+      <HomeResults notices={results} />
       <Announcements notices={notices} schedule={schedule} />
       <FindYourTest tests={tests} />
       <Numbers stats={stats} />

@@ -1,5 +1,5 @@
 // Site navigation, ported from mockup/assets/js/partials.js (NAV) with routes mapped to the Next.js app.
-export type NavId = "about" | "tests" | "candidate" | "institutions" | "quality" | "news" | "resources" | "contact";
+export type NavId = "about" | "tests" | "candidate" | "institutions" | "quality" | "news" | "gallery" | "resources" | "contact";
 export type NavItem = { id: NavId; label: string; href: string; blurb: string; links: [label: string, href: string][] };
 
 export const NAV: NavItem[] = [
@@ -84,9 +84,16 @@ export const NAV: NavItem[] = [
       ["All notices", "/news"],
       ["Admissions", "/news?type=admission"],
       ["Schedules", "/news?type=schedule"],
-      ["Results", "/news?type=result"],
+      ["Results", "/results"],
       ["Recruitment", "/news?type=recruitment"],
     ],
+  },
+  {
+    id: "gallery",
+    label: "Gallery",
+    href: "/gallery",
+    blurb: "Photos from the ETC website.",
+    links: [],
   },
   {
     id: "resources",
@@ -131,6 +138,8 @@ export function activeSection(pathname: string): NavId | undefined {
     institutions: "institutions",
     quality: "quality",
     news: "news",
+    results: "news",
+    gallery: "gallery",
     resources: "resources",
     contact: "contact",
   };

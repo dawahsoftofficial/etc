@@ -14,7 +14,7 @@ button:not(:disabled), [role="button"]:not(:disabled) { cursor: pointer; }
 .on-dark :focus-visible { outline-color: #D9BE7C; }
 
 /* Homepage announcement */
-body:has(#latest-announcement[open]) { overflow: hidden; }
+body:has(#latest-announcement[open], #photo-viewer[open]) { overflow: hidden; }
 
 @media (prefers-reduced-motion: no-preference) {
   #latest-announcement[open] { animation: announcement-in 280ms cubic-bezier(.2, .75, .3, 1) both; }

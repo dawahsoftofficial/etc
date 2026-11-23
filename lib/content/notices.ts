@@ -1,4 +1,5 @@
 import { cache } from "react";
+import type { NoticeType } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { cached, TAGS } from "@/lib/cache";
 import { formatBytes } from "@/lib/format";
@@ -8,8 +9,8 @@ import type { NoticeDetail, NoticeRow, Paged } from "./types";
 
 const newestFirst = [{ publishedAt: "desc" as const }, { id: "desc" as const }];
 
-export async function _getLatestNotices(n: number): Promise<NoticeRow[]> {
-  const rows = await prisma.notice.findMany({ where: { published: true }, orderBy: newestFirst, take: n, include: noticeInclude });
+export async function _getLatestNotices(n: number, type?: NoticeType): Promise<NoticeRow[]> {
+  const rows = await prisma.notice.findMany({ where: { published: true, type }, orderBy: newestFirst, take: n, include: noticeInclude });
   return rows.map(noticeRow);
 }
 

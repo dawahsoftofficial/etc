@@ -9,6 +9,8 @@ import type {
 } from "@prisma/client";
 
 export type MediaRef = { url: string; alt: string; width: number | null; height: number | null };
+export type GalleryCategory = "preparation" | "operations" | "institutions";
+export type GalleryPhoto = MediaRef & { key: string; title: string; category: GalleryCategory };
 
 export type TestCard = {
   slug: string;

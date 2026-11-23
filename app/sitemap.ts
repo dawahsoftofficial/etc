@@ -4,7 +4,7 @@ import { siteUrl } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-const STATIC = ["/", "/about", "/tests", "/candidate-services", "/institutions", "/quality", "/news", "/resources", "/faqs", "/contact"];
+const STATIC = ["/", "/about", "/tests", "/candidate-services", "/institutions", "/quality", "/news", "/results", "/gallery", "/resources", "/faqs", "/contact"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteUrl().replace(/\/$/, "");

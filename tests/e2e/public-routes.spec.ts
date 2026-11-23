@@ -31,7 +31,7 @@ test.describe("home", () => {
   test("renders DB content", async ({ page }) => {
     await page.goto("/");
     await dismissLatestAnnouncement(page);
-    await expect(page.getByRole("heading", { level: 1, name: "Latest announcements" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1, name: "Results" })).toBeVisible();
     await expect(page.getByRole("region", { name: "Our record in numbers" }).getByText("Candidates tested", { exact: true })).toBeVisible();
     await expect(page.locator("main :is(#quote-title, #services-title, #protect-title, #journeys-title)")).toHaveCount(0);
     await expect(page.locator("#home-notices li")).toHaveCount(5);
@@ -40,11 +40,38 @@ test.describe("home", () => {
     await expect(page.getByRole("link", { name: "Law Admission Test" }).first()).toHaveAttribute("href", "/tests/lat");
   });
 
-  test("homepage starts with announcements and hides the hero and action cards", async ({ page }) => {
+  test("homepage shows results before announcements and links to the archive", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("main > section").first()).toHaveAttribute("aria-labelledby", "news-title");
+    const sections = page.locator("main > section");
+    await expect(sections.nth(0)).toHaveAttribute("aria-labelledby", "home-results-title");
+    await expect(sections.nth(1)).toHaveAttribute("aria-labelledby", "news-title");
     await expect(page.locator("main :is([data-carousel], #qa-title)")).toHaveCount(0);
+    await dismissLatestAnnouncement(page);
+    const recent = sections.nth(0).getByRole("list", { name: "Result notices" }).getByRole("link");
+    await expect(recent).toHaveCount(3);
+    const recentLinks = await recent.evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+
+    await page.getByRole("link", { name: "View all results" }).click();
+    await expect(page).toHaveURL(/\/results$/);
+    const archive = page.getByRole("list", { name: "Result notices" }).getByRole("link");
+    const archiveLinks = await archive.evaluateAll((links) => links.map((link) => link.getAttribute("href")));
+    expect(archiveLinks.slice(0, 3)).toEqual(recentLinks);
   });
+});
+
+test("results archive filters by test and search term", async ({ page }) => {
+  await page.goto("/results");
+  await expect(page.getByRole("heading", { level: 1, name: "Test Results" })).toBeVisible();
+  await page.getByLabel("Related test").selectOption("usat");
+  await expect(page).toHaveURL(/test=usat/);
+  const notices = page.getByRole("list", { name: "Result notices" });
+  await expect(notices.getByRole("link", { name: "USAT September 2026 results announced" })).toHaveAttribute("href", "/news/usat-result-sep-2026");
+  await expect(notices.getByRole("link", { name: /LAW-GAT/ })).toHaveCount(0);
+  await page.getByLabel("Search result notices").fill("no-matching-result-for-e2e");
+  await expect(page.getByText("No results match your filters.")).toBeVisible();
+  await page.getByRole("link", { name: "Reset filters" }).click();
+  await expect(page).toHaveURL(/\/results$/);
+  await expect(notices.getByRole("link", { name: /LAW-GAT/ })).toBeVisible();
 });
 
 const STATIC_PAGES: [string, string[]][] = [

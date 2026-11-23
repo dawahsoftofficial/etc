@@ -4,9 +4,28 @@ import { Icon } from "@/components/ui/icon";
 import type { ClientSector } from "@prisma/client";
 import type { NoticeRow as NoticeRowData, ScheduleItem as ScheduleItemData, StatItem, TestCard as TestCardData } from "@/lib/content/types";
 import { NoticeRow } from "../NoticeRow";
+import { ResultCards } from "../ResultCards";
 import { ScheduleItem } from "../ScheduleItem";
 import { TestCard } from "../TestCard";
 import { Counter } from "../Counter";
+
+export function HomeResults({ notices }: { notices: NoticeRowData[] }) {
+  return (
+    <section id="results" aria-labelledby="home-results-title" className="scroll-mt-40 border-b border-line bg-mint-50">
+      <div className="mx-auto max-w-site px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <h1 id="home-results-title" className="font-serif text-3xl font-semibold text-green-700 sm:text-4xl">Results</h1>
+          <Link href="/results" className="inline-flex items-center gap-2 rounded-md border border-green-700/30 bg-white px-4 py-2.5 text-sm font-semibold text-green-800 hover:border-green-700 hover:bg-cream-50">
+            View all results <Icon name="arrow" className="size-4" />
+          </Link>
+        </div>
+        <div className="mt-5">
+          {notices.length ? <ResultCards notices={notices} /> : <p className="text-muted">No results have been published yet.</p>}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export function Announcements({ notices, schedule }: { notices: NoticeRowData[]; schedule: ScheduleItemData[] }) {
   return (
@@ -16,9 +35,9 @@ export function Announcements({ notices, schedule }: { notices: NoticeRowData[];
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="eyebrow">News &amp; Notices</p>
-              <h1 id="news-title" className="mt-3 font-serif text-3xl font-semibold text-green-700 sm:text-4xl">
+              <h2 id="news-title" className="mt-3 font-serif text-3xl font-semibold text-green-700 sm:text-4xl">
                 Latest announcements
-              </h1>
+              </h2>
             </div>
             <Link href="/news" className="inline-flex items-center gap-2 text-sm font-semibold text-green-700 hover:text-green-900">
               View all notices <Icon name="arrow" className="h-4 w-4" />

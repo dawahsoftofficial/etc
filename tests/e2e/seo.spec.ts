@@ -4,7 +4,7 @@ test("sitemap lists static routes plus every published test and notice", async (
   const res = await request.get("/sitemap.xml");
   expect(res.status()).toBe(200);
   const xml = await res.text();
-  for (const path of ["/about", "/tests", "/tests/usat", "/news/usat-reg-dec-2026", "/faqs", "/contact"]) {
+  for (const path of ["/about", "/tests", "/tests/usat", "/news/usat-reg-dec-2026", "/results", "/gallery", "/faqs", "/contact"]) {
     expect(xml, path).toContain(`${path}</loc>`);
   }
   expect(xml).not.toContain("/admin");

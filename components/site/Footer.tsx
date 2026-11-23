@@ -42,6 +42,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
                 ["Governance", "/about#governance"],
                 ["Quality & Methods", "/quality"],
                 ["News & Notices", "/news"],
+                ["Gallery", "/gallery"],
               ]}
             />
             <Col
@@ -58,6 +59,7 @@ export function Footer({ settings }: { settings: SiteSettings }) {
             <Col
               title="Candidates"
               links={[
+                ["Results", "/results"],
                 ["Resources", "/resources"],
                 ["Help & FAQs", "/faqs"],
                 ["Accessibility", "/candidate-services#accessibility"],

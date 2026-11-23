@@ -110,21 +110,32 @@ export function MobileDrawer() {
         <ul className="px-5">
           {HEADER_NAV.map((item) => (
             <li key={item.id} className="border-b border-line">
-              <details className="group" open={item.id === active}>
-                <summary className="flex cursor-pointer list-none items-center justify-between py-3.5 font-medium text-ink [&::-webkit-details-marker]:hidden">
+              {item.links.length === 0 ? (
+                <Link
+                  href={item.href}
+                  onClick={item.id === active ? () => close() : undefined}
+                  aria-current={item.id === active ? "page" : undefined}
+                  className="block py-3.5 font-medium text-ink hover:text-green-700 aria-[current=page]:text-green-700"
+                >
                   {item.label}
-                  <Icon name="chevron" className="h-4 w-4 transition group-open:rotate-180" />
-                </summary>
-                <ul className="pb-3 pl-3">
-                  {item.links.map(([label, href]) => (
-                    <li key={label}>
-                      <Link href={href} onClick={() => close(false)} className="block py-1.5 text-sm text-muted hover:text-green-700">
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </details>
+                </Link>
+              ) : (
+                <details className="group" open={item.id === active}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between py-3.5 font-medium text-ink [&::-webkit-details-marker]:hidden">
+                    {item.label}
+                    <Icon name="chevron" className="h-4 w-4 transition group-open:rotate-180" />
+                  </summary>
+                  <ul className="pb-3 pl-3">
+                    {item.links.map(([label, href]) => (
+                      <li key={label}>
+                        <Link href={href} onClick={() => close(false)} className="block py-1.5 text-sm text-muted hover:text-green-700">
+                          {label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
             </li>
           ))}
         </ul>
