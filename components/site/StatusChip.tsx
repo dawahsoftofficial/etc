@@ -1,18 +1,25 @@
 import type { Status } from "@prisma/client";
 import { STATUS } from "@/lib/labels";
 
-const CLS: Record<Status, string> = {
+const LIGHT: Record<Status, string> = {
   OPEN: "bg-status-open/10 text-status-open ring-status-open/30",
   CLOSING: "bg-status-closing/10 text-status-closing ring-status-closing/30",
   RESULT: "bg-status-result/10 text-status-result ring-status-result/30",
   CLOSED: "bg-status-closed/10 text-status-closed ring-status-closed/30",
 };
 
-export function StatusChip({ status }: { status: Status }) {
+const DARK: Record<Status, string> = {
+  OPEN: "bg-emerald-300/10 text-emerald-200 ring-emerald-300/40",
+  CLOSING: "bg-amber-300/10 text-amber-200 ring-amber-300/40",
+  RESULT: "bg-blue-300/10 text-blue-200 ring-blue-300/40",
+  CLOSED: "bg-slate-300/10 text-slate-200 ring-slate-300/40",
+};
+
+export function StatusChip({ status, onDark = false }: { status: Status; onDark?: boolean }) {
   return (
     <span
       data-testid="status-chip"
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${CLS[status]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ring-inset ${(onDark ? DARK : LIGHT)[status]}`}
     >
       <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
       {STATUS[status].label}

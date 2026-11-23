@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import {
   Announcements,
+  CandidateLinks,
   ClientsMarquee,
   FindYourTest,
   HomeResults,
@@ -32,6 +33,7 @@ export default async function HomePage() {
   return (
     <>
       {notices[0] && <LatestAnnouncement key={notices[0].slug} notice={notices[0]} />}
+      <CandidateLinks />
       <HomeResults notices={results} />
       <Announcements notices={notices} schedule={schedule} />
       <FindYourTest tests={tests} />

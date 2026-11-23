@@ -14,6 +14,15 @@ export async function _getLatestNotices(n: number, type?: NoticeType): Promise<N
   return rows.map(noticeRow);
 }
 
+async function _getApplicationNotices(): Promise<NoticeRow[]> {
+  const rows = await prisma.notice.findMany({
+    where: { published: true, type: { in: ["ADMISSION", "RECRUITMENT"] }, deadline: { not: null } },
+    orderBy: newestFirst,
+    include: noticeInclude,
+  });
+  return rows.map(noticeRow);
+}
+
 export async function _searchNotices(f: NoticeFilters, today: Date): Promise<Paged<NoticeRow>> {
   const where = noticeWhere(f, today);
   const total = await prisma.notice.count({ where });
@@ -58,5 +67,6 @@ export async function _getClosingSoon(today: Date, days: number): Promise<Notice
 
 const tags = [TAGS.notices, TAGS.tests, TAGS.media];
 export const getLatestNotices = cache(cached(_getLatestNotices, "notices:latest", tags));
+export const getApplicationNotices = cached(_getApplicationNotices, "notices:applications", tags);
 export const searchNotices = cached(_searchNotices, "notices:search", tags);
 export const getNoticeBySlug = cached(_getNoticeBySlug, "notices:detail", tags);

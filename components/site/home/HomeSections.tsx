@@ -1,6 +1,6 @@
 // Homepage sections ported from mockup/index.html. Static copy is verbatim; lists come from the database.
 import Link from "next/link";
-import { Icon } from "@/components/ui/icon";
+import { Icon, type IconName } from "@/components/ui/icon";
 import type { ClientSector } from "@prisma/client";
 import type { NoticeRow as NoticeRowData, ScheduleItem as ScheduleItemData, StatItem, TestCard as TestCardData } from "@/lib/content/types";
 import { NoticeRow } from "../NoticeRow";
@@ -8,6 +8,30 @@ import { ResultCards } from "../ResultCards";
 import { ScheduleItem } from "../ScheduleItem";
 import { TestCard } from "../TestCard";
 import { Counter } from "../Counter";
+
+const CANDIDATE_LINKS: { href: string; label: string; icon: IconName; accent: string }[] = [
+  { href: "/open-applications", label: "Open Applications", icon: "register", accent: "bg-mint-100 text-green-800" },
+  { href: "/candidates", label: "List of Candidates", icon: "users", accent: "bg-blue-50 text-blue-800" },
+  { href: "/results", label: "All Results", icon: "results", accent: "bg-gold-100 text-gold-600" },
+];
+
+export function CandidateLinks() {
+  return (
+    <nav aria-label="Candidate shortcuts" className="bg-mint-50">
+      <ul className="mx-auto grid max-w-site gap-2 px-4 pb-1 pt-5 sm:grid-cols-3 sm:gap-3 sm:px-6 sm:pt-7 lg:px-8">
+        {CANDIDATE_LINKS.map(({ href, label, icon, accent }) => (
+          <li key={href}>
+            <Link href={href} className="group flex h-full min-h-14 items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2.5 font-semibold text-green-800 shadow-card hover:border-green-700 hover:bg-cream-50 sm:px-4">
+              <span className={`grid size-9 shrink-0 place-items-center rounded-full ${accent}`}><Icon name={icon} className="size-4" /></span>
+              <span className="flex-1">{label}</span>
+              <Icon name="arrow" className="size-4 shrink-0 motion-safe:transition-transform motion-safe:group-hover:translate-x-0.5" />
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
 
 export function HomeResults({ notices }: { notices: NoticeRowData[] }) {
   return (

@@ -52,9 +52,7 @@ export default async function NoticePage({ params }: Props) {
             <span className="font-semibold uppercase tracking-wider text-gold-300">{type}</span>
             <span className="text-white/40">•</span>
             <span>{n.testCode}</span>
-            <span className="rounded-full bg-white px-0.5">
-              <StatusChip status={n.status} />
-            </span>
+            <StatusChip status={n.status} onDark />
             {n.isSample && <SampleChip />}
           </div>
           <h1 className="mt-4 max-w-4xl font-serif text-3xl font-semibold leading-tight sm:text-5xl">{n.title}</h1>

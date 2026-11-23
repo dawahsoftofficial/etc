@@ -36,8 +36,10 @@ describe("cards", () => {
     expect(chip.className).toContain("bg-status-open/10");
     expect(chip.className).toContain("text-status-open");
     cleanup();
-    render(<StatusChip status="RESULT" />);
-    expect(screen.getByTestId("status-chip").textContent).toBe("Result announced");
+    render(<StatusChip status="RESULT" onDark />);
+    const resultChip = screen.getByTestId("status-chip");
+    expect(resultChip.textContent).toBe("Result announced");
+    expect(resultChip.className).toContain("text-blue-200");
   });
 
   test("notice row links to /news/<slug> and shows deadline and sample chip", () => {

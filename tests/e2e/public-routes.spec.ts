@@ -38,6 +38,10 @@ test.describe("home", () => {
     await expect(page.locator("#home-tests article")).toHaveCount(7);
     await expect(page.locator("#home-schedule li")).toHaveCount(4);
     await expect(page.getByRole("link", { name: "Law Admission Test" }).first()).toHaveAttribute("href", "/tests/lat");
+    const shortcuts = page.getByRole("navigation", { name: "Candidate shortcuts" });
+    await expect(shortcuts.getByRole("link", { name: "Open Applications" })).toHaveAttribute("href", "/open-applications");
+    await expect(shortcuts.getByRole("link", { name: "List of Candidates" })).toHaveAttribute("href", "/candidates");
+    await expect(shortcuts.getByRole("link", { name: "All Results" })).toHaveAttribute("href", "/results");
   });
 
   test("homepage shows results before announcements and links to the archive", async ({ page }) => {
@@ -57,6 +61,28 @@ test.describe("home", () => {
     const archiveLinks = await archive.evaluateAll((links) => links.map((link) => link.getAttribute("href")));
     expect(archiveLinks.slice(0, 3)).toEqual(recentLinks);
   });
+});
+
+test("application directory separates closed notices from open applications", async ({ page }) => {
+  await page.goto("/open-applications");
+  await expect(page.getByRole("heading", { level: 1, name: "Open Applications" })).toBeVisible();
+  const status = page.getByRole("navigation", { name: "Application status" });
+  await expect(status.getByRole("link", { name: "Open applications" })).toHaveAttribute("aria-current", "page");
+  await status.getByRole("link", { name: "Closed applications" }).click();
+  await expect(page).toHaveURL(/status=closed/);
+  const closed = page.getByRole("list", { name: "Closed applications" });
+  await expect(closed.getByRole("link", { name: /View notice for USAT December 2026/ })).toHaveAttribute("href", "/news/usat-reg-dec-2026");
+});
+
+test("candidate directory switches to past test sessions", async ({ page }) => {
+  await page.goto("/candidates");
+  await expect(page.getByRole("heading", { level: 1, name: "List of Candidates" })).toBeVisible();
+  const period = page.getByRole("navigation", { name: "Session period" });
+  await expect(period.getByRole("link", { name: "Upcoming sessions" })).toHaveAttribute("aria-current", "page");
+  await period.getByRole("link", { name: "Past sessions" }).click();
+  await expect(page).toHaveURL(/session=past/);
+  const past = page.getByRole("list", { name: "Past test sessions" });
+  await expect(past.getByRole("link", { name: /Test details for LAW-GAT Q4 2026/ })).toHaveAttribute("href", "/tests/law-gat#schedule");
 });
 
 test("results archive filters by test and search term", async ({ page }) => {

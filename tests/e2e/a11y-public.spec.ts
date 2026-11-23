@@ -8,6 +8,8 @@ const PATHS = [
   "/tests",
   "/tests/usat",
   "/candidate-services",
+  "/open-applications",
+  "/candidates",
   "/institutions",
   "/quality",
   "/news",
